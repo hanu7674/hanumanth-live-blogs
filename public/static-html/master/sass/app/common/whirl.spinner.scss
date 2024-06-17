@@ -1,0 +1,57 @@
+/*
+// Whirl Spinner
+*/
+
+// Import spinners library
+@import './whirl.scss';
+
+// whirl loaders can be used in cards to show a preloader
+.whirl {
+    position: relative;
+    &:before {
+        content: attr(data-spinner-text);
+        display: block; // force display
+        background-color: #f0f0f0;
+        opacity: 0.7;
+    }
+    &.solid {
+        opacity: 1;
+    }
+    &:after {
+        border-top-color: $info;
+    }
+    // Note: Some Whirl loaders requires to customize the animation $keyframes
+    &.blade:after {
+        border-bottom-color: $info;
+    }
+    &.double-up:after {
+        border-right-color: $orange;
+        border-top-color: $orange;
+        border-left-color: $orange;
+        border-bottom-color: $orange;
+    }
+    &.duo:after {
+        border-right-color: $warning;
+        border-left-color: $warning;
+        border-top-color: $dark;
+        border-bottom-color: $dark;
+    }
+    &.helicopter:after {
+        background-color: $purple;
+    }
+    &.ringed:after {
+        border-right-color: $success;
+        border-top-color: $danger;
+        border-left-color: $danger;
+        border-bottom-color: $danger;
+    }
+    &.traditional:after {
+        border-right-color: $info;
+        border-top-color: $info;
+        border-left-color: $orange;
+        border-bottom-color: $yellow;
+    }
+    &.line:after {
+        box-shadow: inset -10px 0px 0px rgba($info, 0.5);
+    }
+}

@@ -1,0 +1,54 @@
+/*
+// User Block (sidebar)
+*/
+
+.user-block {
+    position: relative;
+    padding: 1rem 1.875rem;
+    cursor: pointer;
+
+    .user-block-content {
+        display: flex;
+        align-items: center;
+    }
+
+    .user-block-info {
+        white-space: nowrap;
+        margin-left: 1rem;
+
+        .user-block-name,
+        .user-block-role {
+            display: block;
+        }
+
+        .user-block-name {
+            color: #f1f1f1;
+        }
+
+        .user-block-role {
+            font-size: 12px;
+            color: #aaa;
+        }
+    }
+}
+
+.user-block-status {
+    margin-top: 0.25rem;
+}
+
+// Adapt to collapsed mode
+.aside-collapsed {
+    .user-block {
+        padding: 15px 0 14px;
+        margin: 0;
+        text-align: center;
+
+        .user-block-content {
+            justify-content: center;
+        }
+
+        .user-block-info {
+            display: none;
+        }
+    }
+}

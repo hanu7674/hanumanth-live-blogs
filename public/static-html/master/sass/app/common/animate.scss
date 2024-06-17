@@ -1,0 +1,113 @@
+/*
+// Animate
+*/
+
+@charset "UTF-8";
+
+// generate animation delay classes
+// from 1 to 15 every 100ms
+@for $i from 1 through 15 {
+    $time: $i * 100;
+    .animate-delay-#{$time} {
+        animation-delay: #{$time}ms;
+    }
+}
+
+// New Animations
+
+@keyframes fadeInDownShort {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, -20px, 0);
+    }
+
+    100% {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+.fadeInDownShort {
+    animation-name: fadeInDownShort;
+}
+
+@keyframes fadeOutUpShort {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate3d(0, -20px, 0);
+    }
+}
+
+.fadeOutUpShort {
+    animation-name: fadeOutUpShort;
+}
+
+@keyframes fadeInUpShort {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, 20px, 0);
+    }
+
+    100% {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+.fadeInUpShort {
+    animation-name: fadeInUpShort;
+}
+
+@keyframes zoomInShort {
+    0% {
+        opacity: 0;
+        transform: scale3d(0.95, 0.95, 0.95);
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+.zoomInShort {
+    animation-name: zoomInShort;
+}
+
+@keyframes zoomBack {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+        transform: scale3d(0.5, 0.5, 0.5);
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+.zoomBack {
+    animation-name: zoomBack;
+}
+
+@keyframes fadeInLeftShort {
+    0% {
+        opacity: 0;
+        transform: translate3d(-20px, 0, 0);
+    }
+
+    100% {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+.fadeInLeftShort {
+    animation-name: fadeInLeftShort;
+}

@@ -1,0 +1,137 @@
+/* Google Fonts */
+@import url(https://fonts.googleapis.com/css?family=Anonymous+Pro);
+
+
+ 
+.logo-name {
+  font-family: "Agustina Regular";
+  font-weight: bold;
+  padding: 0 5px;
+  text-decoration: none;
+  /* color: #55198b; */
+}  
+@media screen and (min-width: 768px){
+  .logo-name{
+    font-size: large;
+  }
+}
+@media screen and (max-width: 450px){
+  .logo-name{
+    font-size: small;
+  }
+}
+.text-on-particles{
+    color: whitesmoke;
+    position: absolute;
+    margin: 8% 5%;
+    width: 100%;
+    z-index: 1000;
+}
+ 
+.scroller {
+    height: 1.2em;
+    line-height: 1.2em;
+    position: relative;
+    overflow: hidden;
+    font-size: 50px;
+  }
+  .scroller > span {
+    position: absolute;
+    top: 0;
+    animation: slide 5s infinite;
+    font-weight: bold;
+    
+  }
+  @keyframes slide {
+    0% {
+      top: 0;
+    }
+    25% {
+      top: -1.2em;
+    }
+    50% {
+      top: -2.4em;
+    }
+  }
+  
+.space-btn{
+    background-image: linear-gradient(90.21deg, rgba(170, 54, 124, 0.5) -5.91%, rgba(74, 47, 189, 0.5) 111.58%);
+}
+.home-heading-main{
+    font-size: 60px;
+    
+}
+
+ 
+
+.lets-connect-button:hover .forword-arrow-icon {
+  transform: translateX(15px);
+  transition: transform 0.5s ease-in-out;
+}
+.skill-slider {
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+}
+
+@media screen and (max-width: 296px) {
+  .home-tag-description{
+    max-width: 90%;
+    color: #b8b8b8;
+    margin-top: 20px;
+    letter-spacing: 0.8px;
+      line-height: 1.5em;
+  }
+    .scroller{
+        font-size: 20px;
+    }
+    .home-heading-main{
+        font-size: 20px;
+        margin-top: 30px;
+      }
+    .text-on-particles{
+        color: whitesmoke;
+        position: absolute;
+        margin: 60% 0%;
+        width: 95%;
+        z-index: 1000;
+    }
+}
+@media screen and (min-width: 296px) {
+  .home-tag-description{
+    max-width: 90%;
+    color: #b8b8b8;
+    margin-top: 20px;
+    letter-spacing: 0.8px;
+      line-height: 1.5em;
+  }
+    .scroller{
+        font-size: 30px;
+    }
+    .home-heading-main{
+        font-size: 50px;
+    }
+    .text-on-particles{
+        color: whitesmoke;
+        position: absolute;
+        margin: 26% 0%;
+        width: 95%;
+        z-index: 1000;
+    }
+}
+@media screen and (min-width: 767px) {
+    .scroller{
+        font-size: 50px;
+    }
+    .home-heading-main{
+        font-size: 60px;
+    }
+    .text-on-particles{
+        color: whitesmoke;
+        position: absolute;
+        margin: 8% 0%;
+        width: 95%;
+        z-index: 1000;
+    }
+}
+

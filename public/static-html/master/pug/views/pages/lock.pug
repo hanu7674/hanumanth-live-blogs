@@ -1,0 +1,28 @@
+extends ../../_layout_page
+
+block content
+    .full-page-background.bg-darker
+    .d-flex.align-items-center.justify-content-center.h-100.w-100.flex-column
+        // START card
+        .card.b0
+            img.img-responsive(src="img/lock-bg.jpg")
+            .card-body
+                h3.text-center Hello Sarah!
+                p.text-center Please login to unlock your screen.
+                form
+                    .form-group
+                        label Password
+                        .float-right
+                            a(href="recover.html").text-muted: small Forgot your password?
+                        .input-group.with-focus
+                            input#exampleInputEmail1.form-control.border-right-0(type='email', placeholder='Enter email', autocomplete="off", required)
+                            .input-group-append
+                                span.input-group-text.text-muted.bg-transparent.border-left-0
+                                    em.fa.fa-lock
+                    .d-flex.align-items-center
+                        .custom-control.custom-checkbox
+                            input#rememberme.custom-control-input(type='checkbox' name="remember")
+                            label.custom-control-label(for='rememberme') Remember Me
+                        .ml-auto
+                            a.btn.btn-primary(href="dashboard.html") Unlock
+        // END card

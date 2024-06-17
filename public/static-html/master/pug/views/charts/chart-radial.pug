@@ -1,0 +1,102 @@
+extends ../../_layout
+
+block active
+    - sidebar_active = 'chart-radial.html'
+
+block content
+    .content-header
+        .content-title
+            | Radial charts
+            small No canvas &amp; Pure CSS radial progress bars
+
+    // START row
+    .row
+        .col-xl-6
+            // START card
+            .card.card-default
+                .card-header Radial Size
+                .card-body.text-center
+                    .row
+                        .col-lg-3
+                            .radial-bar.radial-bar-85.radial-bar-lg(data-label="85%")
+                        .col-lg-3
+                            .radial-bar.radial-bar-45(data-label="45%")
+                        .col-lg-3
+                            .radial-bar.radial-bar-60.radial-bar-sm(data-label="60%")
+                        .col-lg-3
+                            .radial-bar.radial-bar-20.radial-bar-xs(data-label="20%")
+            // END card
+            // START card
+            .card.card-default
+                .card-header Radial with Images
+                .card-body.text-center
+                    .row
+                        .col-lg-3
+                            .radial-bar.radial-bar-20.radial-bar.radial-bar-danger
+                                img(src="img/user/03.jpg", alt="Image")
+                        .col-lg-3
+                            .radial-bar.radial-bar-35.radial-bar-warning(data-label="35%")
+                                img(src="img/user/01.jpg", alt="Image")
+                        .col-lg-3
+                            .radial-bar.radial-bar-50.radial-bar-info(data-label="50%")
+                                img(src="img/user/04.jpg", alt="Image")
+                        .col-lg-3
+                            .radial-bar.radial-bar-100.radial-bar-success(data-label="100%")
+                                img(src="img/user/05.jpg", alt="Image")
+            // END card
+            // START card
+            .card.card-default
+                .card-header Radial with Tooltips
+                .card-body.text-center
+                    .row
+                        .col-lg-3
+                            br
+                            .radial-bar.radial-bar-85(data-label="85%", data-toggle="tooltip", data-title="85%")
+                        .col-lg-3
+                            br
+                            .radial-bar.radial-bar-45(data-label="45%", data-toggle="tooltip", data-title="45%")
+                        .col-lg-3
+                            br
+                            .radial-bar.radial-bar-60(data-label="60%", data-toggle="tooltip", data-title="60%")
+                        .col-lg-3
+                            br
+                            .radial-bar.radial-bar-20(data-label="20%", data-toggle="tooltip", data-title="20%")
+            // END card
+        .col-xl-6
+            // START card
+            .card.card-default
+                .card-header Radial Variants
+                .card-body.text-center
+                    .row
+                        .col-lg-3
+                            .radial-bar.radial-bar-20.radial-bar-lg.radial-bar-danger(data-label="20%")
+                        .col-lg-3
+                            .radial-bar.radial-bar-35.radial-bar-lg.radial-bar-warning(data-label="35%")
+                        .col-lg-3
+                            .radial-bar.radial-bar-50.radial-bar-lg.radial-bar-info(data-label="50%")
+                        .col-lg-3
+                            .radial-bar.radial-bar-100.radial-bar-lg.radial-bar-success(data-label="100%")
+            // END card
+            // START card
+            .card.card-default
+                .card-header Radial applications
+                .card-body.text-center
+                    .radial-bar.radial-bar-85.radial-bar-lg(data-label="85%")
+                    p Visitors
+                .card-footer.text-center
+                    .row
+                        .col-lg-4
+                            .radial-bar.radial-bar-warning.radial-bar-35.radial-bar-sm(data-label="35%")
+                            p: small Conversions
+                        .col-lg-4
+                            .radial-bar.radial-bar-info.radial-bar-45.radial-bar-sm(data-label="45%")
+                            p: small Recurrent
+                        .col-lg-4
+                            .radial-bar.radial-bar-success.radial-bar-20.radial-bar-sm(data-label="20%")
+                            p: small Uniques
+            // END card
+    // END row
+
+block vendor_js
+    // EASY PIE CHART
+    script(src='vendor/easy-pie-chart/dist/jquery.easypiechart.js')

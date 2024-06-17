@@ -1,0 +1,58 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "blogs",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "deleted", "order": "ASCENDING" },
+        { "fieldPath": "timestamp", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "blogs",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "approved", "order": "ASCENDING" },
+        { "fieldPath": "deleted", "order": "ASCENDING" },
+        { "fieldPath": "timestamp", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "blogs",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "approved", "order": "ASCENDING" },
+        { "fieldPath": "deleted", "order": "ASCENDING" },
+        { "fieldPath": "timestamp", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "blogs",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "tags", "arrayConfig": "CONTAINS" },
+        { "fieldPath": "approved", "order": "ASCENDING" },
+        { "fieldPath": "deleted", "order": "ASCENDING" },
+           { "fieldPath": "timestamp", "order": "DESCENDING" }
+        ]
+      },
+      {
+        "collectionGroup": "blogs",
+        "queryScope": "COLLECTION",
+        "fields": [
+          { "fieldPath": "category", "order": "ASCENDING" },
+          { "fieldPath": "deleted", "order": "ASCENDING" },
+          { "fieldPath": "timestamp", "order": "DESCENDING" }
+        ]
+      },
+      {
+        "collectionGroup": "blogs",
+        "queryScope": "COLLECTION",
+        "fields": [
+          { "fieldPath": "deleted", "order": "ASCENDING" },
+          { "fieldPath": "timestamp", "order": "DESCENDING" }
+        ]
+      }
+    ]
+  }
+  

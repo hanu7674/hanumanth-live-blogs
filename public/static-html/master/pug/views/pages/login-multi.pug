@@ -1,0 +1,94 @@
+extends ../../_layout_page
+
+block content
+    .full-page-background.bg-darker
+    .d-flex.align-items-center.justify-content-center.h-100.w-100.flex-column
+        #login-multi.card.border-0.d-flex(style="width: 300px")
+            p.text-center.mb-lg
+                br
+                a(href="#")
+                    img.block-center.img-rounded(src='img/logo3.png', alt='Image')
+            #accordion.d-flex.flex-column
+                // START card
+                .card.m-0.border-0
+                    .card-header.border-0.rounded-0.bg-primary.py-4.font-weight-bold
+                        .text-center(data-toggle='collapse', data-target='#collapseOne') SIGN IN TO CONTINUE.
+                    #collapseOne.card-collapse.collapse.show(data-parent='#accordion')
+                        .card-body
+                            form#loginForm(novalidate)
+                                .form-group
+                                    .input-group.with-focus
+                                        input#exampleInputEmail1.form-control.border-right-0(type='email', placeholder='Enter email', autocomplete="off",required)
+                                        .input-group-append
+                                            span.input-group-text.text-muted.bg-transparent.border-left-0
+                                                em.fa.fa-envelope
+                                .form-group
+                                    .input-group.with-focus
+                                        input#exampleInputPassword1.form-control.border-right-0(type='password', placeholder='Password', required)
+                                        .input-group-append
+                                            span.input-group-text.text-muted.bg-transparent.border-left-0
+                                                em.fa.fa-lock
+                                .clearfix
+                                    .custom-control.custom-checkbox.float-left.mt-0
+                                        input#rememberme.custom-control-input(type='checkbox' name="remember")
+                                        label.custom-control-label(for='rememberme') Remember Me
+
+                                button.btn.btn-block.btn-primary.mt-3(type='submit') Login
+                // END card
+
+                // START card
+                .card.m-0.border-0
+                    .card-header.border-0.rounded-0.bg-transparent
+                        .text-center(data-toggle='collapse', data-target='#collapseTwo') Need to Signup?
+                    #collapseTwo.card-collapse.collapse(data-parent='#accordion')
+                        .card-body
+                            form#registerForm(novalidate)
+                                .form-group
+                                    label.text-muted(for='signupInputEmail1') Email address
+                                    .input-group.with-focus
+                                        input#signupInputEmail1.form-control.border-right-0(type='email', placeholder='Enter email', autocomplete="off", required)
+                                        .input-group-append
+                                            span.input-group-text.text-muted.bg-transparent.border-left-0
+                                                em.fa.fa-envelope
+                                .form-group
+                                    label.text-muted(for='signupInputPassword1') Password
+                                    .input-group.with-focus
+                                        input#signupInputPassword1.form-control.border-right-0(type='password', placeholder='Password', autocomplete="off", required)
+                                        .input-group-append
+                                            span.input-group-text.text-muted.bg-transparent.border-left-0
+                                                em.fa.fa-lock
+                                .form-group
+                                    label.text-muted(for='signupInputRePassword1') Retype Password
+                                    .input-group.with-focus
+                                        input#signupInputRePassword1.form-control.border-right-0(type='password', placeholder='Retype Password', autocomplete="off", required, data-parsley-equalto="#signupInputPassword1")
+                                        .input-group-append
+                                            span.input-group-text.text-muted.bg-transparent.border-left-0
+                                                em.fa.fa-lock
+                                .custom-control.custom-checkbox.mt-0
+                                    input#agree.custom-control-input(type='checkbox', required, name="agreed")
+                                    label.custom-control-label(for='agree')
+                                        |  I agree with the
+                                        a.ml-1(href="#") terms
+
+                                button.btn.btn-block.btn-primary.mt-3(type='submit') Create account
+
+                // END card
+
+                // START card
+                .card.m-0.border-0
+                    .card-header.border-0.rounded-0.bg-transparent
+                        .text-center(data-toggle='collapse', data-target='#collapseThree') Forgot your password?
+                    #collapseThree.card-collapse.collapse(data-parent='#accordion')
+                        .card-body
+                            form
+                                p.text-center Fill with your mail to receive instructions #[br] on how to reset your password.
+                                .form-group
+                                    label.text-muted(for='resetInputEmail1') Email address
+                                    .input-group.with-focus
+                                        input#resetInputEmail1.form-control.border-right-0(type='email', placeholder='Enter email', autocomplete="off")
+                                        .input-group-append
+                                            span.input-group-text.text-muted.bg-transparent.border-left-0
+                                                em.fa.fa-envelope
+
+                                button.btn.btn-danger.btn-block(type='submit') Reset
+                // END card

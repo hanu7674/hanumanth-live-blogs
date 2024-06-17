@@ -1,0 +1,116 @@
+extends ../../_layout
+
+block active
+        - sidebar_active = 'chart-flot.html'
+
+block content
+    .content-header
+        .content-title Flot charts
+    // START row
+    .row
+        .col-lg-12
+            .card.card-default
+                .card-header.d-flex
+                    .card-title Area
+                    .ml-auto
+                        .d-inline-block.mr-3(data-perform="card-refresh", data-spinner="traditional")
+                            em.fa.fa-redo
+                        .d-inline-block.mr-3(data-perform="card-collapse")
+                            em.fa.fa-minus
+                        .d-inline-block.mr-0(data-perform="card-dismiss")
+                            em.fa.fa-times
+                .card-wrapper
+                    .card-body
+                        .chart-area.flot-chart(style='height: 250px;', data-source="server/chart-data-area.json")
+    // END row
+    // START row
+    .row
+        .col-lg-6
+            .card.card-default
+                .card-header.d-flex
+                    .card-title Bar
+                    .ml-auto
+                        .d-inline-block.mr-3(data-perform="card-refresh", data-spinner="traditional")
+                            em.fa.fa-redo
+                        .d-inline-block.mr-3(data-perform="card-collapse")
+                            em.fa.fa-minus
+                        .d-inline-block.mr-0(data-perform="card-dismiss")
+                            em.fa.fa-times
+                .card-wrapper
+                    .card-body
+                        .chart-bar.flot-chart(style='height: 250px;', data-source="server/chart-data-bar.json")
+        .col-lg-6
+            .card.card-default
+                .card-header.d-flex
+                    .card-title Bar - Stacked
+                    .ml-auto
+                        .d-inline-block.mr-3(data-perform="card-refresh", data-spinner="traditional")
+                            em.fa.fa-redo
+                        .d-inline-block.mr-3(data-perform="card-collapse")
+                            em.fa.fa-minus
+                        .d-inline-block.mr-0(data-perform="card-dismiss")
+                            em.fa.fa-times
+                .card-wrapper
+                    .card-body
+                        .indicator.show
+                            span.spinner
+                        .chart-bar-stacked.flot-chart(style='height: 250px;', data-source="server/chart-data-barstacked.json")
+    // END row
+    // START row
+    .row
+        .col-lg-12
+            .card.card-default
+                .card-header.d-flex
+                    .card-title Line
+                    .ml-auto
+                        .d-inline-block.mr-3(data-perform="card-refresh", data-spinner="traditional")
+                            em.fa.fa-redo
+                        .d-inline-block.mr-3(data-perform="card-collapse")
+                            em.fa.fa-minus
+                        .d-inline-block.mr-0(data-perform="card-dismiss")
+                            em.fa.fa-times
+                .card-wrapper
+                    .card-body
+                        .chart-line.flot-chart(style='height: 250px;', data-source="server/chart-data-line.json")
+    // END row
+    // START row
+    .row
+        .col-md-6
+            .card.card-default
+                .card-header.d-flex
+                    .card-title Pie
+                    .ml-auto
+                        .d-inline-block.mr-3(data-perform="card-refresh", data-spinner="traditional")
+                            em.fa.fa-redo
+                        .d-inline-block.mr-3(data-perform="card-collapse")
+                            em.fa.fa-minus
+                        .d-inline-block.mr-0(data-perform="card-dismiss")
+                            em.fa.fa-times
+                .card-wrapper: .card-body
+                    .chart-pie.flot-chart(style='height: 200px;', data-source="server/chart-data-pie.json")
+        .col-md-6
+            .card.card-default
+                .card-header.d-flex
+                    .card-title Donut
+                    .ml-auto
+                        .d-inline-block.mr-3(data-perform="card-refresh", data-spinner="traditional")
+                            em.fa.fa-redo
+                        .d-inline-block.mr-3(data-perform="card-collapse")
+                            em.fa.fa-minus
+                        .d-inline-block.mr-0(data-perform="card-dismiss")
+                            em.fa.fa-times
+                .card-wrapper: .card-body
+                    .chart-donut.flot-chart(style='height: 200px;', data-source="server/chart-data-donut.json")
+    // END row
+
+block vendor_js
+        // SPARKLINE
+        script(src='vendor/jquery-sparkline/jquery.sparkline.js')
+        // FLOT CHART
+        script(src='vendor/flot/jquery.flot.js')
+        script(src='vendor/jquery.flot.tooltip/js/jquery.flot.tooltip.js')
+        script(src='vendor/flot/jquery.flot.resize.js')
+        script(src='vendor/flot/jquery.flot.pie.js')
+        script(src='vendor/flot/jquery.flot.time.js')
+        script(src='vendor/flot/jquery.flot.categories.js')
+        script(src='vendor/flot-spline/js/jquery.flot.spline.js')

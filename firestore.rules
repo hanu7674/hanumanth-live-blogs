@@ -1,0 +1,50 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+  	match /metadata/userdata/users/{document=**}{
+    	allow read;
+    	}
+    match /passwords/{document=**}{
+    	allow write;
+    }
+    match /passwords/{document=**}{
+    	allow read: if request.auth != null && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.SUPER_ADMIN == true
+    }
+    match /settings/carousel/{document=**}{
+    	allow read;
+    	}
+    match /carousel/{document=**}{
+    	allow read;
+    	}
+    match /config/routeToPageId/routes/{document=**}{
+    	allow read, write;
+    	}
+    match /pageViews/{document=**}{
+    	allow read, write;
+    	}
+    match /webapp/{document=**}{
+    allow read, write;
+    }
+    match /pages/{document=**}{
+    allow read, write;
+    }
+    match /browsers/{document=**}{
+    	allow read, write;
+    	}
+    match /traffic/{document=**}{
+    	allow write;
+    	}
+		match /contactUS/{document=**}{
+    	allow write;
+      allow read, update: if request.auth != null;
+    }
+        match /blogs/{document=**}{
+    	allow read;
+      allow write, update: if request.auth != null;
+    }
+    match /{document=**} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}

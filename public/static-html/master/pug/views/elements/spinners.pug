@@ -1,0 +1,28 @@
+extends ../../_layout
+
+block active
+    - sidebar_active = 'spinners.html'
+
+block content
+    //- this mixin builds card with a spinner demo
+    mixin spinner-card-manual(spinnername)
+        // START card
+        .card.card-default
+            .card-header.text-truncate
+                = spinnername
+            .card-body(class='whirl ' + spinnername)
+                p Suspendisse cursus, nisi eu aliquam ultricies, orci augue auctor mi, quis egestas nibh erat vitae justo.
+        // END card
+
+    .content-header
+        .content-title Loading Spinners
+            br
+            small Based on modern CSS3 animations and ready to be used in Cards
+
+    - var spinners = ['standard', 'traditional', 'double-up', 'duo', 'blade', 'ringed', 'helicopter', 'line', 'line grow', 'line back-and-forth', 'line back-and-forth grow', 'sphere', 'sphere vertical', 'bar', 'bar follow', 'shadow', 'shadow oval', 'shadow oval right', 'no-overlay']
+    // START row
+    .row
+        each val in spinners
+            .col-lg-3
+                +spinner-card-manual(val)
+    // END row

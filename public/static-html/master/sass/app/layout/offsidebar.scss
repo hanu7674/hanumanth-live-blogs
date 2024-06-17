@@ -1,0 +1,41 @@
+/*
+// Offsidebar
+*/
+
+//
+// A sidebar in offcanvas mode
+// Open status toggled via JS
+
+.offsidebar {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: $offsidebar-wd;
+    margin-top: $navbar-height;
+    border-left: 1px solid $offsidebar-border-color;
+    background-color: $offsidebar-bg;
+    color: $offsidebar-color;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    z-index: -1;
+
+    .dark-on-hover:hover {
+        background-color: rgba(0, 0, 0, 0.25);
+    }
+
+    @include media-breakpoint-up(md) {
+        margin-top: $navbar-height;
+    }
+}
+
+// Global open status (attach to body)
+.offsidebar-open {
+    .offsidebar {
+        overflow-y: auto;
+        z-index: $z-index-main-section;
+    }
+    @include media-breakpoint-up(md) {
+        overflow-y: auto;
+    }
+}

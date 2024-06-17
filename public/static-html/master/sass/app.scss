@@ -1,0 +1,60 @@
+/*!
+ *
+ * 47Admin - Bootstrap Admin Theme
+ *
+ * Version: 2.0
+ * Author: @geedmo
+ * Website: http://geedmo.com
+ * License: https://codecanyon.net/licenses/standard
+ *
+ */
+
+// Bootstrap
+@import '../node_modules/bootstrap/scss/functions';
+@import '../node_modules/bootstrap/scss/variables';
+@import '../node_modules/bootstrap/scss/mixins';
+// Variables
+@import 'app/common/variables';
+// Layout
+@import 'app/layout/layout';
+@import 'app/layout/top-navbar';
+@import 'app/layout/sidebar';
+@import 'app/layout/offsidebar';
+@import 'app/layout/user-block';
+// Layout animations
+@import 'app/layout/layout-animation';
+// Common
+@import 'app/common/typo';
+@import 'app/common/bootstrap-reset';
+@import 'app/common/bootstrap-custom';
+@import 'app/common/button-extra';
+@import 'app/common/placeholder';
+@import 'app/common/cards';
+@import 'app/common/points';
+@import 'app/common/dropdown-extra';
+@import 'app/common/half-float';
+@import 'app/common/animate';
+@import 'app/common/slim-scroll';
+@import 'app/common/inputs';
+@import 'app/common/whirl.spinner';
+@import 'app/common/utils';
+// Elements
+@import 'app/elements/notify';
+@import 'app/elements/portlets';
+@import 'app/elements/calendar';
+// Charts
+@import 'app/charts/radial-bar';
+@import 'app/charts/chart-flot';
+// Form elements
+@import 'app/forms/form-validation';
+@import 'app/forms/form-tags';
+@import 'app/forms/form-datepicker';
+@import 'app/forms/form-wizard';
+@import 'app/forms/plugins';
+// Tables
+@import 'app/tables/datatable';
+// Maps
+@import 'app/maps/gmap';
+// Pages
+@import 'app/pages/timeline';
+@import 'app/pages/inbox';

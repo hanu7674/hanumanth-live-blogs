@@ -1,0 +1,51 @@
+.connect-main{
+background: #0F2027; 
+width: 100%;
+background: -webkit-linear-gradient(to right, #2C5364, #203A43, #0F2027);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #2C5364, #203A43, #0F2027); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+/* position:absolute; */
+}
+.thanks-main{
+    /* background: #0F2027;  */
+    width: 100%;
+    /* background: -webkit-linear-gradient(to right, #2C5364, #203A43, #0F2027);  Chrome 10-25, Safari 5.1-6 */
+    /* background: linear-gradient(to right, #2C5364, #203A43, #0F2027);  */
+    /* position:absolute; */
+    }
+.connect-main .row{
+    /* height: max-content; */
+    margin: auto;
+    width: auto;
+    bottom: 0px;
+}
+.thanks-main .row{
+    /* height: max-content; */
+    margin: auto;
+    width: auto;
+    bottom: 0px;
+}
+@media screen and (min-width: 767px) {
+    .connect-main{
+    height: 92.5%;
+    position: absolute;
+    }
+    .thanks-main{
+        height: 92.5%;
+        position: absolute;
+        }
+}
+@media screen and (max-width: 767px) {
+    .connect-main{
+    position: absolute;
+    }.thanks-main{
+        position: absolute;
+        }
+}
+@media screen and (max-width: 576px) {
+    .connect-main{
+    position: absolute;
+    }.thanks-main{
+        position: absolute;
+        }
+}
+

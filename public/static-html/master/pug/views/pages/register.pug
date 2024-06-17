@@ -1,0 +1,41 @@
+extends ../../_layout_page
+
+block content
+    .full-page-background.bg-darker
+    .d-flex.align-items-center.justify-content-center.h-100.w-100.flex-column
+        // START card
+        .card.card-flat(style="min-width: 300px")
+            .card-header.text-center.bg-transparent.border-0
+                a(href="#")
+                    img.block-center(src='img/logo3.png', alt='Image')
+            .card-body
+                p.text-center.py-2.text-bold SIGNUP TO GET INSTANT ACCESS.
+                form#registerForm(novalidate)
+                    .form-group
+                        label.text-muted(for='signupInputEmail1') Email address
+                        .input-group.with-focus
+                            input#signupInputEmail1.form-control.border-right-0(type='email', placeholder='Enter email', autocomplete="off", required)
+                            .input-group-append
+                                span.input-group-text.text-muted.bg-transparent.border-left-0
+                                    em.fa.fa-envelope
+                    .form-group
+                        label.text-muted(for='signupInputPassword1') Password
+                        .input-group.with-focus
+                            input#signupInputPassword1.form-control.border-right-0(type='password', placeholder='Password', autocomplete="off", required)
+                            .input-group-append
+                                span.input-group-text.text-muted.bg-transparent.border-left-0
+                                    em.fa.fa-lock
+                    .form-group
+                        label.text-muted(for='signupInputRePassword1') Retype Password
+                        .input-group.with-focus
+                            input#signupInputRePassword1.form-control.border-right-0(type='password', placeholder='Retype Password', autocomplete="off", required, data-parsley-equalto="#signupInputPassword1")
+                            .input-group-append
+                                span.input-group-text.text-muted.bg-transparent.border-left-0
+                                    em.fa.fa-lock
+                    .custom-control.custom-checkbox.mt-0
+                        input#agree.custom-control-input(type='checkbox', required, name="agreed")
+                        label.custom-control-label(for='agree')
+                            |  I agree with the
+                            a.ml-1(href="#") terms
+
+                    button.btn.btn-block.btn-primary.mt-3(type='submit') Create account

@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+
+.nav-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+
+.navbar {
+  height: 60px;
+  background-color: rgb(14, 26, 45);
+  position:fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000; 
+  border-bottom: 1pt solid cyan;
+}
+.menu-icon {
+  display: none;
+}
+.nav-elements ul {
+  display: flex;
+  justify-content: space-between;
+  list-style-type: none;
+}
+.nav-elements ul li:not(:last-child) {
+  margin-right: 20px;
+}
+.nav-item-link{
+    padding-top: 20px;
+}
+.dropdown-item-hover{
+   padding-bottom: 10px;
+   width: 160px;
+}
+.nav-elements ul a {
+  font-size: 16px;
+  font-weight: 400;
+  color: #fcfcfc;
+  text-decoration: none;
+}
+.nav-item-link.active{
+  font-weight: 500 !important;
+  position: relative;
+}
+.nav-item-link.active::after {
+    content: '';
+  position: absolute;
+  bottom: 0px;
+  height: 2px;
+  width: 100%;
+  left: 0px;
+  background-color: #fcfcfc;
+  }
+
+@media (max-width: 768px) {
+  .nav-elements ul li:not(:last-child) {
+    margin-right: 30px;
+  }
+}
+
+@media (max-width: 600px) {
+  .menu-icon {
+    display: block;
+    cursor: pointer;
+  }
+
+  .nav-elements {
+    position: absolute;
+    right: 0;
+    top: 60px;
+    background-color: #0F131A;
+    width: 0px;
+    height: calc(100vh - 60px);
+    transition: all 0.3s ease-in;
+    overflow: hidden;
+    z-index: 100;
+  }
+  
+  .nav-elements.active {
+    width: 170px;
+  }
+
+  .nav-elements ul {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .nav-elements ul li {
+    margin-right: unset;
+    margin-top: 22px;
+  }
+}
+.notification-item{
+  background-color: '#292d33';
+  border-bottom: '1px solid white';
+  cursor: 'pointer',
+}
+.notification-item:hover{
+  background-color: #0F131A;
+}
+::-webkit-scrollbar {
+  width: 0;
+}
+
+/* Hide horizontal scrollbar */
+::-webkit-scrollbar-horizontal {
+  display: none;
+}
+
+/* Hide scrollbar track */
+::-webkit-scrollbar-track {
+  display: none;
+}
+
+/* Hide scrollbar handle */
+::-webkit-scrollbar-thumb {
+  display: none;
+}
+
+/* Hide scrollbar corner */
+::-webkit-scrollbar-corner {
+  display: none;
+}

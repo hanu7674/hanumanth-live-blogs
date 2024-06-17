@@ -1,0 +1,102 @@
+block active
+    //- This block is used to set the active view name
+    //- then we check it against the sidebar configuration
+    //- to set as active the current sidebar item
+
+mixin build_sidebar_tree(tree)
+    each item in tree
+
+        //- check only items, we will active parents later using client-side JS
+        - item.active = (sidebar_active==item.href)
+
+        li(class=(item.heading?'nav-heading':'')+' '+(item.active?'active':''))
+            - var label = item.badge || 'badge badge-success'
+            - if (item.heading)
+                span= item.text
+            - else
+                - if (item.submenu)
+                    a(href=item.href, title=item.text, data-toggle="collapse")
+                        - if (item.alert)
+                            .float-right(class=label)= item.alert
+                        - if (typeof item.icon !== 'undefined')
+                            em(class=item.icon)
+                        span= item.text
+                    ul.sidebar-nav.sidebar-subnav.collapse(id=item.href.replace('#',''))
+                        li.sidebar-subnav-header= item.text
+                        +build_sidebar_tree(item.submenu)
+                - else
+                    a(href=item.href, title=item.text)
+                        - if (item.alert)
+                            .float-right(class=label)= item.alert
+                        - if (typeof item.icon !== 'undefined')
+                            em(class=item.icon)
+                        span= item.text
+
+// START Sidebar (left)
+.aside-inner
+    nav.sidebar(data-sidebar-anyclick-close)
+        // START sidebar nav
+        ul.sidebar-nav
+            li.sidebar-app-logo.d-flex.align-items-center.justify-content-center.py-3.d-md-none
+                img.img-fluid(src="img/logo.png", alt="App Logo")
+            // START user info
+            li.has-user-block
+                #user-block(data-toggle="collapse", data-target="#user-links")
+                    .item.user-block
+                        .user-block-content
+                            // User picture
+                            .user-block-picture
+                                img.img-thumbnail.rounded-circle(src="img/user/02.jpg", alt="Avatar", width="60", height="60")
+                            // Name and Job
+                            .user-block-info
+                                span.user-block-name Welcome, Alex
+                                span.user-block-role Designer
+                                // START Dropdown to change status
+                                .btn-group.user-block-status
+                                    button.btn.btn-inverse.btn-xs.dropdown-toggle.no-caret(type="button", data-toggle='dropdown')
+                                        .p-1.rounded.d-inline-block.bg-success.mr-2
+                                        span Online
+                                    ul.dropdown-menu
+                                        .dropdown-item
+                                            span.p-1.rounded.d-inline-block.bg-success.mr-1.mr-2
+                                            | Online
+                                        .dropdown-item
+                                            span.p-1.rounded.d-inline-block.bg-warning.mr-1.mr-2
+                                            | Away
+                                        .dropdown-item
+                                            span.p-1.rounded.d-inline-block.bg-danger.mr-1.mr-2
+                                            | Busy
+                                // END Dropdown to change status
+            // END user info
+
+            li#user-links.nav.collapse
+                // START User links collapse
+                ul.sidebar-nav.sidebar-subnav
+                    li: a(href="#") Profile
+                    li: a(href="#") Settings
+                    li: a(href="#")
+                        span Notifications
+                        span.badge.badge-danger.float-right 120
+                    li: a(href="#")
+                        span Messages
+                        span.badge.badge-success.float-right 300
+                    li: a(href="#") Logout
+                // END User links collapse
+
+            // Iterates over all sidebar items
+            +build_sidebar_tree(sidebar)
+        // Sidebar footer
+        .nav-footer
+            .nav-footer-divider
+            // START button group
+            .btn-group.text-center
+                button.btn.btn-link(type="button", data-toggle="tooltip", data-title="Add Contact")
+                    em.fas.fa-user.text-muted
+                        sup.fa.fa-plus
+                button.btn.btn-link(type="button", data-toggle="tooltip", data-title="Settings")
+                    em.fas.fa-cog.text-muted
+                button.btn.btn-link(type="button", data-toggle="tooltip", data-title="Logout")
+                    em.fas.fa-sign-out-alt.text-muted
+            // END button group
+        // END sidebar nav
+// END Sidebar (left)

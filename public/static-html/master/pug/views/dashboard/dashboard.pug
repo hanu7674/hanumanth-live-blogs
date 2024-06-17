@@ -1,0 +1,394 @@
+extends ../../_layout
+
+block active
+        - sidebar_active = 'dashboard.html'
+
+block content
+    .content-header
+        .content-title
+            | Dashboard
+            br
+            small Welcome user
+        .ml-auto
+            button(type='button').btn.btn-labeled.btn-primary.float-right
+                span.btn-label
+                    i.fa.fa-plus-circle
+                | Add Item
+
+    .d-none(data-notify, data-onload, data-message="<b>New Updates Available!</b> Don't forget to check them!" data-options='{"status":"danger", "pos":"top-right"}')
+
+    .row
+
+        // START dashboard main content
+        .col-lg-9
+            // START summary widgets
+            .row
+                .col-xl-3.col-sm-6
+                    // START widget
+                    .card.animated.fadeInDownShort.animate-delay-100
+                        .card-body.bg-primary.rounded-top
+                            .d-flex.align-items-center
+                                div
+                                    p.mb0 New visitors
+                                    h3.m0 1.5k
+                                .ml-auto
+                                    em.fa.fa-user.fa-2x
+                                        sup.fa.fa-plus
+                        .card-body
+                            // Bar chart
+                            .text-center
+                                .sparkline(data-bar-color="primary", data-height="30", data-bar-width="6", data-bar-spacing="6")
+                                    | 5,3,4,6,5,9,4,4,10,5,9,6,4
+                .col-xl-3.col-sm-6
+                    // START widget
+                    .card.animated.fadeInDownShort.animate-delay-500
+                        .card-body.bg-warning.rounded-top
+                            .d-flex.align-items-center
+                                div
+                                    p.mb0 Bounce Rate
+                                    h3.m0 50%
+                                .ml-auto
+                                    em.fa.fa-users.fa-2x
+                        .card-body
+                            // Bar chart
+                            .text-center
+                                .sparkline(data-bar-color="warning", data-height="30", data-bar-width="6", data-bar-spacing="6")
+                                    | 10,30,40,70,50,90,70,50,90,40,40,60,40
+                .col-xl-3.col-sm-6
+                    // START widget
+                    .card.animated.fadeInDownShort.animate-delay-1000
+                        .card-body.bg-danger.rounded-top
+                            .d-flex.align-items-center
+                                div
+                                    p.mb0 Searchs
+                                    h3.m0 28%
+                                .ml-auto
+                                    em.fa.fa-search.fa-2x
+                        .card-body
+                            // Bar chart
+                            .text-center
+                                .sparkline(data-bar-color="danger", data-height="30", data-bar-width="6", data-bar-spacing="6")
+                                    | 2,7,5,9,4,2,7,5,7,5,9,6,4
+                .col-xl-3.col-sm-6
+                    // START widget
+                    .card.animated.fadeInDownShort.animate-delay-1500
+                        .card-body.bg-success.rounded-top
+                            .d-flex.align-items-center
+                                div
+                                    p.mb0 Traffic
+                                    h3.m0 140.5 kb
+                                .ml-auto
+                                    em.fa.fa-globe.fa-2x
+                        .card-body
+                            // Bar chart
+                            .text-center
+                                .sparkline(data-bar-color="success", data-height="30", data-bar-width="6", data-bar-spacing="6")
+                                    | 4,7,5,9,6,4,8,6,3,4,7,5,9
+            // END summary widgets
+
+            // START chart
+            .row
+                .col-lg-12
+                    .card.card-default
+                        .panel-collapse
+                            .card-body
+                                .chart-area.flot-chart(style='height: 350px;', data-source="server/chart-data-area.json")
+            // END chart
+
+            // START Secondary Widgets
+            .row
+                .col-md-4
+                    // START widget
+                    .card.animated.fadeInLeftShort.animate-delay-1400
+                        .card-body
+                            .text-right.text-muted
+                                em.fa.fa-users.fa-2x
+                            h3.mt0 20
+                            p.text-muted New followers this month
+                            .progress.progress-striped.progress-xs
+                                    .progress-bar.bg-success(role='progressbar', aria-valuenow='80', aria-valuemin='0', aria-valuemax='100', style='width: 80%;')
+                                        span.sr-only 80% Complete
+                    // END widget
+                .col-md-4
+                    // START widget
+                    .card.animated.fadeInLeftShort.animate-delay-1400
+                        .card-body
+                            .text-right.text-muted
+                                em.fas.fa-chart-bar.fa-2x
+                            h3.mt0 $ 1250
+                            p.text-muted Average Monthly Income
+                            .progress.progress-striped.progress-xs
+                                    .progress-bar.bg-info(role='progressbar', aria-valuenow='40', aria-valuemin='0', aria-valuemax='100', style='width: 40%;')
+                                        span.sr-only 40% Complete
+                    // END widget
+                .col-md-4
+                    // START widget
+                    .card.animated.fadeInLeftShort.animate-delay-1400
+                        .card-body
+                            .text-right.text-muted
+                                em.fa.fa-trophy.fa-2x
+                            h3.mt0 $ 13865
+                            p.text-muted Yearly Income Goal
+                            .progress.progress-striped.progress-xs
+                                    .progress-bar.bg-warning(role='progressbar', aria-valuenow='60', aria-valuemin='0', aria-valuemax='100', style='width: 60%;')
+                                        span.sr-only 60% Complete
+                    // END widget
+
+            // END Secondary Widgets
+
+
+            // START table
+            .row
+                .col-lg-12
+                    // START card
+                    .card.card-default
+                        .card-header.d-flex
+                            .card-title Pending tasks
+                            .ml-auto.text-muted-light
+                                .d-inline-block.mr-3(data-perform="card-collapse")
+                                    em.fa.fa-minus
+                                .d-inline-block.mr-0(data-perform="card-dismiss")
+                                    em.fa.fa-times
+                        // START table-responsive
+                        .card-wrapper: .table-responsive
+                            table.table.table-striped.table-bordered.table-hover
+                                thead
+                                    tr
+                                        th Task name
+                                        th Progress
+                                        th Deadline
+                                        th Action
+                                tbody
+                                    tr
+                                        td Nunc luctus, quam non condimentum ornare
+                                        td
+                                            .progress.progress-striped.progress-xs
+                                                    .progress-bar.bg-success(role='progressbar', aria-valuenow='80', aria-valuemin='0', aria-valuemax='100', style='width: 80%;')
+                                                        span.sr-only 80% Complete
+                                        td
+                                            em.fa.fa-calendar.fa-fw.text-muted
+                                            |  05/05/2014
+                                        td.text-center
+                                            .btn-group
+                                                    a.dropdown-toggle(href='#', data-toggle='dropdown')
+                                                        i.fa.fa-cog
+                                                    ul.dropdown-menu.float-right.text-left
+                                                        li
+                                                            a(href='#') Action
+                                                        li
+                                                            a(href='#') Another action
+                                                        li
+                                                            a(href='#') Something else here
+                                                        li.divider
+                                                        li
+                                                            a(href='#') Separated link
+                                    tr
+                                        td Integer in convallis felis.
+                                        td
+                                            .progress.progress-striped.progress-xs
+                                                    .progress-bar.bg-danger(role='progressbar', aria-valuenow='20', aria-valuemin='0', aria-valuemax='100', style='width: 20%;')
+                                                        span.sr-only 20% Complete
+                                        td
+                                            em.fa.fa-calendar.fa-fw.text-muted
+                                            |  15/05/2014
+                                        td.text-center
+                                            .btn-group
+                                                    a.dropdown-toggle(href='#', data-toggle='dropdown')
+                                                        i.fa.fa-cog
+                                                    ul.dropdown-menu.float-right.text-left
+                                                        li
+                                                            a(href='#') Action
+                                                        li
+                                                            a(href='#') Another action
+                                                        li
+                                                            a(href='#') Something else here
+                                                        li.divider
+                                                        li
+                                                            a(href='#') Separated link
+                                    tr
+                                        td Nullam sit amet magna vestibulum libero dapibus iaculis.
+                                        td
+                                            .progress.progress-striped.progress-xs
+                                                    .progress-bar.bg-info(role='progressbar', aria-valuenow='50', aria-valuemin='0', aria-valuemax='100', style='width: 50%;')
+                                                        span.sr-only 50% Complete
+                                        td
+                                            em.fa.fa-calendar.fa-fw.text-muted
+                                            |  05/10/2014
+                                        td.text-center
+                                            .btn-group
+                                                    a.dropdown-toggle(href='#', data-toggle='dropdown')
+                                                        i.fa.fa-cog
+                                                    ul.dropdown-menu.float-right.text-left
+                                                        li
+                                                            a(href='#') Action
+                                                        li
+                                                            a(href='#') Another action
+                                                        li
+                                                            a(href='#') Something else here
+                                                        li.divider
+                                                        li
+                                                            a(href='#') Separated link
+                        // END table-responsive
+                        .card-footer.text-right
+                            a(href="#"): small View all
+                    // END card
+            // END table
+        // END dashboard main content
+
+        // START dashboard sidebar
+        .col-lg-3
+            // START messages
+            .card.card-default
+                .card-header
+                    .float-right.badge.badge-info 33
+                    .card-title Unread Messages
+                // START list group
+                .list-group
+                    // START list group item
+                    .list-group-item
+                        .media
+                            img.mr-3.rounded(style='width: 48px; height: 48px;', src="img/user/01.jpg", alt="Image")
+                            .media-body.clearfix
+                                small.float-right 2h
+                                strong.media-heading.text-primary
+                                    .point.bg-success.point-lg.text-left
+                                    | Sheila Carter
+                                p.mb-sm: small Cras sit amet nibh libero, in gravida nulla. Nulla...
+                    // END list group item
+                    // START list group item
+                    .list-group-item
+                        .media
+                            img.mr-3.rounded(style='width: 48px; height: 48px;', src="img/user/04.jpg", alt="Image")
+                            .media-body.clearfix
+                                small.float-right 3h
+                                strong.media-heading.text-primary
+                                    .point.bg-success.point-lg.text-left
+                                    | Rich Reynolds
+                                p.mb-sm: small Cras sit amet nibh libero, in gravida nulla. Nulla...
+                    // END list group item
+                    // START list group item
+                    .list-group-item
+                        .media
+                            img.mr-3.rounded(style='width: 48px; height: 48px;', src="img/user/03.jpg", alt="Image")
+                            .media-body.clearfix
+                                small.float-right 4h
+                                strong.media-heading.text-primary
+                                    .point.bg-danger.point-lg.text-left
+                                    | Beverley Pierce
+                                p.mb-sm: small Cras sit amet nibh libero, in gravida nulla. Nulla...
+                    // END list group item
+                    // START list group item
+                    .list-group-item
+                        .media
+                            img.mr-3.rounded(style='width: 48px; height: 48px;', src="img/user/06.jpg", alt="Image")
+                            .media-body.clearfix
+                                small.float-right 4h
+                                strong.media-heading.text-primary
+                                    .point.bg-danger.point-lg.text-left
+                                    | Alex Somar
+                                p.mb-sm: small Vestibulum pretium aliquam scelerisque.
+                    // END list group item
+                // END list group
+                // START card footer
+                .card-footer.clearfix
+                    a(href='#').pull-left
+                        small Read All
+                    a(href='#').float-right
+                        small Dismiss All
+                // END card-footer
+            // END messages
+
+            // START activity
+            .card.card-default
+                .card-header
+                    .card-title Activity feed
+                // START list group
+                .list-group
+                    // START list group item
+                    .list-group-item
+                        .media
+                            .mr-3
+                                span.fa-stack.fa-lg
+                                    em.fas.fa-circle.fa-stack-2x.text-green
+                                    em.fas.fa-cloud-upload-alt.fa-stack-1x.fa-inverse.text-white
+                            .media-body.clearfix
+                                .media-heading.text-green.m0 NEW UPLOAD
+                                p.m0: small
+                                    | New file
+                                    a(href="#") entities.xls
+                                    | uploaded to the cloud
+                                small 5 minutes ago
+                    // END list group item
+
+                    // START list group item
+                    .list-group-item
+                        .media
+                            .mr-3
+                                span.fa-stack.fa-lg
+                                    em.fas.fa-circle.fa-stack-2x.text-info
+                                    em.fa.fa-file.fa-stack-1x.fa-inverse.text-white
+                            .media-body.clearfix
+                                .media-heading.text-info.m0 NEW DOCUMENT
+                                p.m0: small
+                                    | New document
+                                    a(href="#") Lorem ipsum
+                                    | created
+                                small 1 hour ago
+                    // END list group item
+
+                    // START list group item
+                    .list-group-item
+                        .media
+                            .mr-3
+                                span.fa-stack.fa-lg
+                                    em.fas.fa-circle.fa-stack-2x.text-danger
+                                    em.fa.fa-exclamation.fa-stack-1x.fa-inverse.text-white
+                            .media-body.clearfix
+                                .media-heading.text-danger.m0 IMPORTANT MESSAGE
+                                p.m0: small
+                                    | Sammy Sam sent you an important messsage.
+                                    a(href="#") Read now
+                                small 3 hours ago
+                    // END list group item
+
+                    // START list group item
+                    .list-group-item
+                        .media
+                            .mr-3
+                                span.fa-stack.fa-lg
+                                    em.fas.fa-circle.fa-stack-2x.text-warning
+                                    em.fa.fa-clock.fa-stack-1x.fa-inverse.text-white
+                            .media-body.clearfix
+                                .media-heading.text-warning.m0 MEETING
+                                p.m0: small
+                                    | Rich Reynods added a new meeting.
+                                    a(href="#").label.label-info JOIN
+                                small yesterday
+                    // END list group item
+
+                // END list group
+                // START card footer
+                .card-footer.clearfix
+                    a(href='#').pull-left
+                        small Load more
+                // END card-footer
+        // END dashboard sidebar
+
+
+block vendor_js
+        // SLIMSCROLL
+        script(src='vendor/jquery-slimscroll/jquery.slimscroll.js')
+        // SPARKLINE
+        script(src='vendor/jquery-sparkline/jquery.sparkline.js')
+        // FLOT CHART
+        script(src='vendor/flot/jquery.flot.js')
+        script(src='vendor/jquery.flot.tooltip/js/jquery.flot.tooltip.js')
+        script(src='vendor/flot/jquery.flot.resize.js')
+        script(src='vendor/flot/jquery.flot.pie.js')
+        script(src='vendor/flot/jquery.flot.time.js')
+        script(src='vendor/flot/jquery.flot.categories.js')
+        script(src='vendor/flot-spline/js/jquery.flot.spline.js')
+        // EASY PIE CHART
+        script(src='vendor/easy-pie-chart/dist/jquery.easypiechart.js')
+        // MOMENT JS
+        script(src='vendor/moment/min/moment-with-locales.js')

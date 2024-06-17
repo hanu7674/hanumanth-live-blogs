@@ -1,0 +1,8 @@
+//
+// This file compiles to a custom bootstrap stylesheet for 47Admin
+//
+
+// Override bootstrap variables
+@import 'app/common/variables';
+// Bootstrap
+@import '../node_modules/bootstrap/scss/bootstrap.scss';

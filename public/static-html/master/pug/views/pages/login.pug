@@ -1,0 +1,34 @@
+extends ../../_layout_page
+
+block content
+    .full-page-background.bg-darker
+    .d-flex.align-items-center.justify-content-center.h-100.w-100.flex-column
+        // START card
+        .card.card-flat(style="min-width: 300px")
+            .card-header.text-center.bg-transparent.border-0
+                a(href="#")
+                    img.block-center.rounded(src='img/logo3.png', alt='Image')
+            .card-body
+                p.text-center.py-2.text-bold SIGN IN TO CONTINUE.
+                p.pt-3.text-right: a(href="register.html").text-muted Need to Signup?
+                form#loginForm(novalidate)
+                    .form-group
+                        .input-group.with-focus
+                            input#exampleInputEmail1.form-control.border-right-0(type='email', placeholder='Enter email', autocomplete="off",required)
+                            .input-group-append
+                                span.input-group-text.text-muted.bg-transparent.border-left-0
+                                    em.fa.fa-envelope
+                    .form-group
+                        .input-group.with-focus
+                            input#exampleInputPassword1.form-control.border-right-0(type='password', placeholder='Password', required)
+                            .input-group-append
+                                span.input-group-text.text-muted.bg-transparent.border-left-0
+                                    em.fa.fa-lock
+                    .clearfix
+                        .custom-control.custom-checkbox.float-left.mt-0
+                            input#rememberme.custom-control-input(type='checkbox' name="remember")
+                            label.custom-control-label(for='rememberme') Remember Me
+                        .float-right
+                            a.text-muted(href="recover.html") Forgot your password?
+
+                    button.btn.btn-block.btn-primary.mt-3(type='submit') Login

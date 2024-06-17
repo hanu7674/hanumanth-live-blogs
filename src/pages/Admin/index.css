@@ -1,0 +1,21 @@
+.rs-sidebar {
+    height: 100vh;
+  }
+  .page-container {
+    padding-left: 260px;
+    transition: padding 0.8s;
+    &.container-full {
+      padding-left: 60px;
+    }
+  }  
+  .rs-sidebar {
+    background: rgb(14, 26, 45);
+
+  }
+  .nav-toggle {
+    border-top: 1pt solid #ddd;
+    background-color: rgb(14, 26, 45) !important;
+    position: fixed;
+    bottom: 0;
+    opacity: 1;
+  }

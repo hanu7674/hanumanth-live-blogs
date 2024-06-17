@@ -1,0 +1,36 @@
+/*
+// TagsInput
+*/
+
+/* bootstrap tag input */
+
+.bootstrap-tagsinput {
+    box-shadow: none;
+    padding: 8px 7px;
+    width: 100%;
+    border-color: $input-border-color;
+    height: auto;
+    min-height: $input-height;
+
+    .label-info {
+        background-color: $info !important;
+        display: inline;
+        padding: 0.2rem 0.6rem 0.3rem;
+        font-size: 0.625rem;
+        font-weight: bold;
+        line-height: 1;
+        color: #fff;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: baseline;
+        border-radius: 0.25rem;
+    }
+}
+
+.bootstrap-tagsinput .tag [data-role='remove']:hover:active {
+    box-shadow: 0 0 0 #000;
+}
+
+.bootstrap-tagsinput .tag {
+    color: #fff;
+}

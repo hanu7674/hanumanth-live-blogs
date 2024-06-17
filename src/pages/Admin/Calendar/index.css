@@ -1,0 +1,61 @@
+
+.calendar-app{
+  color: #ccc;
+  background-color: #131820 !important;
+}
+.demo-app-calendar-main {
+  border-top: 3px solid orange;
+}
+.fc-list-day{
+  color: #131820 !important;
+}
+.fc-list-event{
+  background-color: #131820 !important;
+}
+.fc-list-event:hover{
+  background-color: #2f3236 !important;
+}
+  .fc .fc-toolbar{
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  
+  .events-card {
+    color: #ccc;
+    background-color: #131820 !important;
+  }
+
+#external-events {
+  position: relative;
+  z-index: 2;
+  background: #131820;
+}
+
+#external-events .fc-event {
+  cursor: move;
+}
+
+#calendar-container {
+  position: relative;
+  z-index: 1;
+  margin-left: 200px;
+}
+
+#calendar {
+  max-width: 1100px;
+  margin: 20px auto;
+}
+#event-pick-color-box{
+  transition: transform 0.5s ease;
+}
+#event-pick-color-box:hover{
+  content: 'dsd';
+  opacity: .6;
+  transform: rotate(45deg);
+}
+.fc-more-popover{
+  background-color: #131820 !important;
+}

@@ -1,0 +1,39 @@
+article.notification-card {
+  width: 100%;
+  position: relative;
+  font-family: 'Helvetica';
+  padding: 5px;
+}
+article.notification-card p {
+    overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   word-wrap: break-word;
+   font-size: .675rem !important;
+   -webkit-line-clamp: 2; /* number of lines to show */
+   -webkit-box-orient: vertical;
+}
+article.notification-card:hover,
+article.notification-card:focus {
+  background-color: rgba(0,166,194,.03);
+    border-color: #b2e4ec;
+}
+.notification-body{
+    max-height: 350px;
+    width: auto;
+    max-width: max-content;
+    overflow-y:auto;
+}
+.notification-description{
+  grid-area: 3 / 2 / 3 / 2;
+  align-self: center;
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 0;
+  margin-top: 0;
+  height: 100%;
+  padding: 0 24px;
+    overflow: hidden;
+   text-overflow: ellipsis;
+   -webkit-line-clamp: 3;
+}
