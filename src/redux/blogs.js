@@ -54,6 +54,9 @@ import {
   REDIRECT_SUCCESS,
   REDIRECT_FAILURE,
   CLEAR_REDIRECT,
+  FETCH_DASHBOARD_DATA_REQUEST,
+  FETCH_DASHBOARD_DATA_SUCCESS,
+  FETCH_DASHBOARD_DATA_FAILURE
 } from "../reducers/types";
 import { auth, db, firestoreDb, storage, analytics, blogCollection, userRef, blogDoc, blogReviewDoc, notificationById, commentsRef, commentsDocRef, usernameRef, blogFilesUploadPath, fileRef, usermetadata, categories } from "../Firebase/firebase";
 import {
@@ -1792,3 +1795,4 @@ export const getBlogsToDashboard = () => {
 
   };
 };
+ 

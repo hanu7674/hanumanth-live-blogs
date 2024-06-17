@@ -44,11 +44,23 @@ const INITIAL_STATE = {
   lastVisible: null,
   dashboardTags: {},
   categories: [],
+  websiteTraffic: {},
+  blogPerformance: {},
+  userEngagement: {},
+  salesAndConversions: {},
+  loading: false,
+  error: null
 }
 
 
 function blogReducer(state = INITIAL_STATE, action) {
     switch (action.type) {
+        case 'FETCH_BLOGS_DASHBOARD_DATA_TRAFFIC_SUMMARY_SUCCESS': 
+        return{
+          ...state,
+          loading: false,
+          blogsTraffic: action.payload
+        }
         case 'GET_BLOGS_TO_DASHBOARD_REQUEST':
       return {
         ...state,

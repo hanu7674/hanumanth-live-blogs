@@ -79,6 +79,7 @@ const Dashboard = ({ user, fetchDashboardDataStartAsync, fetchTopPages, getViewC
                 title="Top Cities by % of traffic"
                 data={viewCountByCity && viewCountByCity?.map((item) => item.count)}
                 type="donut"
+                height={500}
                 labels={viewCountByCity && viewCountByCity?.map((item) => item.city)}
               />
               }

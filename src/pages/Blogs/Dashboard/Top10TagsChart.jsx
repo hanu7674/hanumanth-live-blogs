@@ -129,8 +129,7 @@ const Top10TagsBarChart = ({ tags, loading }) => {
           <ReactApexChart options={options} series={series} type="bar" height={350} />
         )}
       </div>
-      <div id="html-dist"></div>
-    </Panel>
+     </Panel>
   );
 };
 

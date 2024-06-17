@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { ApexChart, Badge, Card, Row, Col } from "rsuite";
-import { fetchDashboardData } from "../redux/actions/dashboardActions";
+import { fetchDashboardData } from "../../../redux/blogs";
 
-const Dashboard = () => {
+const Dashboard1 = () => {
   const dispatch = useDispatch();
   const { dashboardData } = useSelector((state) => state.dashboard);
 
@@ -351,4 +351,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Dashboard1;

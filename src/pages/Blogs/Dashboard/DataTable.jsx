@@ -7,7 +7,7 @@ import SearchIcon from '@rsuite/icons/Search';
 import { connect } from 'react-redux';
 import { getTopPagesByViewCount } from '../../../redux/dashboard';
  const { Column, HeaderCell, Cell } = Table;
-export const DataTable = (data) => {
+export const DataTable = ({visitorsData}) => {
   const [sortColumn, setSortColumn] = useState();
   const [sortType, setSortType] = useState();
   const [limit, setLimit] = React.useState(10);
@@ -15,8 +15,7 @@ export const DataTable = (data) => {
   const [tableLoading, setTableLoading] = useState(false);
   const [searchInputValue, setSearchInputValue] = useState('');
   const [tableData, setTableData] = useState([]);
-  const {error, loading, visitorsData} = data;  
-
+  const [blogsVisitorsData, setBlogsVisitorsData] = useState([]);
   const handleSortColumn = (sortColumn, sortType) => {
     setTableLoading(true);
     setTimeout(() => {
@@ -54,18 +53,18 @@ export const DataTable = (data) => {
     setPage(1);
     setLimit(dataKey);
   };
-  useEffect(() => {
-      setTableLoading(loading)
-  },[loading])
+ 
   useEffect(() => {
     setTableLoading(true);
-    setTableData(visitorsData || []);
+    const filteredData = visitorsData?.filter(data => data.pagePath?.includes('/blogs'));
+    setTableData(filteredData || []);
+    setBlogsVisitorsData(filteredData)
     setTableLoading(false);
-  }, [data, limit]);
+  }, [visitorsData, limit]);
   const handleInputChange = (e) => {
     if (e?.length > 0) {
       setTableLoading(true);
-      const List = [...visitorsData];
+      const List = [...blogsVisitorsData];
       const filteredData = List?.filter((cert) =>
         cert?.pagePath?.toLowerCase().includes(e?.toLowerCase())
        );
@@ -74,14 +73,14 @@ export const DataTable = (data) => {
         setTableLoading(false);
       }, 500);
     } else {
-      setTableData(visitorsData);
+      setTableData(blogsVisitorsData);
     }
     setSearchInputValue(e);
   };
   const handleSearch = () => {
     if (searchInputValue?.length > 0) {
       setTableLoading(true);
-      const List = [...visitorsData];
+      const List = [...blogsVisitorsData];
       const filteredData = List?.filter((cert) =>
         cert?.pagePath?.toLowerCase().includes(searchInputValue?.toLowerCase())
        );
@@ -90,13 +89,13 @@ export const DataTable = (data) => {
         setTableLoading(false);
       }, 500);
     } else {
-      setTableData(visitorsData);
+      setTableData(blogsVisitorsData);
     }
   };
   return (
     <Panel className="card" header=
     {<> <FlexboxGrid justify='space-between'>
-      <FlexboxGrid.Item>Most Visited Pages (Overall)</FlexboxGrid.Item>
+      <FlexboxGrid.Item>Most Visited Blogs (Overall)</FlexboxGrid.Item>
       <FlexboxGrid.Item>
       <InputGroup inside style={{width: 300}}>
               <Input onChange={handleInputChange} value={searchInputValue} />
@@ -112,8 +111,9 @@ export const DataTable = (data) => {
                   bordered cellBordered
                   sortType={sortType}
                   onSortColumn={handleSortColumn}
+                  headerHeight={50}
                   >
-        <Column flexGrow={1} minWidth={100}>
+        <Column flexGrow={1} minWidth={100} sortable fullText>
           <HeaderCell>PAGE NAME </HeaderCell>
           <Cell>
           {(rowData) => (
@@ -125,16 +125,16 @@ export const DataTable = (data) => {
           )}
           </Cell>
         </Column>  
-      <Column width={150} sortable>
+      <Column width={100} sortable>
         <HeaderCell>PAGE VIEWS</HeaderCell>
         <Cell dataKey="pageViews" />
       </Column>
 
-      <Column width={150} sortable>
+      <Column width={100} sortable>
         <HeaderCell>UNIQUE VISITORS</HeaderCell>
         <Cell dataKey="uniqueVisitors" />
       </Column>
-      <Column width={150} sortable>
+      <Column width={100} sortable>
         <HeaderCell>BOUNCE RATE</HeaderCell>
         <Cell dataKey="bounceRate" />
       </Column>

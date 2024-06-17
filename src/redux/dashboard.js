@@ -319,6 +319,7 @@ export const fetchDashboardDataTrafficSummary = (options) => {
         return { option, documents };
       });
       const formattedData = {};
+      const blogData = {};
 
       data.forEach(({ option, documents }) => {
         documents.forEach((doc) => {
@@ -326,7 +327,6 @@ export const fetchDashboardDataTrafficSummary = (options) => {
           const date = path.split('/')[1];
           const pageId = doc.id;
           const count = doc.count;
-
           if (!formattedData[date]) {
             formattedData[date] = {};
           }
@@ -351,7 +351,7 @@ export const fetchDashboardDataTrafficSummary = (options) => {
       });
       // Dispatch an action with the formatted data
       dispatch({ type: 'FETCH_DASHBOARD_DATA_TRAFFIC_SUMMARY_SUCCESS', payload: formattedData });
-    } catch (error) {
+     } catch (error) {
       console.error("Error fetching bar chart data: ", error);
       // Dispatch an action with the error
       dispatch({ type: 'FETCH_DASHBOARD_DATA_TRAFFIC_SUMMARY_FAILURE', payload: error });

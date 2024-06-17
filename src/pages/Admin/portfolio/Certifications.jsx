@@ -892,8 +892,8 @@ const CertificationList = ({ certificationList , certificationListLoading}) => {
   const handleInputChange = (e) => {
     if (e?.length > 0) {
       setTableLoading(true);
-      const certificationListList = [...certificationList];
-      const filteredData = certificationListList?.filter((cert) =>
+      const certificationList = [...certificationList];
+      const filteredData = certificationList?.filter((cert) =>
         cert?.title?.toLowerCase().includes(e?.toLowerCase()) ||
         cert?.issuer?.toLowerCase().includes(e?.toLowerCase())
       );
@@ -909,8 +909,8 @@ const CertificationList = ({ certificationList , certificationListLoading}) => {
   const handleSearch = () => {
     if (searchInputValue?.length > 0) {
       setTableLoading(true);
-      const certificationListList = [...certificationList];
-      const filteredData = certificationListList?.filter((cert) =>
+      const certificationList = [...certificationList];
+      const filteredData = certificationList?.filter((cert) =>
         cert?.title?.toLowerCase().includes(searchInputValue?.toLowerCase()) ||
         cert?.issuer?.toLowerCase().includes(searchInputValue?.toLowerCase())
       );
@@ -986,6 +986,7 @@ const CertificationList = ({ certificationList , certificationListLoading}) => {
             bordered cellBordered
             sortType={sortType}
             onSortColumn={handleSortColumn}
+            loadAnimation
             loading={tableLoading}>
             <Column width={50} align="center" fixed>
               <HeaderCell>#</HeaderCell>
