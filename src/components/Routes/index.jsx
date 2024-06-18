@@ -62,6 +62,7 @@ import BlogDetails from '../../pages/Blogs/Detail';
 import UserProfile from '../../pages/Blogs/profile';
 import BlogsAdminDashboard from "../../pages/Blogs/Dashboard";
 import Categories from "../../pages/Blogs/Categories";
+import BlogsListPage from "../../pages/Blogs/List";
 import BlogsRoute from "../../pages/Blogs/BlogsHeader";
 import CategoryBlog from "../../pages/Blogs/CategoryBlog";
 import TagBlog from "../../pages/Blogs/TagBlog";
@@ -103,6 +104,7 @@ export const AppHome = () => {
             <Route path="tags/:tag" element={<TagBlog />}></Route>
             <Route path="dashboard" element={<BlogsAdminDashboard />}></Route>
             <Route path="view-blogs" element={<BlogsRoute />}></Route>
+            <Route path="list" element={<BlogsListPage />}></Route>
           </Route>
           <Route path="portfolio" >
             <Route index element={<Portfolio />} ></Route>

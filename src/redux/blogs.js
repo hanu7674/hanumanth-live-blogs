@@ -56,7 +56,10 @@ import {
   CLEAR_REDIRECT,
   FETCH_DASHBOARD_DATA_REQUEST,
   FETCH_DASHBOARD_DATA_SUCCESS,
-  FETCH_DASHBOARD_DATA_FAILURE
+  FETCH_DASHBOARD_DATA_FAILURE,
+  GET_TOTAL_BLOGS_LIST_REQUEST,
+  GET_TOTAL_BLOGS_LIST_FAILURE,
+  GET_TOTAL_BLOGS_LIST_SUCCESS,
 } from "../reducers/types";
 import { auth, db, firestoreDb, storage, analytics, blogCollection, userRef, blogDoc, blogReviewDoc, notificationById, commentsRef, commentsDocRef, usernameRef, blogFilesUploadPath, fileRef, usermetadata, categories } from "../Firebase/firebase";
 import {
@@ -129,6 +132,23 @@ export const totalBlogsSuccess = (list, tags, count) => {
   return {
     type: GET_TOTAL_BLOGS_SUCCESS,
     payload: { list, tags, count },
+  };
+};
+export const totalBlogsListRequest = () => {
+  return {
+    type: GET_TOTAL_BLOGS_LIST_REQUEST,
+  };
+};
+export const totalBlogsListFailure = (error) => {
+  return {
+    type: GET_TOTAL_BLOGS_LIST_FAILURE,
+    payload: error,
+  };
+};
+export const totalBlogsListSuccess = (list) => {
+  return {
+    type: GET_TOTAL_BLOGS_LIST_SUCCESS,
+    payload: list,
   };
 };
 export const totalSentToReviewBlogsRequest = () => {
@@ -552,6 +572,29 @@ export const getTotalBlogs = () => {
     return () => unsubscribe();
   };
 };
+export const getBlogsList = () => {
+  let unsubscribe;
+  return (dispatch) => {
+    dispatch(totalBlogsListRequest());
+    const ref = collection(firestoreDb, "blogs");
+    const q = query(ref);
+    unsubscribe = onSnapshot(q, async (snapshot) => {
+      let list = [];
+      const promises = snapshot.docs.map(async (doc) => {
+        const blogData = doc.data();
+        const userDataRef = await getDoc(blogData.postedBy);
+        const userData = userDataRef.data();
+         return { id: doc.id, ...blogData, postedBy: userData  }; 
+      });
+      list = await Promise.all(promises);
+      dispatch(totalBlogsListSuccess(list));
+    }, (error) => {
+      dispatch(totalBlogsListFailure(error));
+      dispatch(notify({ message: `${error?.message}`, status: "warning" }));
+    });
+    return () => unsubscribe();
+  };
+};
 
 export const getBlogs = () => {
   return async (dispatch) => {
@@ -877,15 +920,7 @@ export const editBlog = (id, blog) => {
   return (dispatch, getState) => {
     const blogDetails = {
       ...blog,
-      lastUpdatedBy: {
-        firstName: getState().authState?.user?.firstName,
-        lastName: getState().authState?.user?.lastName,
-        email: getState().authState?.user?.email,
-        photoURL: getState().authState?.user?.photoURL,
-        uid: getState().authState?.user?.id,
-        phone: getState().authState?.user?.phoneNumber,
-        timestamps: Timestamp.now(),
-      },
+      lastUpdatedBy: usermetadata(auth.currentUser.uid),
     };
     dispatch(editBlogRequest());
     updateDoc(blogDoc(id), blogDetails)
@@ -897,11 +932,7 @@ export const editBlog = (id, blog) => {
           })
         );
         dispatch(editBlogSuccess(data));
-        dispatch(redirectRequest());
-        dispatch(
-          redirectSuccess({ location: `/blog/view/${id}`, state: data?.id })
-        );
-        dispatch(redirectReset());
+        
       })
       .catch((error) => {
         dispatch(notify({ message: `${error?.message}`, status: "warning" }));

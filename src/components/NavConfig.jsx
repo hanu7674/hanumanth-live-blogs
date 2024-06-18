@@ -16,6 +16,7 @@ import { GrProjects } from 'react-icons/gr';
 import { MdOutlineWorkHistory } from "react-icons/md";
 import { TbCertificate } from "react-icons/tb";
 import { PiCertificate } from "react-icons/pi";
+import { LiaBlogSolid } from "react-icons/lia";
 export const appNavs = [
   {
     eventKey: 'portfolio',
@@ -202,7 +203,13 @@ export const appNavs = [
         to: 'blogs/dashboard'
       },
       {
-        eventKey: 'blogs-list',
+        eventKey: 'view-blogs-list',
+        title: 'View Blogs List',
+        icon: <Icon as={LiaBlogSolid}/>,
+        to: 'blogs/list'
+      },
+      {
+        eventKey: 'view-blogs',
         title: 'View Blogs',
         icon: <Icon as={MdFormatListBulleted}/>,
         to: 'blogs'

@@ -21,32 +21,13 @@ const BlogSection = ({
   const location = useLocation();
   const user = useSelector((state) => state.auth.user);
   const blogContent = parse(content);
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => {
-    setOpen(true);
-  }
-  const handleClose = () => setOpen(false);
-  const dispatch = useDispatch();
-  const handleDelete = () => {
-    dispatch(deleteBlog(id))
-  }
+ 
+  
   return (
     <>
       <Panel shaded className=" blog-section" data-aos="fade-up">
         <div >
-          <Modal backdrop="static" role="alertdialog" open={open} onClose={handleClose} size="xs"
-            data-aos="fade-up"
-          >
-
-            <Modal.Body>
-              <RemindIcon style={{ color: '#ffb300', fontSize: 24 }} />Are you sure want to delete
-            </Modal.Body>
-            <Modal.Footer>
-              <div>
-                <Button appearance="primary" onClick={handleDelete}>Confirm</Button>
-                <Button appearance="subtle" onClick={handleClose}>Cancel</Button>
-              </div></Modal.Footer>
-          </Modal>
+           
           <div key={id} >
             <Row>
               <Col md={8} sm={24} xs={24}>
@@ -74,25 +55,8 @@ const BlogSection = ({
                 <Link to={`${location.pathname}/view/${id}`}>
                   <button className="btn btn-read">Read More</button>
                 </Link>
-                {((user?.id && postedBy?.uid === user?.id) || (user?.roles?.["ADMIN"])) && (
-                  <div style={{ float: "right" }}>
-
-                    <FaTrash
-                      name="trash"
-                      className="fa-trash"
-                      style={{ margin: "10px", cursor: "pointer" }}
-                      onClick={handleOpen}
-                    />
-                    <Link to={`${location.pathname}/edit/${id}`}>
-                      <FaEdit
-                        className="fa-edit"
-                        name="edit"
-                        size={15}
-                        style={{ margin: "10px", cursor: "pointer" }}
-                      />
-                    </Link>
-                  </div>
-                )}
+                
+                
               </Col>
             </Row>
 
