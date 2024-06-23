@@ -12,7 +12,7 @@ class ExperienceCard extends Component {
         data-aos="zoom-in-up"
       >
         <div className="experience-card-logo-div">
-          <img
+          <img loading="lazy" 
             className="experience-card-logo"
             src={experience.imageUrl}
             alt={experience.company}

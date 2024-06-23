@@ -184,7 +184,7 @@ export const fetchDashboardDataOnVisitsPages = () => {
       snapshot.docs.map((doc) => {
         data.push({
           routeComponent: doc.id,
-          ...doc.data()
+          ...doc.data() 
         })
       });
       dispatch({ type: 'FETCH_VISITORS_PAGE_DATA_SUCCESS', payload: data });

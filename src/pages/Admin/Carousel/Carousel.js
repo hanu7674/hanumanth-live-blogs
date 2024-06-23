@@ -367,11 +367,11 @@ const CarouselComponent = () => {
               style={ carouselSettings}
               {...carouselSettings}
             > 
-                       <img src="https://via.placeholder.com/600.png"  />
-    <img src="https://via.placeholder.com/600.png"   />
-    <img src="https://via.placeholder.com/600.png"   />
-    <img src="https://via.placeholder.com/600.png"  />
-    <img src="https://via.placeholder.com/600.png"  /> 
+                       <img loading="lazy"  src="https://via.placeholder.com/600.png"  />
+    <img loading="lazy"  src="https://via.placeholder.com/600.png"   />
+    <img loading="lazy"  src="https://via.placeholder.com/600.png"   />
+    <img loading="lazy"  src="https://via.placeholder.com/600.png"  />
+    <img loading="lazy"  src="https://via.placeholder.com/600.png"  /> 
             </AwesomeSlider>
           </Col>
           <Col md={12} sm={24} xs={24} lg={9} xl={9} >

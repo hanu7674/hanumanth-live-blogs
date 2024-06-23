@@ -33,7 +33,7 @@ const BlogSection = ({
               <Col md={8} sm={24} xs={24}>
                 <div className="hover-blogs-img">
                   <div className="blogs-img">
-                    <img src={imageUrl} alt={title} />
+                    <img loading="lazy"  src={imageUrl} alt={title} />
 
                   </div>
                 </div>

@@ -326,7 +326,7 @@ const CarouselCard = ({ data, deleteCarouselItem, editCarouselItem  }) => {
           
         </div>
       ) : (
-        <img
+        <img loading="lazy" 
           src={imageUrl}
           alt={title}
           style={{ width: '100%', height: '200px', objectFit: 'cover' }}

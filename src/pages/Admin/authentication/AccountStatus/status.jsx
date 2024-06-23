@@ -39,7 +39,7 @@ const handleLogout = () => {
         <UserStatusError>
         <>
         <h1 className="error-page-code">{status?.type}</h1>
-          <p className="error-page-title">{status?.title}</p>
+      <p className="error-page-title">{status?.title}</p>
           <p className="error-page-subtitle text-muted ">{status?.message}</p>
           <Drawer size='full' placement='right' open={showError} onClose={() => setShowError(false)}>
         <Drawer.Header>

@@ -37,7 +37,7 @@ const Trending = () => {
           <div className="item  " key={item.id}>
             <Link to={`${location.pathname}/view/${item?.id}`}>
               <div className="trending-img-position">
-              <img
+              <img loading="lazy" 
                     src={item?.imageUrl}
                     alt={item?.title}
                     className="trending-img-relative"

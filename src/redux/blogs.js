@@ -60,6 +60,30 @@ import {
   GET_TOTAL_BLOGS_LIST_REQUEST,
   GET_TOTAL_BLOGS_LIST_FAILURE,
   GET_TOTAL_BLOGS_LIST_SUCCESS,
+  FETCH_POSTED_BLOGS_REQUEST,
+  FETCH_POSTED_BLOGS_SUCCESS,
+  FETCH_POSTED_BLOGS_FAILURE,
+  FETCH_APPROVED_BLOGS_REQUEST,
+  FETCH_APPROVED_BLOGS_SUCCESS,
+  FETCH_APPROVED_BLOGS_FAILURE,
+  FETCH_REJECTED_BLOGS_REQUEST,
+  FETCH_REJECTED_BLOGS_SUCCESS,
+  FETCH_REJECTED_BLOGS_FAILURE,
+  FETCH_DELETED_BLOGS_REQUEST,
+  FETCH_DELETED_BLOGS_SUCCESS,
+  FETCH_DELETED_BLOGS_FAILURE,
+  APPROVE_BLOG_REQUEST,
+  APPROVE_BLOG_SUCCESS,
+  APPROVE_BLOG_FAILURE,
+  REJECT_BLOG_REQUEST,
+  REJECT_BLOG_SUCCESS,
+  REJECT_BLOG_FAILURE,
+  RESTORE_BLOG_REQUEST,
+  RESTORE_BLOG_SUCCESS,
+  RESTORE_BLOG_FAILURE,
+  PERMANENTLY_REMOVE_BLOG_REQUEST,
+  PERMANENTLY_REMOVE_BLOG_SUCCESS,
+  PERMANENTLY_REMOVE_BLOG_FAILURE,
 } from "../reducers/types";
 import { auth, db, firestoreDb, storage, analytics, blogCollection, userRef, blogDoc, blogReviewDoc, notificationById, commentsRef, commentsDocRef, usernameRef, blogFilesUploadPath, fileRef, usermetadata, categories } from "../Firebase/firebase";
 import {
@@ -572,12 +596,12 @@ export const getTotalBlogs = () => {
     return () => unsubscribe();
   };
 };
-export const getBlogsList = () => {
+export const getApprovedBlogsList1 = () => {
   let unsubscribe;
   return (dispatch) => {
     dispatch(totalBlogsListRequest());
     const ref = collection(firestoreDb, "blogs");
-    const q = query(ref);
+    const q = query(ref, where("deleted", "==", false), where("approved", "==", true));
     unsubscribe = onSnapshot(q, async (snapshot) => {
       let list = [];
       const promises = snapshot.docs.map(async (doc) => {
@@ -595,7 +619,61 @@ export const getBlogsList = () => {
     return () => unsubscribe();
   };
 };
+const fetchBlogsList = (requestType, successType, failureType, queryConstraints) => {
+  return (dispatch) => {
+    dispatch({ type: requestType });
+    const ref = collection(firestoreDb, "blogs");
+    const q = query(ref, ...queryConstraints);
+    const unsubscribe = onSnapshot(q, async (snapshot) => {
+      let list = [];
+      const promises = snapshot.docs.map(async (doc) => {
+        const blogData = doc.data();
+        const userDataRef = await getDoc(blogData.postedBy);
+        const userData = userDataRef.data();
 
+        const likes = blogData.likes ? blogData.likes.map(likeRef => ({
+          id: likeRef.id,
+          path: likeRef.path
+        })) : [];
+
+        return { id: doc.id, ...blogData, postedBy: userData, likes };
+      });
+      list = await Promise.all(promises);
+      dispatch({ type: successType, payload: list });
+    }, (error) => {
+      dispatch({ type: failureType, payload: error });
+      dispatch(notify({ message: `${error?.message}`, status: "warning" }));
+    });
+    return () => unsubscribe();
+  };
+};
+export const getPostedBlogsList = () => fetchBlogsList(
+  FETCH_POSTED_BLOGS_REQUEST,
+  FETCH_POSTED_BLOGS_SUCCESS,
+  FETCH_POSTED_BLOGS_FAILURE,
+  [where("deleted", "==", false), where("approved", "==", false)]
+);
+
+export const getApprovedBlogsList = () => fetchBlogsList(
+  FETCH_APPROVED_BLOGS_REQUEST,
+  FETCH_APPROVED_BLOGS_SUCCESS,
+  FETCH_APPROVED_BLOGS_FAILURE,
+  [where("deleted", "==", false), where("approved", "==", true)]
+);
+
+export const getRejectedBlogsList = () => fetchBlogsList(
+  FETCH_REJECTED_BLOGS_REQUEST,
+  FETCH_REJECTED_BLOGS_SUCCESS,
+  FETCH_REJECTED_BLOGS_FAILURE,
+  [where("deleted", "==", false), where("approved", "==", false), where("rejected", "==", true)]
+);
+
+export const getDeletedBlogsList = () => fetchBlogsList(
+  FETCH_DELETED_BLOGS_REQUEST,
+  FETCH_DELETED_BLOGS_SUCCESS,
+  FETCH_DELETED_BLOGS_FAILURE,
+  [where("deleted", "==", true)]
+);
 export const getBlogs = () => {
   return async (dispatch) => {
     try {
@@ -739,6 +817,7 @@ export const addBlog = (blog) => {
       ...blog,
       id: faker.string.uuid(),
       deleted: false,
+      approved: false,
       likes: [],
       comments: [],
       timestamp: Timestamp.now(),
@@ -846,53 +925,92 @@ export const sentBlogToReview = (blog) => {
       });
   };
 };
-export const approveBlog = (blog) => {
-  return (dispatch, getState) => {
-    batch.set(blogDoc(blog?.id), {
-      ...blog,
-      timestamp: Timestamp.now(),
-      approvedBy: {
-        firstName: getState().authState?.user?.firstName,
-        lastName: getState().authState?.user?.lastName,
-        email: getState().authState?.user?.email,
-        photoURL: getState().authState?.user?.photoURL,
-        uid: getState().authState?.user?.id,
-        phone: getState().authState?.user?.phoneNumber,
-        timestamps: Timestamp.now(),
-      },
-    });
-    batch.update(blogReviewDoc(blog?.id), {
-      deleted: true
-    });
-    batch.update(notificationById(blog?.id), {
-      read: true
-    });
-    batch.set(notificationById(faker.string.uuid()), {
-      shortDescription: `Congratulations, Your blog was approved!.`,
-      title: `Your blog has been approved!.`,
-      users: [blog?.postedBy?.uid],
-      toAll: false,
-      deleted: false,
-      toAllAdmins: false,
-      timestamp: Timestamp.now(),
-      approvedBy: {
-        firstName: getState().authState?.user?.firstName,
-        lastName: getState().authState?.user?.lastName,
-        email: getState().authState?.user?.email,
-        photoURL: getState().authState?.user?.photoURL,
-        uid: getState().authState?.user?.id,
-        phone: getState().authState?.user?.phoneNumber,
-        timestamps: Timestamp.now(),
-      },
-    });
-    batch.commit().then(() => {
-      dispatch(notify({ message: "Blog has been approved!.", status: "success" }));
-    })
-      .catch((error) => {
-        dispatch(notify({ message: `${error?.message}`, status: "error" }));
-      })
-  }
-}
+export const approveBlog = (blogId) => {
+  return async (dispatch) => {
+    dispatch({ type: APPROVE_BLOG_REQUEST });
+    const blogRef = blogDoc(blogId);
+    try {
+      await updateDoc(blogRef, {
+        approved: true,
+        approvedAt: Timestamp.now(),
+      });
+      dispatch({ type: APPROVE_BLOG_SUCCESS, payload: blogId });
+      dispatch(notify({ message: 'Blog approved successfully', status: 'success' }));
+    } catch (error) {
+      dispatch({ type: APPROVE_BLOG_FAILURE, payload: error });
+      dispatch(notify({ message: `${error?.message}`, status: 'error' }));
+    }
+  };
+};
+export const restoreBlog = (blogId) => {
+  return async (dispatch) => {
+    dispatch({ type: RESTORE_BLOG_REQUEST });
+    const blogRef = blogDoc(blogId);
+    try {
+      await updateDoc(blogRef, {
+        approved: false,
+        deleted: false,
+        rejected: false,
+        restoredAt: Timestamp.now(),
+      });
+      dispatch({ type: RESTORE_BLOG_SUCCESS, payload: blogId });
+      dispatch(notify({ message: 'Blog approved successfully', status: 'success' }));
+    } catch (error) {
+      dispatch({ type: RESTORE_BLOG_FAILURE, payload: error });
+      dispatch(notify({ message: `${error?.message}`, status: 'error' }));
+    }
+  };
+};
+export const permanentlyRemoveBlog = (blogId) => {
+  return async (dispatch) => {
+    dispatch({ type: PERMANENTLY_REMOVE_BLOG_REQUEST });
+    const blogRef = doc(firestoreDb, 'blogs', blogId);
+    try {
+      await deleteDoc(blogRef);
+      dispatch({ type: PERMANENTLY_REMOVE_BLOG_SUCCESS, payload: blogId });
+      dispatch(notify({ message: 'Blog permanently removed successfully', status: 'success' }));
+    } catch (error) {
+      dispatch({ type: PERMANENTLY_REMOVE_BLOG_FAILURE, payload: error });
+      dispatch(notify({ message: `${error?.message}`, status: 'error' }));
+    }
+  };
+};
+export const rejectBlog = (blogId) => {
+  return async (dispatch) => {
+    dispatch({ type: REJECT_BLOG_REQUEST });
+    const blogRef = blogDoc(blogId);
+    try {
+      await updateDoc(blogRef, {
+        approved: false,
+        rejected: true,
+        rejectedAt: Timestamp.now(),
+      });
+      dispatch({ type: REJECT_BLOG_SUCCESS, payload: blogId });
+      dispatch(notify({ message: 'Blog rejected successfully', status: 'success' }));
+    } catch (error) {
+      dispatch({ type: REJECT_BLOG_FAILURE, payload: error });
+      dispatch(notify({ message: `${error?.message}`, status: 'error' }));
+    }
+  };
+};
+
+export const deleteBlog = (blogId) => {
+  return async (dispatch) => {
+    dispatch({ type: DELETE_BLOG_REQUEST });
+    const blogRef = blogDoc(blogId);
+    try {
+      await updateDoc(blogRef, {
+        deleted: true,
+        approved: false,
+      });
+      dispatch({ type: DELETE_BLOG_SUCCESS, payload: blogId });
+      dispatch(notify({ message: 'Blog deleted successfully', status: 'success' }));
+    } catch (error) {
+      dispatch({ type: DELETE_BLOG_FAILURE, payload: error });
+      dispatch(notify({ message: `${error?.message}`, status: 'error' }));
+    }
+  };
+};
 export const getSentBlogsToReview = () => {
   let unsubscribe;
   return (dispatch) => {
@@ -940,29 +1058,7 @@ export const editBlog = (id, blog) => {
       });
   };
 };
-export const deleteBlog = (id) => {
-  return (dispatch, getState) => {
-    dispatch(deleteBlogRequest());
-    updateDoc(blogDoc(id), { deleted: true })
-      .then(() => {
-        dispatch(deleteBlogSuccess(id));
-
-        dispatch(
-          notify({
-            message: "Blog was deleted successfully.",
-            status: "success",
-          })
-        );
-      })
-      .catch((error) => {
-        dispatch(notify({ message: `${error?.message}`, status: "warning" }));
-        dispatch(deleteBlogFailure(error));
-      });
-    dispatch(getTrendingBlogs());
-    dispatch(getTotalBlogs());
-    dispatch(getBlogs());
-  };
-};
+ 
 export const handleLike = (id) => {
   return async (dispatch, getState) => {
     const blogRef = blogDoc(id);
@@ -1494,10 +1590,9 @@ export const addCategories = (info) => {
     const category = {
       ...info,
       addedBy: usermetadata(auth.currentUser.uid),
-      timestamp: new Date(),
+timestamp: Timestamp.now(),
     }
-    console.log(category);
-    dispatch(addCategoryRequest())
+     dispatch(addCategoryRequest())
     const isCheck = (await getDoc(categories())).exists();
     if (!isCheck) {
       setDoc(categories(), { categories: arrayUnion({ ...category }) })

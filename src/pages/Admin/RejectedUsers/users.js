@@ -25,7 +25,7 @@ export const ImageCell = ({ rowData, dataKey, ...props }) => (
         display: 'inline-block'
       }}
     >
-      <img src={rowData[dataKey]} width="40" />
+      <img loading="lazy"  src={rowData[dataKey]} width="40" />
     </div>
   </Cell>
 );
@@ -43,7 +43,7 @@ const NameCell = ({ rowData, dataKey, ...props }) => {
       display: 'inline-block'
     }}
   >
-    <img src={rowData?.photoURL} width="40" alt={rowData?.displayName} />
+    <img loading="lazy"  src={rowData?.photoURL} width="40" alt={rowData?.displayName} />
   </div>
       <p>
         <b>Name:</b> {rowData?.firstName + ' ' + rowData?.lastName}

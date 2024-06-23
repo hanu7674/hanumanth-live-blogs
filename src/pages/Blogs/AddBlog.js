@@ -345,7 +345,7 @@ export const EditBlog = ({id}) => {
     if(id){
       dispatch(getBlogDetails(id))
     }
-}, [ ]);
+}, [id]);
 useEffect(() => {
   if(blogDetails){
       setFormValue({...blogDetails})  

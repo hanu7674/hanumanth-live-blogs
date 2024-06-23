@@ -17,7 +17,7 @@ const ContentPanel = ({ data, header, styles }) => {
       display: 'inline-block'
     }}
   >
-    <img src={data?.by?.photoURL} width="40" alt={data?.by?.displayName} />
+    <img loading="lazy"  src={data?.by?.photoURL} width="40" alt={data?.by?.displayName} />
   </div>
       <p>
         <b>Name:</b> {data?.by?.firstName + ' ' + data?.by?.lastName}

@@ -563,7 +563,7 @@ module.exports = function (webpackEnv) {
       ].filter(Boolean),
     },
     plugins: [
-      // Generates an `index.html` file with the <script> injected.
+      // Generates an `index.html` file with the <script defer > injected.
       new HtmlWebpackPlugin(
         Object.assign(
           {},

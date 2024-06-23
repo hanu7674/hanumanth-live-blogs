@@ -1,94 +1,104 @@
 import React, { lazy, useEffect } from "react";
-import HomePage from "../../pages/Home";
-import AboutPage from "../../pages/AboutUs";
-import ContactUsPage from "../../pages/contactUs";
-import LoginPage from "../../pages/Auth/Login";
-import SignUpPage from "../../pages/Auth/SignUp";
-import ForgotPassword from "../../pages/Auth/ForgotPassword";
-import Frame from "../../pages/Admin/Frame";
-import { appNavs, profileNavs, userAppNavs } from "../NavConfig";
-import MembersPage from "../../pages/Admin/tables/members";
-import VirtualizedTablePage from "../../pages/Admin/tables/virtualized";
-import DashBoardPage from "../../pages/Admin/dashboard";
-import FormBasicPage from "../../pages/Admin/forms/basic";
-import WizardFormPage from "../../pages/Admin/forms/wizard";
-import FormsPage from "../../pages/Admin/forms/forms";
-import SignInPage from "../../pages/Admin/authentication/sign-in";
-import Error403 from "../../pages/Admin/authentication/403";
-import Error404 from "../../pages/Admin/authentication/404";
-import Error500 from "../../pages/Admin/authentication/500";
-import Error503 from "../../pages/Admin/authentication/503";
-import SignUpPageAdmin from "../../pages/Admin/authentication/sign-up";
-import AppliedSignInPage from "../../pages/Admin/authentication/signin";
-import AppliedSignUpPage from "../../pages/Admin/authentication/signup";
-import PersonalInformationPage from "../../pages/Profile/Personal";
-import AccountSettingsPage from "../../pages/Profile/Account";
-import AdminFrame from "../../pages/Admin/AdminFrame";
-import UserPersonalInformationPage from "../../pages/Profile/UserPersonal";
-import UserAccountSettingsPage from "../../pages/Profile/UserAccount";
-import Error403Component from "../../pages/Admin/authentication/403/Error403";
-import AdminUsersForms from "../../pages/Admin/AdminUsers";
-import RegisteredUsers from "../../pages/Admin/RegisteredUsers";
-import RejectedUsers from "../../pages/Admin/RejectedUsers";
-import ApprovedUsers from "../../pages/Admin/ApprovedUsers";
-import ActiveUsers from "../../pages/Admin/ActiveUsers";
-import InActiveUsers from "../../pages/Admin/InActiveUsers";
-import InactiveUserPage from "../../pages/Auth/StatusPage";
 import { Route, Routes, useLocation } from "react-router-dom";
+import { appNavs, profileNavs, profileNavsUser } from "../NavConfig";
+import { useDispatch, useSelector } from "react-redux";
+import ProductionDown from "../../assets/ProductionDown";
+import MaintenanceMode from "../../assets/MaintenanceMode";
+import { fetchStatus } from "../../redux/auth";
+import ManageAppStatus from "../../pages/Admin/AppStatus";
 
-import AddTicketsComponentPage from "../../pages/Admin/Tickets/AddTickets";
-import ViewTicketsComponentPage from "../../pages/Admin/Tickets/ViewTickets";
-import TicketsDashboardPage from "../../pages/Admin/Tickets/Dashboard";
-import ViewTicketComponentPage from "../../pages/Admin/Tickets/ViewTicket";
-import UsersDashboardPage from '../../pages/Admin/users'
-import TestimonialFormPage from "../../pages/Admin/forms/Testimonials";
-import ReviewForm from "../../pages/Admin/forms/Reviews/form";
-import Reviews from "../../pages/Admin/forms/Reviews";
-import ReviewsListPage from "../../pages/Admin/Reviews/list/index";
-import TestimonialsListPage from "../../pages/Admin/Testimonials/list/index";
-import ReviewsDashboardPage from '../../pages/Admin/Reviews/dashboard/index';
-import TestimonialsDashboardPage from '../../pages/Admin/Testimonials/dashboard/index';
-import CalendarDashboardPage from '../../pages/Admin/Calendar/dashboard/index'
-import StaticHtml from "../../pages/Admin/static-html";
-import CalenderPage from "../../pages/Admin/Calendar";
-import TotalUsersList from "../../pages/Admin/Users-list";
-import Notifications from "../../pages/Admin/Notifications";
-import AdminCarouselComponent from "../../pages/Admin/Carousel";
-import FooterPage from "../../pages/Footer";
-import ViewCarouselItemsPage from "../../pages/Admin/Carousel/ViewCarouselItems";
-import AddBlog from '../../pages/Blogs/AddBlog';
-import BlogsHome from '../../pages/Blogs/index';
-import BlogDetails from '../../pages/Blogs/Detail';
-import UserProfile from '../../pages/Blogs/profile';
-import BlogsAdminDashboard from "../../pages/Blogs/Dashboard";
-import Categories from "../../pages/Blogs/Categories";
-import BlogsListPage from "../../pages/Blogs/List";
-import BlogsRoute from "../../pages/Blogs/BlogsHeader";
-import CategoryBlog from "../../pages/Blogs/CategoryBlog";
-import TagBlog from "../../pages/Blogs/TagBlog";
-import ConnectWithMe from "../../pages/Portfolio/Connect";
-// import Thankyou from "../../pages/Portfolio/Connect/thanks";
-import Education from "../../pages/Portfolio/Education";
-import Projects from "../../pages/Portfolio/Projects";
-import Experience from "../../pages/Portfolio/Experience";
-import OpenSource from "../../pages/Portfolio/OpenSource";
-import Contact from "../../pages/Portfolio/Contact";
-import Landing from "../../pages/Portfolio/Landing";
-import Portfolio from "../../pages/Admin/portfolio";
-import EducationPage from "../../pages/Admin/portfolio/Education";
-import ProjectsPage from "../../pages/Admin/portfolio/ProjectManagement";
-import ExperiencePage from "../../pages/Admin/portfolio/Experience";
-import Certifications from "../../pages/Admin/portfolio/Certifications";
+// Lazy load components
+const HomePage = lazy(() => import("../../pages/Home"));
+const AboutPage = lazy(() => import("../../pages/AboutUs"));
+const ContactUsPage = lazy(() => import("../../pages/contactUs"));
+const LoginPage = lazy(() => import("../../pages/Auth/Login"));
+const SignUpPage = lazy(() => import("../../pages/Auth/SignUp"));
+const ForgotPassword = lazy(() => import("../../pages/Auth/ForgotPassword"));
+const Frame = lazy(() => import("../../pages/Admin/Frame"));
+const MembersPage = lazy(() => import("../../pages/Admin/tables/members"));
+const VirtualizedTablePage = lazy(() => import("../../pages/Admin/tables/virtualized"));
+const DashBoardPage = lazy(() => import("../../pages/Admin/dashboard"));
+const FormBasicPage = lazy(() => import("../../pages/Admin/forms/basic"));
+const WizardFormPage = lazy(() => import("../../pages/Admin/forms/wizard"));
+const FormsPage = lazy(() => import("../../pages/Admin/forms/forms"));
+const SignInPage = lazy(() => import("../../pages/Admin/authentication/sign-in"));
+const Error403 = lazy(() => import("../../pages/Admin/authentication/403"));
+const Error404 = lazy(() => import("../../pages/Admin/authentication/404"));
+const Error500 = lazy(() => import("../../pages/Admin/authentication/500"));
+const Error503 = lazy(() => import("../../pages/Admin/authentication/503"));
+const SignUpPageAdmin = lazy(() => import("../../pages/Admin/authentication/sign-up"));
+const AppliedSignInPage = lazy(() => import("../../pages/Admin/authentication/signin"));
+const AppliedSignUpPage = lazy(() => import("../../pages/Admin/authentication/signup"));
+const PersonalInformationPage = lazy(() => import("../../pages/Profile/Personal"));
+const AccountSettingsPage = lazy(() => import("../../pages/Profile/Account"));
+const AdminFrame = lazy(() => import("../../pages/Admin/AdminFrame"));
+const UserPersonalInformationPage = lazy(() => import("../../pages/Profile/UserPersonal"));
+const UserAccountSettingsPage = lazy(() => import("../../pages/Profile/UserAccount"));
+const Error403Component = lazy(() => import("../../pages/Admin/authentication/403/Error403"));
+const AdminUsersForms = lazy(() => import("../../pages/Admin/AdminUsers"));
+const RegisteredUsers = lazy(() => import("../../pages/Admin/RegisteredUsers"));
+const RejectedUsers = lazy(() => import("../../pages/Admin/RejectedUsers"));
+const ApprovedUsers = lazy(() => import("../../pages/Admin/ApprovedUsers"));
+const ActiveUsers = lazy(() => import("../../pages/Admin/ActiveUsers"));
+const InActiveUsers = lazy(() => import("../../pages/Admin/InActiveUsers"));
+const InactiveUserPage = lazy(() => import("../../pages/Auth/StatusPage"));
+const AddTicketsComponentPage = lazy(() => import("../../pages/Admin/Tickets/AddTickets"));
+const ViewTicketsComponentPage = lazy(() => import("../../pages/Admin/Tickets/ViewTickets"));
+const TicketsDashboardPage = lazy(() => import("../../pages/Admin/Tickets/Dashboard"));
+const ViewTicketComponentPage = lazy(() => import("../../pages/Admin/Tickets/ViewTicket"));
+const UsersDashboardPage = lazy(() => import("../../pages/Admin/users"));
+const TestimonialFormPage = lazy(() => import("../../pages/Admin/forms/Testimonials"));
+const ReviewForm = lazy(() => import("../../pages/Admin/forms/Reviews/form"));
+const Reviews = lazy(() => import("../../pages/Admin/forms/Reviews"));
+const ReviewsListPage = lazy(() => import("../../pages/Admin/Reviews/list/index"));
+const TestimonialsListPage = lazy(() => import("../../pages/Admin/Testimonials/list/index"));
+const ReviewsDashboardPage = lazy(() => import("../../pages/Admin/Reviews/dashboard/index"));
+const TestimonialsDashboardPage = lazy(() => import("../../pages/Admin/Testimonials/dashboard/index"));
+const CalendarDashboardPage = lazy(() => import("../../pages/Admin/Calendar/dashboard/index"));
+ const CalenderPage = lazy(() => import("../../pages/Admin/Calendar"));
+const TotalUsersList = lazy(() => import("../../pages/Admin/Users-list"));
+const Notifications = lazy(() => import("../../pages/Admin/Notifications"));
+const AdminCarouselComponent = lazy(() => import("../../pages/Admin/Carousel"));
+const FooterPage = lazy(() => import("../../pages/Footer"));
+const ViewCarouselItemsPage = lazy(() => import("../../pages/Admin/Carousel/ViewCarouselItems"));
+const AddBlog = lazy(() => import('../../pages/Blogs/AddBlog'));
+const BlogsHome = lazy(() => import('../../pages/Blogs/index'));
+const BlogDetails = lazy(() => import('../../pages/Blogs/Detail'));
+const UserProfile = lazy(() => import('../../pages/Blogs/profile'));
+const BlogsAdminDashboard = lazy(() => import("../../pages/Blogs/Dashboard"));
+const Categories = lazy(() => import("../../pages/Blogs/Categories"));
+const ApprovedBlogsListPage = lazy(() => import("../../pages/Blogs/List/ApprovedBlogs"));
+const RejectedBlogsListPage = lazy(() => import("../../pages/Blogs/List/RejectedBlogs"));
+const DeletedBlogsListPage = lazy(() => import("../../pages/Blogs/List/DeletedBlogs"));
+const PostedBlogsListPage = lazy(() => import("../../pages/Blogs/List/PostedBlogs"));
+const BlogsRoute = lazy(() => import("../../pages/Blogs/BlogsHeader"));
+const CategoryBlog = lazy(() => import("../../pages/Blogs/CategoryBlog"));
+const TagBlog = lazy(() => import("../../pages/Blogs/TagBlog"));
+const ConnectWithMe = lazy(() => import("../../pages/Portfolio/Connect"));
+const Education = lazy(() => import("../../pages/Portfolio/Education"));
+const Projects = lazy(() => import("../../pages/Portfolio/Projects"));
+const Experience = lazy(() => import("../../pages/Portfolio/Experience"));
+const OpenSource = lazy(() => import("../../pages/Portfolio/OpenSource"));
+const Contact = lazy(() => import("../../pages/Portfolio/Contact"));
+const Landing = lazy(() => import("../../pages/Portfolio/Landing"));
+const Portfolio = lazy(() => import("../../pages/Admin/portfolio"));
+const EducationPage = lazy(() => import("../../pages/Admin/portfolio/Education"));
+const ProjectsPage = lazy(() => import("../../pages/Admin/portfolio/ProjectManagement"));
+const ExperiencePage = lazy(() => import("../../pages/Admin/portfolio/Experience"));
+const Certifications = lazy(() => import("../../pages/Admin/portfolio/Certifications"));
+
 export const AppHome = () => {
   const location = useLocation();
   const isBlogsHome = location.pathname.startsWith('/blogs');
   const isBlogsAdminHome = location.pathname.startsWith('/admin/blogs');
-
+ 
   const applyMargin = isBlogsHome && !isBlogsAdminHome;
+ 
    return (
     <>
     <div style={applyMargin ? { margin: "2% 12% 1% 12%" } : {}}>
       <Routes>
+ 
         <Route path="/user-inactive" element={<InactiveUserPage />} ></Route>
 
         <Route path='/admin' element={<AdminFrame navs={appNavs} role='admin' />}>
@@ -104,7 +114,10 @@ export const AppHome = () => {
             <Route path="tags/:tag" element={<TagBlog />}></Route>
             <Route path="dashboard" element={<BlogsAdminDashboard />}></Route>
             <Route path="view-blogs" element={<BlogsRoute />}></Route>
-            <Route path="list" element={<BlogsListPage />}></Route>
+            <Route path="approved-blogs-list" element={<ApprovedBlogsListPage />}></Route>
+            <Route path="rejected-blogs-list" element={<RejectedBlogsListPage />}></Route>
+            <Route path="posted-blogs-list" element={<PostedBlogsListPage />}></Route>
+            <Route path="deleted-blogs-list" element={<DeletedBlogsListPage />}></Route>
           </Route>
           <Route path="portfolio" >
             <Route index element={<Portfolio />} ></Route>
@@ -113,12 +126,12 @@ export const AppHome = () => {
             <Route path='experience' element={<ExperiencePage />} ></Route>
             <Route path='certifications' element={<Certifications />} ></Route>
           </Route>
-
+            {/* App Status */}
+            <Route path="app-status" element={<ManageAppStatus />}></Route>
 
 
           <Route path="notifications" element={<Notifications />}></Route>
-          <Route path="static/dashboard" element={<StaticHtml />}></Route>
-
+ 
           <Route path="traffic/dashboard" element={<DashBoardPage />}></Route>
           <Route path="calendar/Calendar" element={<CalenderPage />}></Route>
           <Route path="calendar/Dashboard" element={<CalendarDashboardPage />}></Route>
@@ -158,7 +171,7 @@ export const AppHome = () => {
           <Route path="carousel-management/view-items" element={<ViewCarouselItemsPage />} />
 
         </Route>
-        <Route path="/user" element={<Frame navs={profileNavs} />}>
+        <Route path="/user" element={<Frame navs={profileNavsUser} />}>
           <Route index element={<PersonalInformationPage />}></Route>
           <Route path="calendar" element={<CalenderPage />}></Route>
           <Route path="account-settings" element={<AccountSettingsPage />}></Route>

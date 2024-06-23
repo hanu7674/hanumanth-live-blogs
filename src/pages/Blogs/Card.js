@@ -19,7 +19,7 @@ const Card = ({ key, item, index }) => {
           onClick={() => navigate(`${location.pathname.split('/').slice(0, -1).join('/')}/${item.id}`)}
         >
           <Panel shaded bordered bodyFill style={{ display: 'inline-block', width: 240 }}>
-            <img height="240" src={item.imageUrl}
+            <img loading="lazy"  height="240" src={item.imageUrl}
               alt={item.title}
               style={{ fontFamily: 'Space Mono Regular' }} />
             <Panel header={

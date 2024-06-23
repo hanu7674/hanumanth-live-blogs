@@ -123,7 +123,7 @@
             }}
           >
 
-            <img src={rowData?.createdBy?.photoURL} width="40" alt={rowData?.createdBy?.displayName} />
+            <img loading="lazy"  src={rowData?.createdBy?.photoURL} width="40" alt={rowData?.createdBy?.displayName} />
           </div>
           <p>
             <b>Name:</b> {rowData?.createdBy?.fullName}

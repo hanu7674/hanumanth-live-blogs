@@ -46,9 +46,9 @@ const ProfilePage = () => {
             <Panel shaded bordered bodyFill style={{ display: 'inline-block', width: 140 }}>
         {
             profile.imgURL ? <>
-            <img src={profile.imgURL} height="140" /> 
+            <img loading="lazy"  src={profile.imgURL} height="140" /> 
             </> : 
-    <img src="https://via.placeholder.com/240x240" height="240" /> }
+    <img loading="lazy"  src="https://via.placeholder.com/240x240" height="240" /> }
     
   </Panel>  
   <Panel>

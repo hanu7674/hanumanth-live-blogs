@@ -140,7 +140,7 @@ const CertificationCard = ({getCertificationList, certificationListLoading, cert
                 className="cert-header"
                 style={{ backgroundColor: '#8C151599' }}
               >
-                <img
+                <img loading="lazy" 
                   className="logo_img"
                   src={certificate?.imageUrl}
                   alt={certificate.title}

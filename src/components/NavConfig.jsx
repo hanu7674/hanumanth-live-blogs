@@ -1,7 +1,7 @@
 import React from 'react';
 import { Icon } from '@rsuite/icons';
 import { VscTable, VscCalendar } from 'react-icons/vsc';
-import { MdFingerprint, MdDashboard, MdModeEditOutline, MdSettings, MdOutlineAdminPanelSettings, MdAddCircle, MdReviews, MdOutlineReviews, MdFormatListBulleted, MdViewCarousel, MdOutlineViewCarousel, MdDisplaySettings, MdAddCard } from 'react-icons/md';
+import { MdFingerprint, MdDashboard, MdModeEditOutline, MdSettings, MdOutlineAdminPanelSettings, MdAddCircle, MdReviews, MdOutlineReviews, MdFormatListBulleted, MdViewCarousel, MdOutlineViewCarousel, MdDisplaySettings, MdAddCard, MdOutlineSettingsApplications } from 'react-icons/md';
 import {BiCategory, BiSolidUser} from 'react-icons/bi';
 import {FaBlog, FaUsersRectangle} from 'react-icons/fa6';
 import { IoTicketOutline } from "react-icons/io5";
@@ -18,6 +18,12 @@ import { TbCertificate } from "react-icons/tb";
 import { PiCertificate } from "react-icons/pi";
 import { LiaBlogSolid } from "react-icons/lia";
 export const appNavs = [
+  {
+eventKey: 'appStatus',
+icon: <Icon as={MdOutlineSettingsApplications} />,
+title: 'App Status',
+to: 'app-status',
+  },
   {
     eventKey: 'portfolio',
     icon: <Icon as={ImProfile} />,
@@ -203,10 +209,28 @@ export const appNavs = [
         to: 'blogs/dashboard'
       },
       {
-        eventKey: 'view-blogs-list',
-        title: 'View Blogs List',
+        eventKey: 'view-posted-blogs-list',
+        title: 'View Posted Blogs',
         icon: <Icon as={LiaBlogSolid}/>,
-        to: 'blogs/list'
+        to: 'blogs/posted-blogs-list'
+      },
+      {
+        eventKey: 'view-approved-blogs-list',
+        title: 'View Approved Blogs',
+        icon: <Icon as={LiaBlogSolid}/>,
+        to: 'blogs/approved-blogs-list'
+      },
+      {
+        eventKey: 'view-rejected-blogs-list',
+        title: 'View Rejected Blogs',
+        icon: <Icon as={LiaBlogSolid}/>,
+        to: 'blogs/rejected-blogs-list'
+      },
+      {
+        eventKey: 'view-deleted-blogs-list',
+        title: 'View Deleted Blogs',
+        icon: <Icon as={LiaBlogSolid}/>,
+        to: 'blogs/deleted-blogs-list'
       },
       {
         eventKey: 'view-blogs',
@@ -226,16 +250,12 @@ export const appNavs = [
         icon: <Icon as={BiCategory}/>,
         to: 'blogs/categories'
       },
+       
 
     ]
   },
    
-  {
-    eventKey: 'static-template',
-    icon: <Icon as={HiTemplate} />,
-    title: 'Static Template with Bootstrap',
-    to: 'static/dashboard',
-  },
+   
   {
     eventKey: 'reviews',
     icon: <Icon as={MdReviews} />,
@@ -406,6 +426,42 @@ export const appNavs = [
 
 ];
 export const profileNavs = [
+  // {
+  //   eventKey: 'calendar',
+  //   icon: <Icon as={VscCalendar} />,
+  //   title: 'Calendar',
+  //   to: 'calendar',
+  // },
+  {
+    eventKey: 'profile',
+    title: 'Profile',
+    icon: <Icon as={BiSolidUser} />,
+    children: [
+      {
+        eventKey: 'personalInformation',
+        icon: <Icon as={BiSolidUser} />,
+        title: 'Personal Information',
+        to: 'personal-information'
+      },
+      {
+        eventKey: 'accountSettings',
+        icon: <Icon as={MdSettings} />,
+        title: 'Account Settings',
+        to: 'account-settings'
+      }
+      
+    ]
+  },
+  
+  // {
+  //   eventKey: 'messages',
+  //   icon: <Icon as={BiSolidMessageSquareDetail} />,
+  //   title: 'Messages',
+  //   to: 'messages'
+  // },
+
+]
+export const profileNavsUser = [
   {
     eventKey: 'calendar',
     icon: <Icon as={VscCalendar} />,

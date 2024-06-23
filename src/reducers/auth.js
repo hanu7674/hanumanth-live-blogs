@@ -48,7 +48,11 @@ import * as types from './types';
   projectsList: [],
   certifications: [],
   certificationsLoading: false,
-  certificationsError: null
+  certificationsError: null,
+status: null,
+appStatusLoading: false,
+appStatusError: null,
+appStatus: '',
   };
   
   export const authReducer = (state = initialState, action) => {
@@ -56,6 +60,24 @@ import * as types from './types';
   
 
     switch (type) {
+case types.FETCH_STATUS_REQUEST:
+      return {
+        ...state,
+    appStatusLoading: true,
+    appStatusError: null,
+      };
+case types.FETCH_STATUS_SUCCESS:
+      return {
+        ...state,
+appStatus: action.payload,
+appStatusLoading: false,
+      };
+case types.FETCH_STATUS_FAILURE:
+      return {
+        ...state,
+appStatusLoading: false,
+    appStatusError: action.payload,
+      };
       case types.GET_CERTIFICATION_LIST_REQUEST:
         return {
           ...state,

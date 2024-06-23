@@ -56,7 +56,7 @@ export const DataTable = ({visitorsData}) => {
  
   useEffect(() => {
     setTableLoading(true);
-    const filteredData = visitorsData?.filter(data => data.pagePath?.includes('/blogs'));
+    const filteredData = visitorsData?.filter(data => data?.pagePath?.includes('/blogs'));
     setTableData(filteredData || []);
     setBlogsVisitorsData(filteredData)
     setTableLoading(false);

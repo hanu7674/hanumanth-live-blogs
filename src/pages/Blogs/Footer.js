@@ -85,7 +85,7 @@ const BlogFooter = () => {
   <div className="blog-footer-hr"></div>
  <div className="footer-box">
  <div className='m-5 text-center'>
-            <img style={{height: "64px", width: "300px"}} src={Logo}/>
+            <img loading="lazy"  style={{height: "64px", width: "300px"}} src={Logo}/>
             <div></div>
 </div>
 <div><h3 className="text-center text-secondary text-gradient">Subscribe to blogs</h3>

@@ -75,7 +75,7 @@ const Projects = ({ projectList, getProjectList, getProjectListLoading }) => {
                 <Col md={7} sm={24} key={project.id} data-aos="zoom-in">
                   <Panel  shaded bordered bodyFill >
                     {
-                      project.imageUrl ? <img src={project.imageUrl} alt={project.title} style={{  objectFit: 'cover', height: 240 }} /> :
+                      project.imageUrl ? <img loading="lazy"  src={project.imageUrl} alt={project.title} style={{  objectFit: 'cover', height: 240 }} /> :
                         <div>
                           <Lottie
                             options={defaultOptions1}

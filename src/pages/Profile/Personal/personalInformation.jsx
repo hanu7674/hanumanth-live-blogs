@@ -112,7 +112,8 @@ const PersonalInformation = ({ updateAccountDetails, user, profileUrl, progress,
     useEffect(() => {
         if (progress === 100 && profileUrl) {
             setUploading(false);
-            setPersonalFormValues({ ...personalFormValues, photoURL: profileUrl })
+            setPersonalFormValues({ ...personalFormValues, photoURL: profileUrl });
+            setEditProfileImage(false);
         }
     }, [profileUrl])
 
@@ -139,7 +140,7 @@ const PersonalInformation = ({ updateAccountDetails, user, profileUrl, progress,
                                         <Stack.Item>
                                             {
                                                 editProfileImage ? <><Uploader
-                                                    action=""
+                                                     
                                                     fileListVisible={false}
                                                     listType="picture"
                                                     onUpload={(file) => {
@@ -151,7 +152,7 @@ const PersonalInformation = ({ updateAccountDetails, user, profileUrl, progress,
                                                     <button style={{ width: 119, height: 119, borderRadius: '50%' }} >
                                                         {uploading && <Loader backdrop center />}
                                                         {fileInfo ? (
-                                                            <img src={fileInfo} width="100%" height="100%" />
+                                                            <img loading="lazy"  src={fileInfo} width="100%" height="100%" />
                                                         ) : (
                                                             <FaUser size={80} />
                                                         )}
@@ -176,7 +177,7 @@ const PersonalInformation = ({ updateAccountDetails, user, profileUrl, progress,
                                                     }}>
                                                         {
                                                             user?.photoURL ? (
-                                                                <img
+                                                                <img loading="lazy" 
                                                                     src={user.photoURL}
                                                                     alt="User Avatar"
                                                                     style={{

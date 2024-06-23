@@ -24,7 +24,7 @@ function NotificationCard({notification, index}) {
 		// 	<div className='company-logo-img-drive'>
 		// 		{notification.postedBy.photoURL ? (
 		// 			<>
-		// 				<img
+		// 				<img loading="lazy" 
 		// 					src={notification.postedBy.photoURL}
 		// 					alt={notification.postedBy.fullName}
 		// 					className='nav-user-avatar'

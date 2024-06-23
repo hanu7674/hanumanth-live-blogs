@@ -107,3 +107,5 @@ export const experienceCollection = () => collection(firestoreDb, '/experiences'
 export const experienceById = (id) => doc(firestoreDb, `/experiences/${id}`)
 export const certificationsCollection = () => collection(firestoreDb, '/certifications')
 export const certificationsById = (id) => doc(firestoreDb, `/certifications/${id}`)
+
+export const appStatusDocRef = () => dbRef(db, 'appStatus/status');

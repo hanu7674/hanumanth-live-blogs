@@ -113,7 +113,7 @@ const {browser} = getUserAgentInfo();
         theme={wyboTheme}
         smallScreenBreakpoint
         components={{ Transition: FadeTransition }}
-      />
+      /> 
       <AppRoutes />
     </React.Suspense>
   )

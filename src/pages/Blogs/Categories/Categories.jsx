@@ -264,16 +264,10 @@ const CategoriesComponent = () => {
                             </Column>
                             <Column flexGrow={2} sortable>
                                 <HeaderCell>CreatedAt</HeaderCell>
-                                <Cell >{(rowData) => {
-                                    return (
-                                        <>
-                                        {
-                                            rowData?.timestamp ? <> <Timestamp relative autoUpdate date={rowData?.timestamp?.toDate()?.toString()} /></> : <></>
-                                        }
-                                           
-                                        </>
-                                    )
-                                }}</Cell>
+                                <Cell >
+{rowData => <Timestamp relative autoUpdate date={rowData?.timestamp?.toDate()?.toString()} />}
+
+                         </Cell>
                             </Column>
                             <Column flexGrow={1}>
                                 <HeaderCell>Actions</HeaderCell>

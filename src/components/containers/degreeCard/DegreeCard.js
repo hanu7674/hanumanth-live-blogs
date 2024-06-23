@@ -24,7 +24,7 @@ import parse from "html-react-parser";
 
       >
         <div className="experience-card-logo-div">
-          <img
+          <img loading="lazy" 
             className="experience-card-logo"
             src={edu?.imageUrl}
             alt=""

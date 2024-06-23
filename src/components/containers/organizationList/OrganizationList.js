@@ -20,7 +20,7 @@ class OrganizationList extends Component {
                 }
               >
                 <li className="organizations-inline" name={logo["login"]}>
-                    <img
+                    <img loading="lazy" 
                       className="organizations-img"
                       src={logo["avatarUrl"]}
                       alt={logo["login"]}

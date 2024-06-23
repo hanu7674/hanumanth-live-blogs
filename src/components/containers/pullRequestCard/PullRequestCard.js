@@ -51,7 +51,7 @@ class PullRequestCard extends Component {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <img
+            <img loading="lazy" 
               className="merge-by-img"
               src={pullRequest["mergedBy"]["avatarUrl"]}
               alt=""
@@ -130,7 +130,7 @@ class PullRequestCard extends Component {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <img
+                <img loading="lazy" 
                   className="owner-img"
                   src={pullRequest["baseRepository"]["owner"]["avatarUrl"]}
                   alt=""

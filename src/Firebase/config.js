@@ -1,6 +1,7 @@
 export const config = {
   apiKey: "AIzaSyDGeKAfmmrHW5fovwFOxFmC41aDmn0mTtM",
   authDomain: "hanumanth-live7674.firebaseapp.com",
+  databaseURL: "https://hanumanth-live7674-default-rtdb.asia-southeast1.firebasedatabase.app",
   projectId: "hanumanth-live7674",
   storageBucket: "hanumanth-live7674.appspot.com",
   messagingSenderId: "1015189860806",

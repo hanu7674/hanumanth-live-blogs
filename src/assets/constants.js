@@ -1,3 +1,5 @@
+import truncate from 'html-truncate';
+
 export const env = "production ";
 export const LOGIN = '/login';
 export const EMAIL_FORGET = "/forgot-email";
@@ -10,11 +12,20 @@ export const BLOGS = "/blogs";
 export const CONNECT_WITH_ME = "/connect-with-me";
 export const THANK_YOU = "/connect-with-me/thank-you";
 export const excerpt = (str, count) => {
+  // Check if the string contains HTML tags
+  const isHTML = /<\/?[a-z][\s\S]*>/i.test(str);
+
+  if (isHTML) {
+    // Truncate HTML content
+    return truncate(str, count, { ellipsis: ' ... ' });
+  } else {
+    // Truncate plain text
     if (str?.length > count) {
       str = str.substring(0, count) + " ... ";
     }
     return str;
-  };
+  }
+};
   export function formatBytes(bytes, decimals = 2) {
     if (!+bytes) return '0 Bytes'
   

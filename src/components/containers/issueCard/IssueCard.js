@@ -38,7 +38,7 @@ class IssueCard extends Component {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <img
+            <img loading="lazy" 
               className="assigned-to-img"
               src={issue["assignees"]["nodes"][0]["avatarUrl"]}
               alt=""
@@ -117,7 +117,7 @@ class IssueCard extends Component {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <img
+                <img loading="lazy" 
                   className="owner-img"
                   src={issue["repository"]["owner"]["avatarUrl"]}
                   alt=""

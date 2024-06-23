@@ -22,7 +22,7 @@ const FeatureBlogs = ({ blogs, title }) => {
             >
               <Col  >
                 <Stack justifyContent="flex-start">
-                <img
+                <img loading="lazy" 
                   src={item.imageUrl}
                   alt={item.title}
                   className="most-popular-img"

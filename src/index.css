@@ -11,7 +11,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
+pre{
+  background-color: #292d33 !important;
+  color: white !important;
+border-radius: 3px;
+padding: 7px 10px
+}
 .error-page {
   display: flex;
   height: 60vh;

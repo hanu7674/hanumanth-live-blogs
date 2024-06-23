@@ -139,7 +139,7 @@ const MessagesHome = ({ user, users, groupProfileUrl,groupStateLoading,groupStat
             </div></>
         );
       case 'image':
-        return <img src={message.url} alt="Image" style={{ maxWidth: '100%', maxHeight: '200px' }} />;
+        return <img loading="lazy"  src={message.url} alt="Image" style={{ maxWidth: '100%', maxHeight: '200px' }} />;
       case 'video':
         return (
           <video controls style={{ maxWidth: '100%', maxHeight: '200px' }}>
@@ -372,7 +372,7 @@ const MessagesHome = ({ user, users, groupProfileUrl,groupStateLoading,groupStat
                     <button style={{ width: 120, height: 120, borderRadius: '50%' }} >
                       {uploading && <Loader backdrop center />}
                       {fileInfo ? (
-                        <img src={fileInfo} width="100%" height="100%" />
+                        <img loading="lazy"  src={fileInfo} width="100%" height="100%" />
                       ) : (
                         <HiUserGroup size={80} />
                       )}

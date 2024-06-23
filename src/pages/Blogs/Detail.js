@@ -28,7 +28,7 @@ const BlogDetails = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const blog = useSelector((state) => state.blogs.blogDetails);
-  const blogLoading = useSelector((state) => state.blogs.loading);
+  const blogLoading = useSelector((state) => state.blogs.blogLoading);
   const likes = useSelector((state) => state?.blogs?.blogDetails?.likes);
   const relatedBlogs = useSelector((state) => state.blogs.relatedBlogs);
   const recentBlogs = useSelector((state) => state.blogs.recentBlogs);
@@ -71,31 +71,7 @@ const BlogDetails = () => {
     setLoading(false);
   },
     [id, user]);
-  if (!blog) {
-    return (
-      <div className="mt-5 pt-5">
-        <div className="m-5 text-center border-bottom border-top border-warning-subtle">
-          <div className="text-center m-0">
-            <span>
-              <TbError404 size={300} />
-            </span>
-          </div>
-          <div className="pt-0 fs-2">
-            Oops! Blog not found
-          </div>
-          <p className="pt-0 fs-3 mb-3">
-            Sorry, but the blog you are looking for is not found. Please, make sure you have typed the correct URL.
-          </p>
-        </div>
-        <div className="m-5 d-flex justify-content-center gap-4 align-items-center align-content-center text-center">
-
-          <Button color="violet" appearance="primary" onClick={() => navigate("/")}>Go to Home</Button>
-          <Button color="violet" appearance="primary" onClick={() => navigate("/blogs")}>View list of blogs</Button>
-
-        </div>
-      </div>
-    );
-  }
+   
   const handleLikes = () => {
     dispatch(handleLike(id))
   }
@@ -131,10 +107,11 @@ const BlogDetails = () => {
           twitterSummaryCard: {
             summaryCardImage: `${blog?.imgUrl}`,
             summaryCardImageAlt: `${blog?.title}`,
-            summaryCardSiteUsername: 'hanu7674',
-          },
+           },
         }}
-      >
+      >{blog?.tags && blog?.tags.map((tag, index) => (
+        <meta key={index} name="keywords" content={tag} />
+      ))}
         <meta name="keywords" content={keywords} />
       </SuperSEO>
       {blogLoading ? <   ><Loading /></> :
@@ -154,9 +131,9 @@ const BlogDetails = () => {
                             <FlexboxGrid justify="center">
                               <FlexboxGrid.Item colspan={24}>
                                 <div className="card" >
-                                  <div className="blog-details-image">
+                              <div className="blog-details-image">
                                     {
-                                      blog?.imageUrl ? <img src={blog?.imageUrl} className="blogs-img" /> : null
+                                      blog?.imageUrl ? <img loading="lazy"  src={blog?.imageUrl} className="blogs-img" /> : null
                                     }</div>
                                 </div>
                               </FlexboxGrid.Item>
@@ -178,7 +155,7 @@ const BlogDetails = () => {
                                         
                                       
                                     <FaUser />
-                                      <Link to={`/users/profile/${blog?.postedBy?.id ? blog?.postedBy?.id : blog?.postedBy?.uid}`} className=" text-dark">
+                                    <Link to={`/profile/user/${blog?.postedBy?.id ? blog?.postedBy?.id : blog?.postedBy?.uid}`} className=" text-dark">
                                         {blog?.postedBy?.firstName + " " + blog?.postedBy?.lastName}
                                       </Link>
                                       </Stack>
@@ -211,7 +188,7 @@ const BlogDetails = () => {
                                 <Stack justifyContent="flex-start" style={{ marginTop: '20px' }}>
                                   <Stack.Item>
 
-                                    <Panel bodyFill>
+                            <Panel>
                                       {blog?.content ? <>{parse(blog.content)}</> : null}
                                     </Panel>
                                   </Stack.Item>
@@ -323,7 +300,31 @@ const BlogDetails = () => {
                 </div>
               </Container>
 
-            </> : <></>
+            </> : <>
+            <>
+      <FlexboxGrid align="center" justify="center">
+        <FlexboxGrid.Item>
+           <TbError404 size={300} />
+        </FlexboxGrid.Item>
+        
+      </FlexboxGrid>
+      <FlexboxGrid align="center" justify="center">
+            
+          <Text size='2rem'>
+            Oops! Blog not found
+          </Text>
+          <Text size='xl' style={{marginTop: '20px'}}>
+            Sorry, but the blog you are looking for is not found. Please, make sure you have typed the correct URL.
+          </Text>
+         
+        </FlexboxGrid>
+        <Stack spacing={20} alignItems="center" justifyContent="center" style={{marginTop: '20px'}}>
+ 
+          <Button color="violet" appearance="primary" onClick={() => navigate("/")}>Go to Home</Button>
+          <Button color="violet" appearance="primary" onClick={() => navigate("/blogs")}>View list of blogs</Button>
+
+           </Stack>
+        </></>
           }</>
 
       }

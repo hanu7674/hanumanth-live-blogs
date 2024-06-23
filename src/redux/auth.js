@@ -1,10 +1,10 @@
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail, reauthenticateWithCredential, EmailAuthProvider, updatePassword, deleteUser, RecaptchaVerifier, linkWithCredential, GoogleAuthProvider, linkWithPopup, updateCurrentUser, updateProfile } from "firebase/auth";
-import { auth, usersRef, userRef, usermetadata, usernameRef, batch, imageUploadPath, usermetadataRef, queriesCollection, ipDataRef, reviewCollection, testimonialCollection, reviewById, testimonialById, userSignupLogs, userSignupLogsById, firestoreDb, savePasswordsForDemo, securityQuestionsCollectionRef, securityQuestionsRef, userLogCollectionRef, userLogRef, contactUsCollection, profileFilesUploadPath, fileRef, educationCollection, educationById, projectsCollection, projectsById, experienceById, experienceCollection, certificationsCollection, certificationsById } from "../Firebase/firebase";
+import { auth, usersRef, userRef, usermetadata, usernameRef, batch, imageUploadPath, usermetadataRef, queriesCollection, ipDataRef, reviewCollection, testimonialCollection, reviewById, testimonialById, userSignupLogs, userSignupLogsById, firestoreDb, savePasswordsForDemo, securityQuestionsCollectionRef, securityQuestionsRef, userLogCollectionRef, userLogRef, contactUsCollection, profileFilesUploadPath, fileRef, educationCollection, educationById, projectsCollection, projectsById, experienceById, experienceCollection, certificationsCollection, certificationsById, appStatusDoc, appStatusDocRef } from "../Firebase/firebase";
 import * as authActionTypes from '../reducers/types';
 import { dismissNotification, notify } from "reapop";
 import { Timestamp, addDoc, arrayRemove, arrayUnion, deleteDoc, getDoc, getDocs, onSnapshot, orderBy, query, runTransaction, serverTimestamp, setDoc, updateDoc, where } from "firebase/firestore";
 import { deleteObject, getDownloadURL, uploadBytesResumable } from "firebase/storage";
-import { onDisconnect, ref, set } from "firebase/database";
+import { onDisconnect, onValue, ref, set } from "firebase/database";
 import { faker } from '@faker-js/faker'
 import { testimonials } from "../pages/Admin/tables/members/mock";
 import CryptoJS from 'crypto-js'; // Cryptographic library
@@ -20,7 +20,8 @@ import {
   DELETE_CERTIFICATION_FAILURE,
   GET_CERTIFICATION_LIST_REQUEST,
   GET_CERTIFICATION_LIST_SUCCESS,
-  GET_CERTIFICATION_LIST_FAILURE
+  GET_CERTIFICATION_LIST_FAILURE,
+  FETCH_STATUS_REQUEST, FETCH_STATUS_SUCCESS, FETCH_STATUS_FAILURE ,
 } from '../reducers/types';
 export const loginRequest = () => ({
   type: authActionTypes.LOGIN_REQUEST
@@ -313,6 +314,25 @@ export const checkTestimonialSubmitted = (payload) => ({
 const setEmailVerified = (isEmailVerified) => ({
   type: "SET_EMAIL_VERIFIED",
   payload: isEmailVerified,
+});
+
+
+export const fetchStatusRequest = () => ({
+  type: FETCH_STATUS_REQUEST,
+});
+
+export const fetchStatusSuccess = (status) => ({
+  type: FETCH_STATUS_SUCCESS,
+  payload: status,
+});
+
+export const fetchStatusFailure = (error) => ({
+  type: FETCH_STATUS_FAILURE,
+  payload: {
+    type: error.code || "UNKNOWN_ERROR",
+    title: "Error Fetching Status",
+    message: error.message || "An unknown error occurred while fetching the app status.",
+  },
 });
 // Action Creators
 
@@ -820,7 +840,7 @@ export const getIP = () => {
             .then((ip) => {
               const ipv4 = ip.ip;
               dispatch({ type: 'GET_IP_AND_LOCATION_SUCCESS', payload: { ...data, ...getUserAgentInfo(), ipv4 } });
-              dispatch(storeTrafficByIpAndLocation({ ...data, ...getUserAgentInfo(), ...ipv4 }));
+              dispatch(storeTrafficByIpAndLocation({ ...data, ...getUserAgentInfo(), ipv4: ip.ip }));
             })
 
         })
@@ -1038,22 +1058,26 @@ export const updateUserProfile = (userId, info) => {
         await updateProfile(auth.currentUser, { ...info });
 
         // Update the user metadata document
-        const metadata = {
-          email: info.email,
-          photoURL: info.photoURL,
-          uid: userId,
-          fullName: info.firstName + ' ' + info.lastName,
-          phone: info.phoneNumber,
-          firstName: info.firstName,
-          tagLine: info.tagLine,
-          lastName: info.lastName,
+        const metadata = {};
+        if (info.email) metadata.email = info.email;
+        if (info.photoURL) metadata.photoURL = info.photoURL;
+        metadata.uid = userId;
+        if (info.firstName && info.lastName) {
+          metadata.fullName = info.firstName + ' ' + info.lastName;
         }
+        if (info.phoneNumber) metadata.phone = info.phoneNumber;
+        if (info.firstName) metadata.firstName = info.firstName;
+        if (info.tagLine) metadata.tagLine = info.tagLine;
+        if (info.lastName) metadata.lastName = info.lastName;
+
         transaction.update(usermetadata(userId), { ...metadata });
 
         // Dispatch actions after successful transaction
         dispatch({ type: 'UPDATE_USER_PROFILE_SUCCESS' });
         dispatch(notify({ message: `Profile updated successfully.`, status: 'success' }));
-        dispatch(getCurrentUserData(userId)); // Assuming this action fetches the updated user data
+        setTimeout(()=> {
+          dispatch(getCurrentUserData(userId)); // Assuming this action fetches the updated user data
+        }, [500])
       });
     } catch (error) {
       dispatch(notify({ message: error.message, status: 'error' }));
@@ -2332,4 +2356,43 @@ export const getCertificationList = () => async (dispatch) => {
     dispatch(getCertificationListFailure(error.message));
   }
 };
+export const fetchStatus = () => {
+  return (dispatch) => {
+    dispatch(fetchStatusRequest());
  
+onValue(appStatusDocRef(), (snapshot) => {
+      const status = snapshot.val();
+      if (status) {
+        dispatch(fetchStatusSuccess(status));
+      } else {
+        dispatch(fetchStatusFailure({
+          code: "NO_STATUS_FOUND",
+          title: "No Status Found",
+          message: "No status found in the database.",
+        }));      }
+    }, (error) => {
+      dispatch(fetchStatusFailure({
+        code: error.code,
+        title: "Database Error",
+        message: error.message,
+      }));    });
+  };
+};
+
+export const updateStatus = (newStatus) => {
+  return (dispatch) => {
+    dispatch(fetchStatusRequest());
+ 
+set(appStatusDocRef(), newStatus)
+      .then(() => {
+        dispatch(fetchStatusSuccess(newStatus));
+      })
+      .catch((error) => {
+        dispatch(fetchStatusFailure({
+          code: error.code,
+          title: "Update Error",
+          message: error.message,
+        }));
+      });
+  };
+};

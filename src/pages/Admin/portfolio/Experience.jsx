@@ -323,7 +323,7 @@ const UserContentPanel = ({ data, header, styles }) => {
     return (
       <>        <Panel shaded bordered bodyFill className={styles ? `user-content-panel` : ''} style={{ display: 'inline-block' }}>
     <Stack justifyContent='center'>
-    <img src={data.imageUrl} height="150" />
+    <img loading="lazy"  src={data.imageUrl} height="150" />
  </Stack>
         <Panel    >
         {/* {JSON.stringify(data)} */}
@@ -481,7 +481,7 @@ const ExperienceList = () => {
                 <Column flexGrow={1} align="center">
                     <HeaderCell>Company Logo</HeaderCell>
                     <Cell dataKey="imageUrl">
-                        {rowData => <img src={rowData.imageUrl} width="40" alt={rowData.company} />}
+                        {rowData => <img loading="lazy"  src={rowData.imageUrl} width="40" alt={rowData.company} />}
                     </Cell>
                 </Column>
                 <Column flexGrow={2} sortable>

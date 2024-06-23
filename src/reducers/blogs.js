@@ -1,6 +1,30 @@
-import { ADD_BLOG_FAILURE,     GET_TOTAL_BLOGS_LIST_REQUEST,
-    GET_TOTAL_BLOGS_LIST_FAILURE,
-    GET_TOTAL_BLOGS_LIST_SUCCESS,ADD_BLOG_REQUEST, ADD_BLOG_SUCCESS, ADD_COMMENT, ADD_LIKE, APPEND_BLOGS, BLOGS_LIMIT_SET, DELETE_BLOG_FAILURE, DELETE_BLOG_REQUEST, DELETE_BLOG_SUCCESS, EDIT_BLOG_FAILURE, EDIT_BLOG_REQUEST, EDIT_BLOG_SUCCESS, GET_BLOGS_FAILURE, GET_BLOGS_REQUEST, GET_BLOGS_SUCCESS, GET_BLOG_DETAILS_FAILURE, GET_BLOG_DETAILS_REQUEST, GET_BLOG_DETAILS_SUCCESS, GET_CURRENT_USER_DATA_FAILURE, GET_CURRENT_USER_DATA_SUCCESS, GET_SENT_TO_REVIEW_TOTAL_BLOGS_FAILURE, GET_SENT_TO_REVIEW_TOTAL_BLOGS_REQUEST, GET_SENT_TO_REVIEW_TOTAL_BLOGS_SUCCESS, GET_TOTAL_BLOGS_FAILURE, GET_TOTAL_BLOGS_REQUEST, GET_TOTAL_BLOGS_SUCCESS, HIDE_MORE_BUTTON, REMOVE_COMMENT, REMOVE_LIKE, SEARCH_BLOGS_FAILURE, SEARCH_BLOGS_REQUEST, SEARCH_BLOGS_SUCCESS, SET_BLOG_AUTHOR, SET_CATEGORIES, SET_CATEGORIES_FAILURE, SET_CATEGORIES_REQUEST, SET_CATEGORIES_SUCCESS, SET_COMMENTS, SET_RECENT_BLOGS, SET_RELATED_BLOGS, SET_TAGS, SET_TAGS_FAILURE, SET_TAGS_REQUEST, SET_TAGS_SUCCESS, TRENDING_BLOGS_FAILURE, TRENDING_BLOGS_REQUEST, TRENDING_BLOGS_SUCCESS } from "./types";
+import {
+    ADD_BLOG_FAILURE,
+    FETCH_POSTED_BLOGS_REQUEST,
+    FETCH_POSTED_BLOGS_SUCCESS,
+    FETCH_POSTED_BLOGS_FAILURE,
+    FETCH_APPROVED_BLOGS_REQUEST,
+    FETCH_APPROVED_BLOGS_SUCCESS,
+    FETCH_APPROVED_BLOGS_FAILURE,
+    FETCH_REJECTED_BLOGS_REQUEST,
+    FETCH_REJECTED_BLOGS_SUCCESS,
+    FETCH_REJECTED_BLOGS_FAILURE,
+    FETCH_DELETED_BLOGS_REQUEST,
+    FETCH_DELETED_BLOGS_SUCCESS,
+    FETCH_DELETED_BLOGS_FAILURE, APPROVE_BLOG_REQUEST,
+    APPROVE_BLOG_SUCCESS,
+    APPROVE_BLOG_FAILURE,
+    REJECT_BLOG_REQUEST,
+    REJECT_BLOG_SUCCESS,
+    REJECT_BLOG_FAILURE,
+    RESTORE_BLOG_REQUEST,
+    RESTORE_BLOG_SUCCESS,
+    RESTORE_BLOG_FAILURE,
+    PERMANENTLY_REMOVE_BLOG_REQUEST,
+    PERMANENTLY_REMOVE_BLOG_SUCCESS,
+    PERMANENTLY_REMOVE_BLOG_FAILURE,
+    ADD_BLOG_REQUEST, ADD_BLOG_SUCCESS, ADD_COMMENT, ADD_LIKE, APPEND_BLOGS, BLOGS_LIMIT_SET, DELETE_BLOG_FAILURE, DELETE_BLOG_REQUEST, DELETE_BLOG_SUCCESS, EDIT_BLOG_FAILURE, EDIT_BLOG_REQUEST, EDIT_BLOG_SUCCESS, GET_BLOGS_FAILURE, GET_BLOGS_REQUEST, GET_BLOGS_SUCCESS, GET_BLOG_DETAILS_FAILURE, GET_BLOG_DETAILS_REQUEST, GET_BLOG_DETAILS_SUCCESS, GET_CURRENT_USER_DATA_FAILURE, GET_CURRENT_USER_DATA_SUCCESS, GET_SENT_TO_REVIEW_TOTAL_BLOGS_FAILURE, GET_SENT_TO_REVIEW_TOTAL_BLOGS_REQUEST, GET_SENT_TO_REVIEW_TOTAL_BLOGS_SUCCESS, GET_TOTAL_BLOGS_FAILURE, GET_TOTAL_BLOGS_REQUEST, GET_TOTAL_BLOGS_SUCCESS, HIDE_MORE_BUTTON, REMOVE_COMMENT, REMOVE_LIKE, SEARCH_BLOGS_FAILURE, SEARCH_BLOGS_REQUEST, SEARCH_BLOGS_SUCCESS, SET_BLOG_AUTHOR, SET_CATEGORIES, SET_CATEGORIES_FAILURE, SET_CATEGORIES_REQUEST, SET_CATEGORIES_SUCCESS, SET_COMMENTS, SET_RECENT_BLOGS, SET_RELATED_BLOGS, SET_TAGS, SET_TAGS_FAILURE, SET_TAGS_REQUEST, SET_TAGS_SUCCESS, TRENDING_BLOGS_FAILURE, TRENDING_BLOGS_REQUEST, TRENDING_BLOGS_SUCCESS
+} from "./types";
 
 const INITIAL_STATE = {
     loading: false,
@@ -18,7 +42,8 @@ const INITIAL_STATE = {
     blogsError: '',
     hide_more_button: false,
     searchBlogs: [],
-    blogDetails: [],
+    blogDetails: null,
+    blogLoading: false,
     blogDetailsError: null,
     blog: [],
     blogError: null,
@@ -39,129 +64,197 @@ const INITIAL_STATE = {
     totalreviewedBlogs: [],
     totalreviewedBlogsError: null,
     HeaderPageBlogs: [],
-  currentPage: 1,
-  noOfPages: null,
-  count: null,
-  loading: false,
-  lastVisible: null,
-  dashboardTags: {},
-  categories: [],
-  websiteTraffic: {},
-  blogPerformance: {},
-  userEngagement: {},
-  salesAndConversions: {},
-  loading: false,
-  error: null
+    currentPage: 1,
+    noOfPages: null,
+    count: null,
+    loading: false,
+    lastVisible: null,
+    dashboardTags: {},
+    categories: [],
+    websiteTraffic: {},
+    blogPerformance: {},
+    userEngagement: {},
+    salesAndConversions: {},
+    loading: false,
+    error: null,
+    postedBlogs: [],
+    approvedBlogs: [],
+    rejectedBlogs: [],
+    deletedBlogs: [],
 }
- 
+
 
 function blogReducer(state = INITIAL_STATE, action) {
     switch (action.type) {
-        case GET_TOTAL_BLOGS_LIST_REQUEST:
-      return {
-        ...state,
-        blogsListLoading: true,
-        blogsListError: null,
-      };
-    case GET_TOTAL_BLOGS_LIST_FAILURE:
-      return {
-        ...state,
-        blogsListLoading: false,
-        blogsListError: action.payload,
-      };
-    case GET_TOTAL_BLOGS_LIST_SUCCESS:
-      return {
-        ...state,
-        blogsListLoading: false,
-        blogsListData: action.payload,
-      };
-        case 'FETCH_BLOGS_DASHBOARD_DATA_TRAFFIC_SUMMARY_SUCCESS': 
-        return{
-          ...state,
-          loading: false,
-          blogsTraffic: action.payload
-        }
+        case APPROVE_BLOG_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                approvedBlogs: [...state.approvedBlogs, action.payload],
+            };
+        case REJECT_BLOG_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                rejectedBlogs: [...state.rejectedBlogs, action.payload],
+            };
+        case DELETE_BLOG_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                deletedBlogs: [...state.deletedBlogs, action.payload],
+            };
+        case FETCH_POSTED_BLOGS_REQUEST:
+        case FETCH_APPROVED_BLOGS_REQUEST:
+        case FETCH_REJECTED_BLOGS_REQUEST:
+        case FETCH_DELETED_BLOGS_REQUEST:
+        case APPROVE_BLOG_REQUEST:
+        case REJECT_BLOG_REQUEST:
+        case DELETE_BLOG_REQUEST:
+        case RESTORE_BLOG_REQUEST:
+        case PERMANENTLY_REMOVE_BLOG_REQUEST:
+            return {
+                ...state,
+                loading: true,
+                error: null,
+            };
+        case RESTORE_BLOG_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                deletedBlogs: state.deletedBlogs.filter(blog => blog.id !== action.payload),
+            };
+        case PERMANENTLY_REMOVE_BLOG_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                deletedBlogs: state.deletedBlogs.filter(blog => blog.id !== action.payload),
+            };
+        case FETCH_POSTED_BLOGS_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                postedBlogs: action.payload,
+            };
+        case FETCH_APPROVED_BLOGS_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                approvedBlogs: action.payload,
+            };
+        case FETCH_REJECTED_BLOGS_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                rejectedBlogs: action.payload,
+            };
+        case FETCH_DELETED_BLOGS_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                deletedBlogs: action.payload,
+            };
+        case FETCH_POSTED_BLOGS_FAILURE:
+        case FETCH_APPROVED_BLOGS_FAILURE:
+        case FETCH_REJECTED_BLOGS_FAILURE:
+        case FETCH_DELETED_BLOGS_FAILURE:
+        case APPROVE_BLOG_FAILURE:
+        case REJECT_BLOG_FAILURE:
+        case RESTORE_BLOG_FAILURE:
+        case PERMANENTLY_REMOVE_BLOG_FAILURE:
+        case DELETE_BLOG_FAILURE:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload,
+            };
+        case 'FETCH_BLOGS_DASHBOARD_DATA_TRAFFIC_SUMMARY_SUCCESS':
+            return {
+                ...state,
+                loading: false,
+                blogsTraffic: action.payload
+            }
         case 'GET_BLOGS_TO_DASHBOARD_REQUEST':
-      return {
-        ...state,
-        dashboardBlogsLoading: true,
-        error: null,
-        
-      };
-    case 'GET_BLOGS_TO_DASHBOARD_SUCCESS':
-      return {
-        ...state,
-        dashboardBlogsLoading: false,
-        dashboardBlogs: action.payload,
-      };
-    case 'GET_BLOGS_TO_DASHBOARD_FAILURE':
-      return {
-        ...state,
-        dashboardBlogsLoading: false,
-        error: action.payload,
-      };
-      case 'GET_TOP_10_TAGS_TO_DASHBOARD_REQUEST':
-        return {
-          ...state,
-          dashboardTagsLoading: true,
-          error: null,
-          dashboardTags: {}
-          
-        };
-      case 'GET_TOP_10_TAGS_TO_DASHBOARD_SUCCESS':
-        return {
-          ...state,
-          dashboardTagsLoading: false,
-          dashboardTags: action.payload,
-        };
-      case 'GET_TOP_10_TAGS_TO_DASHBOARD_FAILURE':
-        return {
-          ...state,
-          dashboardTagsLoading: false,
-          error: action.payload,
-          dashboardTags:{}
-        };
+            return {
+                ...state,
+                dashboardBlogsLoading: true,
+                error: null,
+
+            };
+        case 'GET_BLOGS_TO_DASHBOARD_SUCCESS':
+            return {
+                ...state,
+                dashboardBlogsLoading: false,
+                dashboardBlogs: action.payload,
+            };
+        case 'GET_BLOGS_TO_DASHBOARD_FAILURE':
+            return {
+                ...state,
+                dashboardBlogsLoading: false,
+                error: action.payload,
+            };
+        case 'GET_TOP_10_TAGS_TO_DASHBOARD_REQUEST':
+            return {
+                ...state,
+                dashboardTagsLoading: true,
+                error: null,
+                dashboardTags: {}
+
+            };
+        case 'GET_TOP_10_TAGS_TO_DASHBOARD_SUCCESS':
+            return {
+                ...state,
+                dashboardTagsLoading: false,
+                dashboardTags: action.payload,
+            };
+        case 'GET_TOP_10_TAGS_TO_DASHBOARD_FAILURE':
+            return {
+                ...state,
+                dashboardTagsLoading: false,
+                error: action.payload,
+                dashboardTags: {}
+            };
         case 'FETCH_BLOGS_BY_TIME_RANGE_REQUEST':
-      return {
-        ...state,
-        blogsByTimeRangeLoading: true,
-        error: null,
-        
-      };
-    case 'FETCH_BLOGS_BY_TIME_RANGE_SUCCESS':
-      return {
-        ...state,
-        blogsByTimeRangeLoading: false,
-        blogsByTimeRange: action.payload,
-      };
-    case 'FETCH_BLOGS_BY_TIME_RANGE_FAILURE':
-      return {
-        ...state,
-        blogsByTimeRangeLoading: false,
-        error: action.payload,
-      };
+            return {
+                ...state,
+                blogsByTimeRangeLoading: true,
+                error: null,
+
+            };
+        case 'FETCH_BLOGS_BY_TIME_RANGE_SUCCESS':
+            return {
+                ...state,
+                blogsByTimeRangeLoading: false,
+                blogsByTimeRange: action.payload,
+            };
+        case 'FETCH_BLOGS_BY_TIME_RANGE_FAILURE':
+            return {
+                ...state,
+                blogsByTimeRangeLoading: false,
+                error: action.payload,
+            };
         case 'FETCH_BLOGS_SUCCESS':
-      return {
-        ...state,
-        HeaderPageBlogs: action.payload.blogs,
-        count: action.payload.count,
-        noOfPages: Math.ceil(action.payload.count / 10),
-      };
-    case 'SET_LOADING':
-      return {
-        ...state,
-        loading: action.payload,
-      };
-    case 'UPDATE_PAGE':
-      return {
-        ...state,
-        currentPage: action.payload,
-      };
-      case 'SET_LAST_VISIBLE':  
-      return {
-        ...state,
-        lastVisible: action.payload,
-      };
+            return {
+                ...state,
+                HeaderPageBlogs: action.payload.blogs,
+                count: action.payload.count,
+                noOfPages: Math.ceil(action.payload.count / 10),
+            };
+        case 'SET_LOADING':
+            return {
+                ...state,
+                loading: action.payload,
+            };
+        case 'UPDATE_PAGE':
+            return {
+                ...state,
+                currentPage: action.payload,
+            };
+        case 'SET_LAST_VISIBLE':
+            return {
+                ...state,
+                lastVisible: action.payload,
+            };
         case SET_BLOG_AUTHOR:
             return {
                 ...state,
@@ -405,25 +498,27 @@ function blogReducer(state = INITIAL_STATE, action) {
                 loading: false,
                 totalBlogsError: action.error
             }
-         
+
         case APPEND_BLOGS:
             state = { ...state, loading: false, blogs: [...state.blogs, ...action.payload] };
             return state;
         case GET_BLOG_DETAILS_REQUEST:
             return {
                 ...state,
-                loading: true,
+                blogLoading: true,
+                blogDetails: null,
             }
         case GET_BLOG_DETAILS_SUCCESS:
             return {
                 ...state,
-                loading: false,
+                blogLoading: false,
                 blogDetails: action.payload
             }
         case GET_BLOG_DETAILS_FAILURE:
             return {
                 ...state,
-                loading: false,
+                blogLoading: false,
+                blogDetails: null,
                 blogDetailsError: action.error
             }
         case 'GET_BLOGS_COUNT_REQUEST':
@@ -464,26 +559,26 @@ function blogReducer(state = INITIAL_STATE, action) {
                 pendingBlogsCount: '-',
                 pendingBlogCountError: action.error
             }
-            case 'GET_LAST_WEEK_POSTED_BLOGS_COUNT_REQUEST':
-                return {
-                    ...state,
-                    loading: true,
-                    lastWeekPostedBlogsCount: '-',
-                }
-            case 'GET_LAST_WEEK_POSTED_BLOGS_COUNT_SUCCESS':
-                return {
-                    ...state,
-                    loading: false,
-                    lastWeekPostedBlogsCount: action.payload
-                }
-            case 'GET_LAST_WEEK_POSTED_BLOGS_COUNT_FAILURE':
-                return {
-                    ...state,
-                    loading: false,
-                    lastWeekPostedBlogsCount: '-',
-                    lastWeekPostedBlogCountError: action.error
-                }
-    
+        case 'GET_LAST_WEEK_POSTED_BLOGS_COUNT_REQUEST':
+            return {
+                ...state,
+                loading: true,
+                lastWeekPostedBlogsCount: '-',
+            }
+        case 'GET_LAST_WEEK_POSTED_BLOGS_COUNT_SUCCESS':
+            return {
+                ...state,
+                loading: false,
+                lastWeekPostedBlogsCount: action.payload
+            }
+        case 'GET_LAST_WEEK_POSTED_BLOGS_COUNT_FAILURE':
+            return {
+                ...state,
+                loading: false,
+                lastWeekPostedBlogsCount: '-',
+                lastWeekPostedBlogCountError: action.error
+            }
+
         case 'ADD_CATEGORY_REQUEST':
             return {
                 ...state,

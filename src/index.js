@@ -8,7 +8,7 @@ import 'rsuite/dist/rsuite.min.css';
 import * as serviceWorker from './serviceWorker';
 import 'react-international-phone/style.css';
 import aos from './pages/Admin/aos'
-import { env } from './assets/constants';
+import { env } from './assets/constants';   
 window.scroll({
   top: 2500, 
   left: 0, 
@@ -22,8 +22,7 @@ window.scrollBy({
 const renderApp = () => render(
   <React.StrictMode>
     <CustomProvider theme='dark'>
-
-    <App />
+     <App />
     </CustomProvider>
   </React.StrictMode>,
   document.getElementById('root')

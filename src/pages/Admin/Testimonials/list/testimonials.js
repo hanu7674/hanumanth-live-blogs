@@ -33,7 +33,7 @@ export const ImageCell = memo(({ rowData, dataKey, ...props }) => (
         display: 'inline-block'
       }}
     >
-      <img src={rowData?.by?.photoURL} width="40" />
+      <img loading="lazy"  src={rowData?.by?.photoURL} width="40" />
     </div>
   </Cell>
 ));
@@ -51,7 +51,7 @@ const NameCell = memo(({ rowData, dataKey, ...props }) => {
           display: 'inline-block'
         }}
       >
-        <img src={rowData?.by?.photoURL} width="40" alt={rowData?.by?.displayName} />
+        <img loading="lazy"  src={rowData?.by?.photoURL} width="40" alt={rowData?.by?.displayName} />
       </div>
       <p>
         <b>Name:</b> {rowData?.by?.firstName + ' ' + rowData?.by?.lastName}

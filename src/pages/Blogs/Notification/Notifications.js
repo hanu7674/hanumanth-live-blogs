@@ -29,7 +29,7 @@ const NameCell = ({ rowData, dataKey, ...props }) => {
       display: 'inline-block'
     }}
   >
-    <img src={rowData.postedBy?.photoURL} width="40" alt={rowData?.postedBy?.firstName + " " + rowData?.postedBy?.lastName } />
+    <img loading="lazy"  src={rowData.postedBy?.photoURL} width="40" alt={rowData?.postedBy?.firstName + " " + rowData?.postedBy?.lastName } />
   </div>
       <p>
         <b>Name:</b> {rowData?.postedBy?.firstName + " " + rowData?.postedBy?.lastName }

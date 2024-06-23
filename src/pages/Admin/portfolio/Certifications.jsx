@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, memo } from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { Form, Row, Col, FormGroup, ControlLabel, Button, Schema, IconButton, ButtonToolbar, Input, Drawer, SelectPicker, Stack, Divider, Uploader, Progress, Breadcrumb, Text, DatePicker, Checkbox, TagPicker, TagInput } from 'rsuite';
 import PlusIcon from '@rsuite/icons/Plus';
@@ -21,7 +21,7 @@ const UserContentPanel = ({ data, header, styles }) => {
      
   return (
     <>        <Panel shaded bordered bodyFill className={styles ? `user-content-panel` : ''} style={{ display: 'inline-block' }}>
-  <Stack justifyContent='center'><img src={data.imageUrl} height="150" />
+  <Stack justifyContent='center'><img loading="lazy"  src={data.imageUrl} height="150" />
 </Stack>
       <Panel     >
  
@@ -468,7 +468,7 @@ export const ImageCell = ({ rowData, dataKey, ...props }) => (
         display: 'inline-block'
       }}
     >
-      <img src={rowData[dataKey]} width="40" />
+      <img loading="lazy"  src={rowData[dataKey]} width="40" />
     </div>
   </Cell>
 );
@@ -487,7 +487,7 @@ export const NameCell = ({ rowData, dataKey, ...props }) => {
       display: 'inline-block'
     }}
   >
-    <img src={rowData?.imageUrl} width="40" alt={rowData?.title} />
+    <img loading="lazy"  src={rowData?.imageUrl} width="40" alt={rowData?.title} />
   </div>
       <p>
         <b>Issuer :</b> {rowData?.issuer}
@@ -507,8 +507,11 @@ export const NameCell = ({ rowData, dataKey, ...props }) => {
       </Cell>
     );
   }; 
-
-const CertificationList = ({ certificationList , certificationListLoading}) => {
+  const areCertificationsEqual = (prevProps, nextProps) => {
+    return prevProps.certificationList === nextProps.certificationList &&
+           prevProps.certificationListLoading === nextProps.certificationListLoading;
+  };
+const CertificationList = memo(({ certificationList , certificationListLoading}) => {
   const [open, setOpen] = useState(false);
     const [openDelete, setOpenDelete] = useState(false);
   const onClose = () => {
@@ -698,7 +701,7 @@ const CertificationList = ({ certificationList , certificationListLoading}) => {
             <Column flexGrow={1}>
               <HeaderCell align="center">Last Updated</HeaderCell>
               <Cell dataKey='updatedAt'>
-                {rowData => <Timestamp relative autoUpdate date={rowData?.updatedAt?.toDate()?.toString()} />}
+        {rowData => <Timestamp relative autoUpdate date={rowData?.updatedAt?.toDate()?.toString()} />}
               </Cell>
             </Column>
             <Column width={120} align="center">
@@ -740,7 +743,7 @@ const CertificationList = ({ certificationList , certificationListLoading}) => {
       </div>
     </div>
   );
-};
+}, areCertificationsEqual);
 
 const CertificationPage = ({ getCertificationList, certificationListLoading, certificationList }) => {
   useEffect(() => {
