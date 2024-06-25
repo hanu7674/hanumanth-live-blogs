@@ -31,5 +31,10 @@ module.exports = {
       },
     ],
   },
-
+  plugins: [
+    new MiniCssExtractPlugin({
+      // Options here
+      ignoreOrder: true, // Enable this to remove order warnings
+    }),
+  ],
 };
