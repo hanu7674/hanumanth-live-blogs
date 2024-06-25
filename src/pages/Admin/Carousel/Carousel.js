@@ -1,6 +1,5 @@
 import { Carousel, RadioGroup, Radio, Divider, Container, Content, Footer, Panel, Stack, SelectPicker, FlexboxGrid, Col, Grid, Row, Button, Checkbox, Slider, Uploader, Avatar, Progress, IconButton } from 'rsuite';
 import AwesomeSlider from 'react-awesome-slider';
-import 'react-awesome-slider/dist/styles.css';
 import React, { useEffect, useState } from 'react';
 import './index.css'
 import { RxTransparencyGrid } from "react-icons/rx";

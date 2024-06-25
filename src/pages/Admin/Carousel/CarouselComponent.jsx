@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react';
 import AwesomeSlider from 'react-awesome-slider';
 import withCaption from 'react-awesome-slider/dist/index';
 import LetteringHoc from 'react-awesome-slider/src/hoc/animated-lettering/hoc';
-import 'react-awesome-slider/dist/styles.css';
-import 'react-awesome-slider/dist/captioned.css';
-// HOC for Captioned images
+HOC for Captioned images
 const withCaptionedImages = (WrappedComponent) => {
   // Your logic for Captioned images HOC goes here
   // For example, you can use context, state, or other logic

@@ -6,7 +6,6 @@ import { getTrendingBlogs } from "../../redux/blogs";
  import AwesomeSlider from 'react-awesome-slider';
 import { Carousel, Container } from "rsuite";
 import withAutoplay from 'react-awesome-slider/dist/autoplay';
-import 'react-awesome-slider/dist/styles.css';
 import Loading from "../../components/Loading/loading";
 import { useMediaQuery } from "rsuite/esm/useMediaQuery/useMediaQuery";
 const AutoplaySlider = withAutoplay(AwesomeSlider);
