@@ -4,6 +4,17 @@ import "./index.css";
 import { Panel } from "rsuite";
 const Tags = ({ tags, title }) => {
   const location = useLocation();
+  const getTagUrl = (tag) => {
+    // Check if the current pathname includes 'admin'
+    if (location.pathname.includes('admin')) {
+      // Extract the base admin path up to the point where 'admin' is mentioned
+      const basePath = location.pathname.substring(0, location.pathname.indexOf('admin') + 'admin'.length);
+      return `${basePath}/blogs/tags/${tag}`;
+    } else {
+      // If not in admin, use a default or handle differently as needed
+      return `${location.pathname}/tags/${tag}`;
+    }
+  };
   return (
     <Panel shaded>
       {title ? <> <div className="blog-heading "> {title}  </div></> : <></>}
@@ -15,14 +26,14 @@ const Tags = ({ tags, title }) => {
               tagCount?.tag ?
                 <p className="tag" key={index}>
                   <Link
-                    to={`${location.pathname}/tags/${tagCount.tag}`}
+to={getTagUrl(tagCount.tag)}
                     style={{ textDecoration: "none", color: "black" }}
                   >
                     {`${tagCount.tag} (${tagCount.count})`}
                   </Link>
                 </p> : <p className="tag" key={index}>
                   <Link
-                    to={`${location.pathname}/tags/${tagCount}`}
+to={getTagUrl(tagCount)}
                     style={{ textDecoration: "none", color: "black" }}
                   >
                     {tagCount}

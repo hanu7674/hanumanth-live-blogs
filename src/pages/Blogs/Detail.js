@@ -12,16 +12,15 @@ import { CommentSection } from 'react-comments-section'
 import 'react-comments-section/dist/index.css'
 import "./index.css";
 import { SuperSEO } from 'react-super-seo';
-import { excerpt } from "./utility";
-import Loading from "../../components/Loading/loading";
+ import Loading from "../../components/Loading/loading";
 import { TbError404 } from "react-icons/tb";
-import { Button, Popover, Whisper, AvatarGroup, Avatar, Container, Stack, Row, Col, Notification, FlexboxGrid, Panel, Breadcrumb, Text } from "rsuite";
+import { Button, useMediaQuery, useBreakpointValue, Popover, Whisper, AvatarGroup, Avatar, Container, Stack, Row, Col, Notification, FlexboxGrid, Panel, Breadcrumb, Text } from "rsuite";
 import Share from "./Share";
 import Timestamp from "react-timestamp"
 import { FaShareSquare } from 'react-icons/fa'
 import { FaUser } from "react-icons/fa6";
 import { IoMdTime } from "react-icons/io";
-
+import {excerpt} from '../../assets/constants';
 const BlogDetails = () => {
   const user = useSelector((state) => state?.auth?.user);
   const userId = user?.id ? user?.id : null;
@@ -42,6 +41,16 @@ const BlogDetails = () => {
     currentUserProfile: `/users/profile/${user?.id}`,
     currentUserFullName: user?.firstName + ' ' + user?.lastName,
   }
+  const size = useBreakpointValue(
+    {
+      '(min-width: 1200px)': 'xxl',
+      '(min-width: 992px)': 'xl',
+      '(min-width: 768px)': 'lg',
+      '(min-width: 576px)': 'md'
+    },
+    { defaultValue: 'md' }
+  );
+  const [isMobile] = useMediaQuery('(max-width: 700px)');
   const initials = (name) => name
     .split(' ')
     .map(name => name.charAt(0))
@@ -71,7 +80,7 @@ const BlogDetails = () => {
     setLoading(false);
   },
     [id, user]);
-   
+
   const handleLikes = () => {
     dispatch(handleLike(id))
   }
@@ -92,7 +101,7 @@ const BlogDetails = () => {
     <div className="blogs">
       <SuperSEO
         title={blog?.title}
-        description={blog?.title} property={blog?.content ? <>{excerpt(parse(blog?.content), 120)}</> : ''}
+description={blog?.title} property={blog?.content ? <>{excerpt(parse(blog?.content), 120)}</> : ''}
         lang="en"
         openGraph={{
           ogImage: {
@@ -107,7 +116,7 @@ const BlogDetails = () => {
           twitterSummaryCard: {
             summaryCardImage: `${blog?.imgUrl}`,
             summaryCardImageAlt: `${blog?.title}`,
-           },
+          },
         }}
       >{blog?.tags && blog?.tags.map((tag, index) => (
         <meta key={index} name="keywords" content={tag} />
@@ -126,14 +135,14 @@ const BlogDetails = () => {
                     <div  >
 
                       <Container>
-                        <Row>
-                          <Col md={16} sm={24} xs={24} lg={16} xl={16} style={{ marginTop: "20px" }}>
+                        <Row> 
+<Col md={24} sm={24} xs={24} lg={16} xl={16} style={{ marginTop: "20px" }}>
                             <FlexboxGrid justify="center">
                               <FlexboxGrid.Item colspan={24}>
                                 <div className="card" >
-                              <div className="blog-details-image">
+                                  <div className="blog-details-image">
                                     {
-                                      blog?.imageUrl ? <img loading="lazy"  src={blog?.imageUrl} className="blogs-img" /> : null
+                                      blog?.imageUrl ? <img loading="lazy" src={blog?.imageUrl} className="blogs-img" /> : null
                                     }</div>
                                 </div>
                               </FlexboxGrid.Item>
@@ -142,65 +151,62 @@ const BlogDetails = () => {
                               <FlexboxGrid.Item colspan={23}>
                                 <Stack spacing={30}>
                                   <Stack.Item>
-                                    <Text  size='xxl' style={{ fontFamily: 'Space Mono Regular' }}>{blog?.title}</Text>
+                                    <Text size='xxl' style={{ fontFamily: 'Space Mono Regular' }}>{blog?.title}</Text>
                                   </Stack.Item>
 
                                 </Stack>
                                 <Stack wrap spacing={15} style={{ marginTop: "20px" }} justifyContent="flex-start" alignItems="center">
-                                   
+
                                   <Stack.Item>
-                                     
-                                    <div> 
+
+                                    <div>
                                       <Stack spacing={15}>
-                                        
-                                      
-                                    <FaUser />
-                                    <Link to={`/profile/user/${blog?.postedBy?.id ? blog?.postedBy?.id : blog?.postedBy?.uid}`} className=" text-dark">
-                                        {blog?.postedBy?.firstName + " " + blog?.postedBy?.lastName}
-                                      </Link>
+
+
+                                        <FaUser />
+                                        <Link to={`/profile/user/${blog?.postedBy?.id ? blog?.postedBy?.id : blog?.postedBy?.uid}`} className=" text-dark">
+                                          {blog?.postedBy?.firstName + " " + blog?.postedBy?.lastName}
+                                        </Link>
                                       </Stack>
                                     </div >
 
                                   </Stack.Item>
-                                  
+
                                   <Stack.Item>
                                     <div>
-                                    <Stack spacing={15}>
-                                    <IoMdTime size={20}/>
-                                    <Timestamp relative autoUpdate date={blog?.timestamp?.toDate().toString()} />
-                                    </Stack>
+                                      <Stack spacing={15}>
+                                        <IoMdTime size={20} />
+                                        <Timestamp relative autoUpdate date={blog?.timestamp?.toDate().toString()} />
+                                      </Stack>
                                     </div>
                                   </Stack.Item>
                                 </Stack>
                                 <Stack spacing={15} style={{ marginTop: "20px" }} justifyContent="flex-start" alignItems="center">
-                                <Breadcrumb>
-            <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
-            <Breadcrumb.Item>Blogs</Breadcrumb.Item>
-            <Breadcrumb.Item>View</Breadcrumb.Item>
-            <Breadcrumb.Item active>{id}</Breadcrumb.Item>
-          </Breadcrumb>
-          </Stack>
+                                  <Breadcrumb>
+                                    <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
+                                    <Breadcrumb.Item>Blogs</Breadcrumb.Item>
+                                    <Breadcrumb.Item>View</Breadcrumb.Item>
+                                    <Breadcrumb.Item active>{id}</Breadcrumb.Item>
+                                  </Breadcrumb>
+                                </Stack>
                               </FlexboxGrid.Item>
                             </FlexboxGrid>
 
                             <FlexboxGrid justify="flex-start">
-                              <FlexboxGrid.Item colspan={23}>
-                                <Stack justifyContent="flex-start" style={{ marginTop: '20px' }}>
-                                  <Stack.Item>
+                              <FlexboxGrid.Item colspan={24}>
+                              {blog?.content ? <>{parse(blog.content)}</> : null}
 
-                            <Panel>
-                                      {blog?.content ? <>{parse(blog.content)}</> : null}
-                                    </Panel>
-                                  </Stack.Item>
-                                </Stack>
-                                <Stack justifyContent="flex-start" style={{ marginTop: '20px' }}>
-                                  <Stack.Item>
+                                
+                                  <Stack justifyContent="flex-start" style={{ marginTop: '20px' }}>
 
-                                    <div className="text-start mt-3">
-                                      <Tags tags={blog?.tags} />
-                                    </div>
-                                  </Stack.Item>
-                                </Stack>
+                                    <Stack.Item>
+
+                                      <div className="text-start mt-3">
+                                        <Tags tags={blog?.tags} />
+                                      </div>
+                                    </Stack.Item>
+                                  </Stack>
+                                 
                               </FlexboxGrid.Item>
                             </FlexboxGrid>
 
@@ -286,11 +292,13 @@ const BlogDetails = () => {
                               commentData={commentsData?.length > 0 ? commentsData : []}
                             />
                           </Col>
-                          <Col md={6} sm={22} xs={22} lg={6} xl={6}>
+                       
+  <Col md={24} sm={22} xs={22} lg={6} xl={6}>
 
-
-                            <Tags title={"Tags"} tags={blog?.tags} />
-                            <FeatureBlogs title={"Latest Posts"} blogs={recentBlogs} />
+                          {isMobile ? <></> : <>
+                <Tags title={"Tags"} tags={blog?.tags} />
+                              <FeatureBlogs title={"Latest Posts"} blogs={recentBlogs} />
+                            </>}
                           </Col>
                         </Row>
                       </Container>
@@ -301,30 +309,30 @@ const BlogDetails = () => {
               </Container>
 
             </> : <>
-            <>
-      <FlexboxGrid align="center" justify="center">
-        <FlexboxGrid.Item>
-           <TbError404 size={300} />
-        </FlexboxGrid.Item>
-        
-      </FlexboxGrid>
-      <FlexboxGrid align="center" justify="center">
-            
-          <Text size='2rem'>
-            Oops! Blog not found
-          </Text>
-          <Text size='xl' style={{marginTop: '20px'}}>
-            Sorry, but the blog you are looking for is not found. Please, make sure you have typed the correct URL.
-          </Text>
-         
-        </FlexboxGrid>
-        <Stack spacing={20} alignItems="center" justifyContent="center" style={{marginTop: '20px'}}>
- 
-          <Button color="violet" appearance="primary" onClick={() => navigate("/")}>Go to Home</Button>
-          <Button color="violet" appearance="primary" onClick={() => navigate("/blogs")}>View list of blogs</Button>
+              <>
+                <FlexboxGrid align="center" justify="center">
+                  <FlexboxGrid.Item>
+                    <TbError404 size={300} />
+                  </FlexboxGrid.Item>
 
-           </Stack>
-        </></>
+                </FlexboxGrid>
+                <FlexboxGrid align="center" justify="center">
+
+                  <Text size='2rem'>
+                    Oops! Blog not found
+                  </Text>
+                  <Text size='xl' style={{ marginTop: '20px' }}>
+                    Sorry, but the blog you are looking for is not found. Please, make sure you have typed the correct URL.
+                  </Text>
+
+                </FlexboxGrid>
+                <Stack spacing={20} alignItems="center" justifyContent="center" style={{ marginTop: '20px' }}>
+
+                  <Button color="violet" appearance="primary" onClick={() => navigate("/")}>Go to Home</Button>
+                  <Button color="violet" appearance="primary" onClick={() => navigate("/blogs")}>View list of blogs</Button>
+
+                </Stack>
+              </></>
           }</>
 
       }

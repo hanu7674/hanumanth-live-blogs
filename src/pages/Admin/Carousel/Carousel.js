@@ -350,9 +350,7 @@ const CarouselComponent = () => {
       <Grid fluid  style={{marginTop: '15px'}}>
 
         <Row>
-          {
-            JSON.stringify(settings, null ,4)
-          }
+           
           <Col md={12} sm={24} xs={24} lg={15} xl={15}>
             <div className="aws-frm__title-bar--1gf9">
               <div className="aws-frm__title-bar__controls--2G7d">

@@ -4,20 +4,25 @@ import "./index.css"
 import { useDispatch, useSelector } from "react-redux";
 import { getTrendingBlogs } from "../../redux/blogs";
  import AwesomeSlider from 'react-awesome-slider';
-import { Container } from "rsuite";
+import { Carousel, Container } from "rsuite";
 import withAutoplay from 'react-awesome-slider/dist/autoplay';
+import 'react-awesome-slider/dist/styles.css';
 import Loading from "../../components/Loading/loading";
+import { useMediaQuery } from "rsuite/esm/useMediaQuery/useMediaQuery";
 const AutoplaySlider = withAutoplay(AwesomeSlider);
 
 const Trending = () => {
-    const loading  = useSelector((state)=> state.blogs.loading)
+const loading  = useSelector((state)=> state.blogs.loading)
     const blogs = useSelector((state)=> state.blogs.trendingBlogs);
     const location = useLocation();
 
     const dispatch = useDispatch();
     useEffect(()=>{
         dispatch(getTrendingBlogs());
-    }, [dispatch])
+    }, [dispatch]);
+const [isMobile] = useMediaQuery('(max-width: 700px)');
+const mobileStyles = {width: '100%'}
+const desktopStyles = {width: '70%', margin: 'auto'}
     return(
         <>
         <div>
@@ -28,10 +33,13 @@ const Trending = () => {
         <>{
           blogs?.length >0 ? 
         <div style={{}}>
-      <AutoplaySlider play={true}
+ 
+       <AutoplaySlider play={true}
       cancelOnInteraction={false} // should stop playing on user interaction
       interval={6000}
       className="carousel-auto-play"
+      showTimer
+style ={isMobile ? mobileStyles : desktopStyles}
       >
         {blogs?.map((item) => (
           <div className="item  " key={item.id}>
@@ -53,7 +61,8 @@ const Trending = () => {
             </Link>
           </div>
         ))}
-      </AutoplaySlider></div>
+  </AutoplaySlider>
+      </div>
       : <>
       <Container>
         <div className="carousel-empty-message" >

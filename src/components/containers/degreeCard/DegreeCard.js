@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import "./DegreeCard.css";
+import "../experienceCard/ExperienceCard.css";
 import { connect } from "react-redux";
 import { getEducationList } from "../../../redux/auth";
   import Loading  from '../../Loading/loading'

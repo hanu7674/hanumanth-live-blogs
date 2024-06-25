@@ -2,7 +2,7 @@ import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Timestamp from "react-timestamp";
 import { Col, FlexboxGrid, Panel, Row, Stack } from "rsuite";
-import { excerpt } from "./utility";
+import { excerpt } from "../../assets/constants";
 import parse from 'html-react-parser';
 
 const FeatureBlogs = ({ blogs, title }) => {

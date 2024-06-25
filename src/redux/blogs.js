@@ -1039,6 +1039,7 @@ export const editBlog = (id, blog) => {
     const blogDetails = {
       ...blog,
       lastUpdatedBy: usermetadata(auth.currentUser.uid),
+postedBy: usermetadata(blog?.postedBy?.uid)
     };
     dispatch(editBlogRequest());
     updateDoc(blogDoc(id), blogDetails)

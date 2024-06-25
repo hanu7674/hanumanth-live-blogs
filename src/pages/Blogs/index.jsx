@@ -13,6 +13,7 @@ import Tags from "./Tags";
 import FeatureBlogs from "./FeatureBlogs";
 import { InputGroup, Form } from "rsuite";
 import Loading from "../../components/Loading/loading";
+import { useMediaQuery } from "rsuite/esm/useMediaQuery/useMediaQuery";
 function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
@@ -136,12 +137,30 @@ const BlogsHomePage = () => {
     }
     setSearch(value);
    };
+const [isMobile] = useMediaQuery('(max-width: 700px)');
   
   return (
     <div className="blogs">
 
             <Row>
             <Trending />
+{isMobile ? <>
+<div className="blog-heading text-start py-2 mb-4">Search</div>
+             <div  >
+
+            <InputGroup style={{ marginBottom: 10}}>
+      <Input placeholder="Search blog"
+                  value={search}
+                  onChange={handleChange}
+                  aria-label="Search blog"
+                   />
+      <InputGroup.Addon>
+        <SearchIcon onClick={handleSearch}/>
+      </InputGroup.Addon>
+    </InputGroup>
+             
+        </div>
+</> : <></>}
             <Col md={16}  xs={23} sm={23} lg={16 } xl={16}>
             <div className="blog-heading text-start py-2 mb-4">Daily Blogs</div>
             {
@@ -200,9 +219,9 @@ const BlogsHomePage = () => {
 
             </Col>
             <Col md={8} xs={23} sm={23} lg={8 } xl={8}>
-            <div className="blog-heading text-start py-2 mb-4">Search</div>
-            {/* <form className="form-inline" onSubmit={handleSubmit}> */}
-            <div  >
+{!isMobile ? <>
+<div className="blog-heading text-start py-2 mb-4">Search</div>
+             <div  >
 
             <InputGroup style={{ marginBottom: 10}}>
       <Input placeholder="Search blog"
@@ -215,7 +234,8 @@ const BlogsHomePage = () => {
       </InputGroup.Addon>
     </InputGroup>
              
-            </div>
+        </div>
+</> : <></>}
             <div className="blog-heading text-start py-2 mb-4">Tags</div>
             <Tags tags={tagsCount?.slice(0,20)} />
             <FeatureBlogs title={"Most Popular"} blogs={blogs} />

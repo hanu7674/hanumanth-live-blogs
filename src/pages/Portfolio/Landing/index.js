@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Col, Nav, Panel, Row, Stack, Tabs, Text } from 'rsuite';
+import { Button, Col, Nav, Panel, Row, Stack, Tabs, Text, useMediaQuery, ButtonGroup } from 'rsuite';
 import { BsArrowRightCircle } from 'react-icons/bs';
 import { useParallax, Parallax } from 'react-scroll-parallax';
 import "./index.css"
@@ -54,7 +54,7 @@ const Landing = () => {
         "Strong understanding of core computer science concepts like data structures and algorithms, as well as software engineering best practices such as test-driven development and continuous integration.",
       ]
     }];
-   
+
   // const skills = [
   //   {name: "HTML", performance: 90},
   //   {name: "CSS", performance: 90},
@@ -67,65 +67,67 @@ const Landing = () => {
   //   {name: "SCSS", performance: 0},
   // ]
   const Component = () => {
+    const [isMobile] = useMediaQuery('(max-width: 700px)');
+    const [activeKey, setActiveKey] = React.useState('image');
     return (
       <div >
-      <Parallax translateY={[-20, 20]}>
-        <Row  style={{ margin: "12% 12% 0% 12%"}}>
-          <Col md={10} sm={24}  >
-            <div data-aos="zoom-in">
-              <Lottie
-                options={defaultOptions1}
-                isClickToPauseDisabled={false}
+        <Parallax translateY={[-20, 20]}>
+          <Row style={{ margin: "12% 12% 0% 12%" }}>
+            <Col md={10} sm={24}  >
+              <div data-aos="zoom-in">
+                <Lottie
+                  options={defaultOptions1}
+                  isClickToPauseDisabled={false}
 
-                title="lingala hanumantha reddy's animation skills"
+                  title="lingala hanumantha reddy's animation skills"
 
-              /></div>
-          </Col>
-          <Col md={14} sm={24}  >
-            <div data-aos="zoom-in">
-               
-              <div  >
-                <Panel bordered shaded header={
-                  <><Text align='center' size='xlg'>
-                  <h1>What I Do  ?</h1></Text>
-                  </>
-                }>
+                /></div>
+            </Col>
+            <Col md={14} sm={24}  >
+              <div data-aos="zoom-in">
 
-                  <Tabs defaultActiveKey={0} vertical appearance="subtle">
-                       
+                <div  >
+                  <Panel bordered shaded header={
+                    <><Text align='center' size='xlg'>
+                      <h1>What I Do  ?</h1></Text>
+                    </>
+                  }>
+                     
+                    <Tabs defaultActiveKey={0} vertical={isMobile} appearance="subtle">
+
                       {
-                      roles.map((role, index) => {
-                            return (
-                                 <Tabs.Tab eventKey={index} title={role.name}>
-                                  <div key={role.name}>
-                                    <div key={role.name}>{
-                                      role?.points?.map((point) => {
-                                        return (
-                                          <div key={point}>
+                    roles.map((role, index) => {
+                          return (
+                            <Tabs.Tab eventKey={index} title={role.name} >
+                              <div key={role.name}>
+                                <div key={role.name}>{
+                                  role?.points?.map((point) => {
+                                    return (
+                                      <div key={point}>
 
-                                            <Stack alignItems='flex-start' spacing={10}>
-                                              <Stack.Item>⚡</Stack.Item>
-                                              <Stack.Item>{point}</Stack.Item>
-                                            </Stack>
-                                          </div>
-                                        )
-                                      })
-                                    }
-                                    </div>
-                                  </div>
-                                </Tabs.Tab>
-                             )
-                          })}
-                  </Tabs>
-                   
-                </Panel>
-                 
+                                        <Stack alignItems='flex-start' spacing={10}>
+                                          <Stack.Item>⚡</Stack.Item>
+                                          <Stack.Item>{point}</Stack.Item>
+                                        </Stack>
+                                      </div>
+                                    )
+                                  })
+                                }
+                                </div>
+                              </div>
+                            </Tabs.Tab>
+                          )
+                        })}
+                    </Tabs>
 
+                  </Panel>
+
+
+                </div>
               </div>
-            </div>
-          </Col>
-        </Row>
-      </Parallax>
+            </Col>
+          </Row>
+        </Parallax>
       </div>
     )
   };
@@ -134,7 +136,7 @@ const Landing = () => {
   }
   return (
     <div ref={ref} >
-      <Row style={{ margin: "5% 12% 12% 12%"}}>
+      <Row style={{ margin: "5% 12% 12% 12%" }}>
         <Col md={16} sm={24}  >
           <Button size='lg' className='space-btn' variant="outline-light">Welcome to my Portfolio</Button>
           <br></br>        <br></br>
@@ -158,13 +160,13 @@ const Landing = () => {
             <Button appearance='ghost' className='lets-connect-button' onClick={letsConnect}>
               <Stack alignItems='center'>
                 <Stack.Item>
-            <h3 className='text-white'>Let's Connect &nbsp; <BsArrowRightCircle className='forword-arrow-icon' />&nbsp; &nbsp;</h3>
-</Stack.Item>
-               </Stack>
+                  <h3 className='text-white'>Let's Connect &nbsp; <BsArrowRightCircle className='forword-arrow-icon' />&nbsp; &nbsp;</h3>
+                </Stack.Item>
+              </Stack>
             </Button>
-             </div>
+          </div>
         </Col>
-        <Col  md={8} sm={24}>
+        <Col md={8} sm={24}>
           <div data-aos="zoom-in"><Lottie
             options={defaultOptions}
             isClickToPauseDisabled={false}

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { excerpt } from "./utility";
+import { excerpt } from "../../assets/constants";
 import parse from 'html-react-parser';
 import { Row, Panel, Stack } from "rsuite";
 import Timestamp from "react-timestamp";
@@ -29,7 +29,7 @@ const Card = ({ key, item, index }) => {
 
 
                 {
-                  item?.content ? <>{excerpt(parse(item?.content), 25)}</> : null
+              item?.content ? <>{excerpt( item?.content, 25)}</> : null
                 }</h6>
               <Stack justifyContent="space-between">
                 <Stack.Item>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { excerpt } from "./utility";
+import { excerpt } from "../../assets/constants";
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import parse from "html-react-parser";
 import { useDispatch, useSelector } from "react-redux";
@@ -30,15 +30,15 @@ const BlogSection = ({
            
           <div key={id} >
             <Row>
-              <Col md={8} sm={24} xs={24}>
-                <div className="hover-blogs-img">
+<Col md={6}   sm={24} xs={24}>
+            <div className="hover-blogs-img">
                   <div className="blogs-img">
-                    <img loading="lazy"  src={imageUrl} alt={title} />
+    <img loading="lazy"  src={imageUrl} alt={title} />
 
                   </div>
                 </div>
-              </Col>
-              <Col md={16} sm={24} xs={24}>
+  </Col>
+<Col md={15} mdOffset={2} sm={24} xs={24}>
                 <div className="text-start">
                   <h6 className="category catg-color">{category}</h6>
                   <span className="title  ">

@@ -96,7 +96,7 @@ export const AppHome = () => {
  
    return (
     <>
-    <div style={applyMargin ? { margin: "2% 12% 1% 12%" } : {}}>
+<div style={applyMargin ? { margin: "2% 12% 1% 12%" } : {}}>
       <Routes>
  
         <Route path="/user-inactive" element={<InactiveUserPage />} ></Route>

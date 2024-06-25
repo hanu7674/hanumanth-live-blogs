@@ -1,4 +1,4 @@
-import {  Nav, Navbar, Footer, FlexboxGrid, IconButton } from 'rsuite';
+import {  Nav, Navbar, Footer, Stack, IconButton } from 'rsuite';
 import HomeIcon from '@rsuite/icons/legacy/Home';
 import ListIcon from '@rsuite/icons/List';
 import UserBadgeIcon from '@rsuite/icons/UserBadge';
@@ -17,17 +17,20 @@ const NavLink = React.forwardRef(({ href, children, ...rest }, ref) => (
 function FooterPage() {
   return (
     <Footer>
-      <div style={{margin: '2% 2% 2% 2%',}}>
+<div style={{margin: '2% 2% 2% 2%', textAlign: 'center'}}>
         <hr></hr>
         <div>
-            <FlexboxGrid justify='space-between'>
-                <div>
-                    <span>Developed by @Hanu7674</span>
-                </div>
-                <div style={{ textAlign: 'center' }}>
+<Stack justifyContent='space-around' alignItems='center' wrap>
+          <Stack.Item>
+                <span>Developed by @Hanu7674</span>
+              </Stack.Item>
+     <Stack.Item>
+      <div style={{ textAlign: 'center' }}>
           &copy; {new Date().getFullYear()} React Admin Dashboard with Firebase App. All rights reserved.
         </div>
-              <FlexboxGrid justify='space-around'>
+     </Stack.Item>
+                
+          <Stack justifyContent='space-around'>
               <NavLink href="https://facebook.com/hanu7674"   >
                 <FacebookSquareIcon  style={{width: '40px', height: '40px'}}/>
               </NavLink>
@@ -40,8 +43,8 @@ function FooterPage() {
               <NavLink  href="https://instagram.com/hanu7674" >
                 <Instagram style={{width: '40px', height: '40px'}}/>
               </NavLink>
-                </FlexboxGrid>
-            </FlexboxGrid>
+                </Stack>
+            </Stack>
         </div>
       </div>
     </Footer>
