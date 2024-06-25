@@ -1,6 +1,7 @@
 // webpack.config.js
 
 const TerserPlugin = require('terser-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   mode: 'production',
@@ -19,6 +20,9 @@ module.exports = {
         },
       }),
     ],
+    splitChunks: {
+      chunks: 'all',
+    },
   },
   module: {
     rules: [
@@ -32,7 +36,7 @@ module.exports = {
     ],
   },
   plugins: [
-    new MiniCssExtractPlugin({
+new MiniCssExtractPlugin({
       // Options here
       ignoreOrder: true, // Enable this to remove order warnings
     }),
