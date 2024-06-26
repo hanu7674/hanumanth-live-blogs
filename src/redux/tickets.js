@@ -1,7 +1,7 @@
 import * as authActionTypes from '../reducers/types';
-import { Timestamp, addDoc, arrayRemove, arrayUnion, deleteDoc, getDoc, getDocs, onSnapshot, orderBy, query, serverTimestamp, setDoc, updateDoc, where } from "firebase/firestore";
-import { auth, usersRef, userRef, usermetadata, usernameRef, batch, imageUploadPath, usermetadataRef, ticketsCollection, ticketById } from "../Firebase/firebase";
-import { dismissNotification, notify } from "reapop";
+import { Timestamp,   arrayUnion,  getDoc, getDocs,   query,  setDoc, updateDoc, where } from "firebase/firestore";
+import { auth, usersRef,   usermetadata,   ticketsCollection, ticketById } from "../Firebase/firebase";
+import {  notify } from "reapop";
 import { addNotification } from './notifications';
 import { faker } from '@faker-js/faker';
 

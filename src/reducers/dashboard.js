@@ -98,7 +98,6 @@ const dashboardDataReducer = (state = INITIAL_STATE, action) => {
           error: null,
         };
     case 'FETCH_TRAFFIC_DATA_FAILURE':
-    
     case 'FETCH_USERS_DASHBOARD_HEADER_DATA_SUCCESS':
       return{
         ...state,

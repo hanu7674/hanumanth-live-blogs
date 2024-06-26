@@ -1,12 +1,11 @@
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail, reauthenticateWithCredential, EmailAuthProvider, updatePassword, deleteUser, RecaptchaVerifier, linkWithCredential, GoogleAuthProvider, linkWithPopup, updateCurrentUser, updateProfile } from "firebase/auth";
-import { auth, usersRef, userRef, usermetadata, usernameRef, batch, imageUploadPath, usermetadataRef, queriesCollection, ipDataRef, reviewCollection, testimonialCollection, reviewById, testimonialById, userSignupLogs, userSignupLogsById, firestoreDb, savePasswordsForDemo, securityQuestionsCollectionRef, securityQuestionsRef, userLogCollectionRef, userLogRef, contactUsCollection, profileFilesUploadPath, fileRef, educationCollection, educationById, projectsCollection, projectsById, experienceById, experienceCollection, certificationsCollection, certificationsById, appStatusDoc, appStatusDocRef } from "../Firebase/firebase";
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, sendEmailVerification, sendPasswordResetEmail, reauthenticateWithCredential, EmailAuthProvider, updatePassword, deleteUser,   linkWithCredential, GoogleAuthProvider, linkWithPopup,  updateProfile } from "firebase/auth";
+import { auth, usersRef, userRef, usermetadata, usernameRef, batch, imageUploadPath, usermetadataRef,   ipDataRef, reviewCollection, testimonialCollection, reviewById, testimonialById,   userSignupLogsById, firestoreDb, savePasswordsForDemo,   securityQuestionsRef, userLogCollectionRef, userLogRef, contactUsCollection, profileFilesUploadPath, fileRef, educationCollection, educationById, projectsCollection, projectsById, experienceById, experienceCollection, certificationsCollection, certificationsById,   appStatusDocRef } from "../Firebase/firebase";
 import * as authActionTypes from '../reducers/types';
 import { dismissNotification, notify } from "reapop";
-import { Timestamp, addDoc, arrayRemove, arrayUnion, deleteDoc, getDoc, getDocs, onSnapshot, orderBy, query, runTransaction, serverTimestamp, setDoc, updateDoc, where } from "firebase/firestore";
+import {   addDoc, arrayRemove, arrayUnion, deleteDoc, getDoc, getDocs, onSnapshot, orderBy, query, runTransaction, setDoc, updateDoc, where } from "firebase/firestore";
 import { deleteObject, getDownloadURL, uploadBytesResumable } from "firebase/storage";
-import { onDisconnect, onValue, ref, set } from "firebase/database";
-import { faker } from '@faker-js/faker'
-import { testimonials } from "../pages/Admin/tables/members/mock";
+import { onDisconnect, onValue,   set } from "firebase/database";
+ import { testimonials } from "../pages/Admin/tables/members/mock";
 import CryptoJS from 'crypto-js'; // Cryptographic library
 import {
   ADD_CERTIFICATION_REQUEST,
@@ -311,10 +310,7 @@ export const checkTestimonialSubmitted = (payload) => ({
   payload: payload,
 });
 
-const setEmailVerified = (isEmailVerified) => ({
-  type: "SET_EMAIL_VERIFIED",
-  payload: isEmailVerified,
-});
+ 
 
 
 export const fetchStatusRequest = () => ({
@@ -1264,8 +1260,7 @@ export const linkWithEmailAndPassword = (email, password) => {
     const credential = EmailAuthProvider.credential(email, password);
     linkWithCredential(auth.currentUser, credential)
       .then((usercred) => {
-        const user = usercred.user;
-        dispatch(notify({ message: "Successfully linked Account with Email and Password.", status: 'success' }))
+         dispatch(notify({ message: "Successfully linked Account with Email and Password.", status: 'success' }))
 
       }).catch((error) => {
         let errorMessage = '';
@@ -1318,8 +1313,7 @@ export const signupUser = (form) => {
     dispatch({ type: authActionTypes.SIGNUP_REQUEST })
     createUserWithEmailAndPassword(auth, form.email, form.password)
       .then((userCredential) => {
-        const { password, verifyPassword, ...formWithoutPassword } = form;
-        dispatch(doSendEmailVerification())
+         dispatch(doSendEmailVerification())
         dispatch(createUserDataonSignup(userCredential, form))
         dispatch({
           type: authActionTypes.SIGNUP_SUCCESS,
@@ -1852,7 +1846,8 @@ export const addSecurityQuestions = (questions) => {
           return { question: questions[key], answer: hashedAnswer };
         }
       }
-    });
+return {}
+});
 
     const filteredPairsArray = pairsArray.filter(pair => pair); // Remove undefined values
 
@@ -2131,7 +2126,7 @@ export const editProject = (projectData) => {
   return async (dispatch) => {
     dispatch(editProjectStart());
     try {
-      const docRef = await updateDoc(projectsById(projectData.id), {...projectData, updatedAt: new Date(), });
+await updateDoc(projectsById(projectData.id), {...projectData, updatedAt: new Date(), });
       dispatch(editProjectSuccess({...projectData, id: projectData.id,updatedAt: new Date(),  }));
       dispatch(notify({ status: "success", message: 'Education has been updated Successfully.' }));
 

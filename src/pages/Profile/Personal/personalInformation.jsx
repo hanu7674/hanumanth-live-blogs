@@ -152,7 +152,7 @@ const PersonalInformation = ({ updateAccountDetails, user, profileUrl, progress,
                                                     <button style={{ width: 119, height: 119, borderRadius: '50%' }} >
                                                         {uploading && <Loader backdrop center />}
                                                         {fileInfo ? (
-                                                            <img loading="lazy"  src={fileInfo} width="100%" height="100%" />
+                                                            <img loading="lazy" alt='profile' src={fileInfo} width="100%" height="100%" />
                                                         ) : (
                                                             <FaUser size={80} />
                                                         )}

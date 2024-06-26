@@ -1,14 +1,13 @@
-import { app, auth, browserCollectionRef, browserCollectionRefByAgent, configRefById, dashboardDataRef, firestoreDb, ipDataCollectionRef, pageView, pageViewRef, pageViewRefById, pageViewsRef, pageViewsRefById, pageViewsRefByParameter, routeConfigRef, routeConfigRefById, trafficCollectionGroupRef, trafficCollectionRef, trafficRef, userSignupLogs, userSignupLogsById, usersRef, webAppTrafficCollectionRef, webAppTrafficDocRef } from '../Firebase/firebase';
+import { app,   browserCollectionRef, browserCollectionRefByAgent,  dashboardDataRef, firestoreDb, ipDataCollectionRef, pageView, pageViewRef, pageViewRefById, pageViewsRef, pageViewsRefById, pageViewsRefByParameter, routeConfigRef, routeConfigRefById,   userSignupLogs, userSignupLogsById, usersRef,  } from '../Firebase/firebase';
 import {
   FETCH_DASHBOARD_DATA_START,
   FETCH_DASHBOARD_DATA_SUCCESS, FETCH_DASHBOARD_DATA_FAILURE, INCREMENT_PAGE_VIEW_START, INCREMENT_PAGE_VIEW_SUCCESS, INCREMENT_PAGE_VIEW_FAILURE, FETCH_ROUTE_TO_PAGE_ID_FAILURE, FETCH_ROUTE_TO_PAGE_ID_START, FETCH_ROUTE_TO_PAGE_ID_SUCCESS, ADD_ROUTE_TO_PAGE_ID_START, ADD_ROUTE_TO_PAGE_ID_SUCCESS, ADD_ROUTE_TO_PAGE_ID_FAILURE, FETCH_ROUTE_TO_PAGE_IDS_START, FETCH_ROUTE_TO_PAGE_IDS_SUCCESS, FETCH_ROUTE_TO_PAGE_IDS_FAILURE
 } from '../reducers/types';
-import { addDoc, collection, collectionGroup, deleteDoc, getDoc, getDocs, increment, onSnapshot, orderBy, query, runTransaction, setDoc, updateDoc, where } from 'firebase/firestore'; // adjust this path to your firebase config file
-import { dismissNotification, notify } from "reapop";
+import {  collection, collectionGroup, deleteDoc, getDoc, getDocs, increment, onSnapshot,   query, runTransaction, setDoc,   where } from 'firebase/firestore'; // adjust this path to your firebase config file
+import {   notify } from "reapop";
 import { faker } from '@faker-js/faker';
 import { get } from 'firebase/database';
-import { signuplogs } from '../pages/Admin/tables/members/mock';
-
+ 
 export const fetchDashboardDataStart = () => ({
   type: FETCH_DASHBOARD_DATA_START
 });
@@ -181,12 +180,12 @@ export const fetchDashboardDataOnVisitsPages = () => {
     dispatch({ type: "FETCH_VISITORS_PAGE_DATA_REQUEST" });
     getDocs(pageViewsRef()).then((snapshot) => {
       const data = [];
-      snapshot.docs.map((doc) => {
+snapshot.docs.map((doc) => (
         data.push({
           routeComponent: doc.id,
           ...doc.data() 
         })
-      });
+));
       dispatch({ type: 'FETCH_VISITORS_PAGE_DATA_SUCCESS', payload: data });
     })
       .catch((error) => {
@@ -319,8 +318,7 @@ export const fetchDashboardDataTrafficSummary = (options) => {
         return { option, documents };
       });
       const formattedData = {};
-      const blogData = {};
-
+ 
       data.forEach(({ option, documents }) => {
         documents.forEach((doc) => {
           const path = doc.path;

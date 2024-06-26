@@ -573,7 +573,7 @@ export const ImageCell = ({ rowData, dataKey, ...props }) => (
         display: 'inline-block'
       }}
     >
-      <img loading="lazy"  src={rowData[dataKey]} width="40" />
+<img loading="lazy" alt={rowData?.school}  src={rowData[dataKey]} width="40" />
     </div>
   </Cell>
 );
@@ -617,7 +617,7 @@ export const NameCell = ({ rowData, dataKey, ...props }) => {
     return (
       <>        <Panel shaded bordered bodyFill className={styles ? `user-content-panel` : ''}  style={{ display: 'inline-block' }}>
     <Stack justifyContent='center'>
-    <img loading="lazy"  src={data.imageUrl} height="150" />
+<img loading="lazy" alt={data.school} src={data.imageUrl} height="150" />
 
     </Stack>
  

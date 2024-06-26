@@ -109,7 +109,7 @@ const PersonalInformation = ({ loading, updateAccountDetails, user, error, getUs
                                                 <button style={{ width: 120, height: 120, borderRadius: '50%' }} >
                                                     {uploading && <Loader backdrop center />}
                                                     {fileInfo ? (
-                                                        <img loading="lazy"  src={fileInfo} width="100%" height="100%" />
+                                <img loading="lazy"  alt="User Avatar" src={fileInfo} width="100%" height="100%" />
                                                     ) : (
                                                         <AvatarIcon style={{ fontSize: 40 }} />
                                                     )}
@@ -120,7 +120,7 @@ const PersonalInformation = ({ loading, updateAccountDetails, user, error, getUs
                                                 <Panel shaded bordered bodyFill style={{ display: 'inline-block', width: 119, borderRadius: '50%', borderColor: 'greenyellow' }}>
                                                     {
                                                         user?.photoURL ? <>
-                                                            <img loading="lazy"  src={user.photoURL} height="119" width='119' style={{ borderRadius: '50%' }} />
+                                                            <img loading="lazy" alt='user'   src={user.photoURL} height="119" width='119' style={{ borderRadius: '50%' }} />
                                                         </> :
                                                             <AvatarIcon style={{ fontSize: 40 }} />}
 

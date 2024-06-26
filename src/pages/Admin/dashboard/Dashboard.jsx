@@ -91,7 +91,7 @@ const Dashboard = ({ user, fetchDashboardDataStartAsync, fetchTopPages, getViewC
             <Col xs={20} sm={22} md={22} lg={22} xl={22}>
               <Panel className="trend-box bg-gradient-red"  data-aos="fade-down" data-aos-offset="300"
      data-aos-easing="ease-in-sine">
-                <img loading="lazy"  className="chart-img" src={images.PVIcon} />
+            <img loading="lazy" alt='page views'  className="chart-img" src={images.PVIcon} />
                 <div className="title">Page Views </div>
                 <div className="value">{visitorsData?.pageViews}</div>
               </Panel>
@@ -99,7 +99,7 @@ const Dashboard = ({ user, fetchDashboardDataStartAsync, fetchTopPages, getViewC
             <Col xs={20} sm={22} md={22} lg={22} xl={22}>
               <Panel className="trend-box bg-gradient-green" data-aos="fade-down" data-aos-offset="300"
      data-aos-easing="ease-in-sine">
-                <img loading="lazy"  className="chart-img" src={images.VVICon} />
+                <img loading="lazy" alt='visits'  className="chart-img" src={images.VVICon} />
                 <div className="title">Visits </div>
                 <div className="value">{visitorsData?.visits}</div>
               </Panel>
@@ -107,7 +107,7 @@ const Dashboard = ({ user, fetchDashboardDataStartAsync, fetchTopPages, getViewC
             <Col xs={20} sm={22} md={22} lg={22} xl={22}>
               <Panel className="trend-box bg-gradient-blue" data-aos="fade-down" data-aos-offset="300"
      data-aos-easing="ease-in-sine">
-                <img loading="lazy"  className="chart-img" src={images.UVIcon} />
+                <img loading="lazy" alt='unique visitors'  className="chart-img" src={images.UVIcon} />
                 <div className="title">Unique Visitors</div>
                 <div className="value">{visitorsData?.uniqueVisitors}</div>
               </Panel>

@@ -33,7 +33,7 @@ export const ImageCell = memo(({ rowData, dataKey, ...props }) => (
         display: 'inline-block'
       }}
     >
-      <img loading="lazy"  src={rowData?.by?.photoURL} width="40" />
+<img loading="lazy" alt={rowData.by.email}  src={rowData?.by?.photoURL} width="40" />
     </div>
   </Cell>
 ));

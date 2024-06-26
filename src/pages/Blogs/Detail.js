@@ -142,7 +142,7 @@ description={blog?.title} property={blog?.content ? <>{excerpt(parse(blog?.conte
                                 <div className="card" >
                                   <div className="blog-details-image">
                                     {
-                                      blog?.imageUrl ? <img loading="lazy" src={blog?.imageUrl} className="blogs-img" /> : null
+                                      blog?.imageUrl ? <img loading="lazy" alt={blog.title}  src={blog?.imageUrl} className="blogs-img" /> : null
                                     }</div>
                                 </div>
                               </FlexboxGrid.Item>

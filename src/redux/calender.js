@@ -1,4 +1,4 @@
-import { auth, calendarRef, calendarRefById, eventRefById, eventsRef, firestoreDb, notificationById, usermetadata } from '../Firebase/firebase';
+import { auth,   eventRefById, eventsRef, firestoreDb, notificationById, usermetadata } from '../Firebase/firebase';
 import {
   ADD_EVENT_REQUEST,
   ADD_EVENT_SUCCESS,
@@ -13,11 +13,10 @@ import {
   GET_ALL_EVENTS_FAILURE,
   GET_ALL_EVENTS_SUCCESS,
   SET_DRAGGABLE_EVENTS,
-  SET_DRAGGABLE_EVENT,
-  DELETE_DRAGGABLE_EVENT
+   DELETE_DRAGGABLE_EVENT
 } from '../reducers/types';
-import { dismissNotification, notify } from "reapop";
-import { addDoc, Timestamp, getDocs, query, where, deleteDoc, setDoc, updateDoc, writeBatch, getDoc, arrayUnion, orderBy, arrayRemove, collectionGroup } from "firebase/firestore";
+import {   notify } from "reapop";
+import {   Timestamp, getDocs, query, where, deleteDoc, setDoc, updateDoc, writeBatch, getDoc, arrayUnion, orderBy, arrayRemove } from "firebase/firestore";
 import {faker} from '@faker-js/faker'
 // Add Event Actions
 export const addEventRequest = () => {

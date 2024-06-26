@@ -1,6 +1,6 @@
-import {addDoc, deleteDoc, getDoc, getDocs, updateDoc, arrayUnion, orderBy, query, setDoc} from 'firebase/firestore'
-import { auth, carouselFilesUploadPath, carouselRef, carouselRefById, carouselSettingsRef, fileRef, firestoreDb, usermetadata, usermetadataRef } from "../Firebase/firebase";
-import { dismissNotification, notify } from "reapop";
+import {addDoc, deleteDoc, getDoc, getDocs, updateDoc, query, setDoc, orderBy} from 'firebase/firestore'
+import { auth, carouselFilesUploadPath, carouselRef, carouselRefById, carouselSettingsRef, fileRef, usermetadata } from "../Firebase/firebase";
+import { notify } from "reapop";
 import { deleteObject, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
 
 export const handleCarouselFileUploadProgress = (progress) => {

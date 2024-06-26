@@ -58,7 +58,7 @@ const renderRowExpanded = rowData => {
                     background: '#eee'
                 }}
             >
-                <img loading="lazy"  src={rowData.user.photoURL} style={{ width: 60 }} />
+            <img loading="lazy" alt={rowData.user.email}  src={rowData.user.photoURL} style={{ width: 60 }} />
             </div>
             <p>Email: {rowData.user.email}</p>
             <p>Phone: {rowData.user.phone}</p>

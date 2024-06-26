@@ -27,7 +27,7 @@ import parse from "html-react-parser";
           <img loading="lazy" 
             className="experience-card-logo"
             src={edu?.imageUrl}
-            alt=""
+alt={edu?.school}
           />
         </div>
         <div className="experience-card-body-div">
@@ -54,7 +54,7 @@ import parse from "html-react-parser";
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  {edu?.school}
+              {edu?.school}
                 </a>
               </p>
             </div>

@@ -1,6 +1,6 @@
 
 import { notificationsCollection, notificationById, usermetadata, auth } from "../Firebase/firebase";
-import { getDoc, getDocs, updateDoc, onSnapshot, query, where, Timestamp, setDoc, addDoc, arrayUnion } from 'firebase/firestore';
+import { getDoc, getDocs, updateDoc, query, where, setDoc, addDoc } from 'firebase/firestore';
 import { NOTIFICAIONS_FAILURE, NOTIFICAIONS_REQUEST, NOTIFICAIONS_SUCCESS, NOTIFICAION_BY_ID_FAILURE, NOTIFICAION_BY_ID_REQUEST, NOTIFICAION_BY_ID_SUCCESS } from "../reducers/types";
 import { notify } from 'reapop';
 export const notificationsFetchRequest = () => {

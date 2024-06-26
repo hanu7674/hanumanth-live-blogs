@@ -54,9 +54,7 @@ import {
   REDIRECT_SUCCESS,
   REDIRECT_FAILURE,
   CLEAR_REDIRECT,
-  FETCH_DASHBOARD_DATA_REQUEST,
-  FETCH_DASHBOARD_DATA_SUCCESS,
-  FETCH_DASHBOARD_DATA_FAILURE,
+   
   GET_TOTAL_BLOGS_LIST_REQUEST,
   GET_TOTAL_BLOGS_LIST_FAILURE,
   GET_TOTAL_BLOGS_LIST_SUCCESS,
@@ -85,7 +83,7 @@ import {
   PERMANENTLY_REMOVE_BLOG_SUCCESS,
   PERMANENTLY_REMOVE_BLOG_FAILURE,
 } from "../reducers/types";
-import { auth, db, firestoreDb, storage, analytics, blogCollection, userRef, blogDoc, blogReviewDoc, notificationById, commentsRef, commentsDocRef, usernameRef, blogFilesUploadPath, fileRef, usermetadata, categories } from "../Firebase/firebase";
+import { auth,   firestoreDb,   blogCollection, userRef, blogDoc, blogReviewDoc,   commentsRef, commentsDocRef,   blogFilesUploadPath, fileRef, usermetadata, categories } from "../Firebase/firebase";
 import {
   getDocs,
   getDoc,
@@ -98,30 +96,27 @@ import {
   onSnapshot,
   arrayUnion,
   arrayRemove,
-  serverTimestamp,
+   
   orderBy,
-  addDoc,
+   
   limit,
   startAfter,
   deleteDoc,
   setDoc,
   Timestamp,
   runTransaction,
-  endAt,
+ 
   endBefore,
   limitToLast,
 
 } from "firebase/firestore";
 
-import { notify, dismissNotification } from "reapop";
+import { notify,   } from "reapop";
 import { faker } from '@faker-js/faker'
 import { appendNotification } from "./notifications";
 import { deleteObject, getDownloadURL, uploadBytesResumable } from "firebase/storage";
-import { getUserMetaData } from "./auth";
-
-// create a new write batch
-const batch = writeBatch(firestoreDb);
-
+ 
+  
 
 
 export const trendingBlogsRequest = () => {
@@ -1850,8 +1845,7 @@ export const getBlogsByTimeRange = (timeRange) => {
         return { ...itemData, postedBy: userData, id: item.id };
       });
       const blogs = await Promise.all(promises);
-      const count = blogsSnapshot.size;
-      dispatch(fetchBlogsByTimeRangeSuccess(blogs));
+       dispatch(fetchBlogsByTimeRangeSuccess(blogs));
     }
     catch (error) {
       dispatch(fetchBlogsByTimeRangeFailure(error));

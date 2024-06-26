@@ -17,7 +17,7 @@ const UserContentPanel = ({ data, header, styles }) => {
       display: 'inline-block'
     }}
   >
-    <img loading="lazy"  src={data?.photoURL} width="40" alt={data?.displayName} />
+    <img    loading="lazy"  src={data?.photoURL} width="40" alt={data?.displayName} />
   </div>
       <p>
         <b>Name:</b> {data?.firstName + ' ' + data?.lastName}

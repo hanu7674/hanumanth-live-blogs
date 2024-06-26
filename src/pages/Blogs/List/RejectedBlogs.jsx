@@ -22,7 +22,7 @@ const UserContentPanel = ({ data, header, styles }) => {
      return(
        <>
         <Panel shaded bordered bodyFill className={styles ? `user-content-panel` : ''} style={{ display: 'inline-block' }}>
- <Stack justifyContent='center'><img loading="lazy"  src={data.imageUrl} height="150" />
+<Stack justifyContent='center'><img alt={data.title} loading="lazy"  src={data.imageUrl} height="150" />
 </Stack>
      <Panel     >
 
@@ -130,7 +130,7 @@ const UserContentPanel = ({ data, header, styles }) => {
           display: 'inline-block'
         }}
       >
-        <img loading="lazy"  src={rowData[dataKey]} width="40" />
+        <img loading="lazy" alt={rowData.title}  src={rowData[dataKey]} width="40" />
       </div>
     </Cell>
   );

@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
 import {reducer as notificationsReducer} from 'reapop';
-import auth, { authReducer } from './auth';
+import   { authReducer } from './auth';
 import {todosReducer} from './todo';
-import tag from './tag';
+import {tagsReducer} from './tag';
 import carouselReducer from './carouselReducer';
 import notificationReducer from './notification';
 import { EventReducers } from './calendar';
@@ -23,7 +23,7 @@ const rootReducer = combineReducers({
   tickets: ticketReducer,
    blogs: blogReducer,
   redirect: redirectReducer,
-    tag,
+    tag: tagsReducer
   });
   
   export default rootReducer;

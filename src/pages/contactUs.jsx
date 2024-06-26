@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { Container, Panel, Header, Content, Footer, Form, ButtonToolbar, Button, Input, FlexboxGrid, Schema } from 'rsuite';
+import { Container, Panel, Header, Content, Footer, Form,   Button, Input, FlexboxGrid, Schema } from 'rsuite';
 import { submitContactUsForm } from '../redux/auth';
 const Textarea = React.forwardRef((props, ref) => <Input {...props} as="textarea" ref={ref} />);
 const { StringType } = Schema.Types;
@@ -28,7 +28,7 @@ const TextField = React.forwardRef((props, ref) => {
 });
 const ContactUsPage = () => {
   const formRef = React.useRef();
-  const [formError, setFormError] = React.useState({});
+const [formError, setFormError] = React.useState({});
   const [formValue, setFormValue] = React.useState({
     name: '',
     email: '',

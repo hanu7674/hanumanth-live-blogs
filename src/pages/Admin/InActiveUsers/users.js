@@ -25,7 +25,7 @@ export const ImageCell = ({ rowData, dataKey, ...props }) => (
         display: 'inline-block'
       }}
     >
-      <img loading="lazy"  src={rowData[dataKey]} width="40" />
+      <img loading="lazy"  alt={rowData.email}  src={rowData[dataKey]} width="40" />
     </div>
   </Cell>
 );

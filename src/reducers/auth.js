@@ -739,7 +739,7 @@ appStatusLoading: false,
               error: action.payload
             }
             case 'SET_ACCOUNT_STATUS_CHANGE_SUCCESS':
-      const { type, uid, status } = action.payload;
+const {  uid, status } = action.payload;
 
       // Remove the user from both active and inactive lists
       const updatedActiveUsers = state.activeUsers.filter(user => user.id !== uid);
