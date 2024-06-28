@@ -8,6 +8,8 @@ import { TbMathAvg } from "react-icons/tb";
 import MapChart1 from "../../users/Maps";
 import Loading from "../../../../components/Loading/loading";
 import BarChartComponent from "../../Reviews/dashboard/BarChartComponent";
+import '../../dashboard/styles.css'
+
 const TestimonialsDashboard = ({  loading, error, totalTestimonialsCount, fetchTestimonialsDashboardData, testimonialsbarChartData , viewCountCityArray, viewCountContinentArray, viewCountCountryArray  }) => {
 //   todo: 'Add location data and display avarage by country'
 

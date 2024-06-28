@@ -83,7 +83,7 @@ import {
   PERMANENTLY_REMOVE_BLOG_SUCCESS,
   PERMANENTLY_REMOVE_BLOG_FAILURE,
 } from "../reducers/types";
-import { auth,   firestoreDb,   blogCollection, userRef, blogDoc, blogReviewDoc,   commentsRef, commentsDocRef,   blogFilesUploadPath, fileRef, usermetadata, categories } from "../Firebase/firebase";
+import { auth,   firestoreDb,   blogCollection, userRef, blogDoc, blogReviewDoc,   commentsRef, commentsDocRef,   blogFilesUploadPath, fileRef, usermetadata, categories, usermetadataRef } from "../Firebase/firebase";
 import {
   getDocs,
   getDoc,
@@ -928,6 +928,7 @@ export const approveBlog = (blogId) => {
       await updateDoc(blogRef, {
         approved: true,
         approvedAt: Timestamp.now(),
+approvedBy: usermetadata(auth.currentUser.uid),
       });
       dispatch({ type: APPROVE_BLOG_SUCCESS, payload: blogId });
       dispatch(notify({ message: 'Blog approved successfully', status: 'success' }));
@@ -1646,7 +1647,7 @@ export const removeCategories = (info) => {
   return async dispatch => {
 
     dispatch(removeCategoryRequest())
-    updateDoc(categories(), {
+updateDoc(categories(), {
       categories: arrayRemove({ ...info })
     })
       .then(() => {

@@ -6,6 +6,7 @@ import ProductionDown from "../../assets/ProductionDown";
 import MaintenanceMode from "../../assets/MaintenanceMode";
 import { fetchStatus } from "../../redux/auth";
 import ManageAppStatus from "../../pages/Admin/AppStatus";
+import BlogsAuthorsUsersForms from "../../pages/Admin/BlogAuthors";
 
 // Lazy load components
 const HomePage = lazy(() => import("../../pages/Home"));
@@ -30,10 +31,9 @@ const SignUpPageAdmin = lazy(() => import("../../pages/Admin/authentication/sign
 const AppliedSignInPage = lazy(() => import("../../pages/Admin/authentication/signin"));
 const AppliedSignUpPage = lazy(() => import("../../pages/Admin/authentication/signup"));
 const PersonalInformationPage = lazy(() => import("../../pages/Profile/Personal"));
-const AccountSettingsPage = lazy(() => import("../../pages/Profile/Account"));
+const PersonalAccountSettingsPage = lazy(() => import("../../pages/Profile/Account"));
 const AdminFrame = lazy(() => import("../../pages/Admin/AdminFrame"));
 const UserPersonalInformationPage = lazy(() => import("../../pages/Profile/UserPersonal"));
-const UserAccountSettingsPage = lazy(() => import("../../pages/Profile/UserAccount"));
 const Error403Component = lazy(() => import("../../pages/Admin/authentication/403/Error403"));
 const AdminUsersForms = lazy(() => import("../../pages/Admin/AdminUsers"));
 const RegisteredUsers = lazy(() => import("../../pages/Admin/RegisteredUsers"));
@@ -140,9 +140,10 @@ export const AppHome = () => {
           <Route path="forms/form-basic" element={<FormBasicPage />} ></Route>
           <Route path="traffic/route-management-form" element={<FormsPage />} ></Route>
           <Route path="users/dashboard" element={<UsersDashboardPage />}></Route>
+<Route path="users/blogs-authors" element={<BlogsAuthorsUsersForms />}></Route>
           <Route path="users/users-list" element={<TotalUsersList />} ></Route>
           <Route path="users/registered-users-list" element={<RegisteredUsers />} ></Route>
-          <Route path="users/rejected-users-list" element={<RejectedUsers />} ></Route>
+      <Route path="users/rejected-users-list" element={<RejectedUsers />} ></Route>
           <Route path="users/approved-users-list" element={<ApprovedUsers />} ></Route>
           <Route path="users/active-users-list" element={<ActiveUsers />} ></Route>
           <Route path="users/inactive-users-list" element={<InActiveUsers />} ></Route>
@@ -174,17 +175,16 @@ export const AppHome = () => {
         <Route path="/user" element={<Frame navs={profileNavsUser} />}>
           <Route index element={<PersonalInformationPage />}></Route>
           <Route path="calendar" element={<CalenderPage />}></Route>
-          <Route path="account-settings" element={<AccountSettingsPage />}></Route>
+          <Route path="account-settings" element={<PersonalAccountSettingsPage />}></Route>
           <Route path="personal-information" index element={<PersonalInformationPage />}></Route>
           {/* <Route path="messages" index element={<ChatPage />}></Route> */}
         </Route>
-        <Route path="/profile/user/:id" element={<AdminFrame navs={profileNavs} />}>
+        <Route path="/profile/user/:id" element={<Frame navs={profileNavs} />}>
           <Route index element={<UserPersonalInformationPage />}></Route>
-          <Route path="account-settings" element={<UserAccountSettingsPage />}></Route>
-          <Route path="personal-information" index element={<UserPersonalInformationPage />}></Route>
-        </Route>
+         </Route>
         <Route path='/about-us' element={<AboutPage />}></Route>
         {/* Non-Auth routes */}
+
 
          <Route path="blogs">
 

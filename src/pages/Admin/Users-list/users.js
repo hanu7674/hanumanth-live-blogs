@@ -74,9 +74,7 @@ const UserList = ({users, approveUser, rejectUser}) => {
   const [page, setPage] = React.useState(1);
   const [displayType, setDisplayType] = useState('table');
 
-  const viewProfile = (id) =>{
-      window.location.href = `/profile/user/${id}`
-  }
+  
   const colors = {
     'ADMIN': 'orange',
     'USER': 'green',
@@ -84,9 +82,9 @@ const UserList = ({users, approveUser, rejectUser}) => {
   };
   const ActionCell = ({ rowData, ...props }) => {
     return (
-      <Cell {...props} className="link-group">
-          {/* {JSON.stringify(rowData.roles)} */}
-          <Stack spacing={5}>{
+<Cell {...props} className="link-group" resizable>
+{/* {JSON.stringify(rowData.roles)} */}
+<Stack spacing={5} >{
             rowData.roles.map((role) => (
               <>
               <Tag color={colors[role]}>{role}</Tag></>
@@ -202,10 +200,11 @@ const UserList = ({users, approveUser, rejectUser}) => {
 				            <>   
 				            <Table height={420} headerHeight={80} data={getData() } 
             sortColumn={sortColumn}
+            rowExpandedHeight={100}
             bordered cellBordered
             sortType={sortType}
             onSortColumn={handleSortColumn}
-            loading={tableLoading}>
+        loading={tableLoading}>
               <Column width={50} align="center" fixed>
     <HeaderCell>#</HeaderCell>
     <Cell>

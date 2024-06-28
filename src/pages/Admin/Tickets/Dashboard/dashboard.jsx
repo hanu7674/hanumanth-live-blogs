@@ -11,6 +11,7 @@ import { connect } from "react-redux";
 import { fetchDashboardDataTicketsSummary } from "../../../../redux/tickets";
 import { IoReload, IoTicketOutline } from "react-icons/io5";
 import Loading from "../../../../components/Loading/loading";
+import '../../dashboard/styles.css'
 
 const timeRangeOptions = [
   { label: 'Today', value: 'today' },

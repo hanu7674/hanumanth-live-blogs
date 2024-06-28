@@ -41,7 +41,7 @@ export const saveCarouselSettings = (settings) => {
     dispatch({ type: 'SAVE_CAROUSEL_SETTINGS_REQUEST' });
     const docRef = await getDoc(carouselSettingsRef())
     if(docRef.exists()){
-      updateDoc(carouselSettingsRef(), {...settings})
+  updateDoc(carouselSettingsRef(), {...settings})
     .then(()=>{
         dispatch({ type: 'SAVE_CAROUSEL_SETTINGS_SUCCESS', payload: settings });
     })
@@ -135,6 +135,7 @@ export const editCarouselItem = (item) => {
     updateDoc(carouselRefById(item.id), {
       ...carouselItem,
       lastUpdatedBy: usermetadata(auth.currentUser.uid),
+      addedBy: usermetadata(item.addedBy),
     }).then(()=>{
       dispatch({
         type: 'EDIT_CAROUSEL_ITEM_SUCCESS',

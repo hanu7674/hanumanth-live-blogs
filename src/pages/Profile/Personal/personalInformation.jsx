@@ -10,7 +10,7 @@ import { FaUser } from "react-icons/fa";
 
 import ProductForm from './SocialMediaLinksForm';
 import Loading from "../../../components/Loading/loading";
-
+import '../index.css';
 
 const { StringType, ArrayType, ObjectType } = Schema.Types;
 

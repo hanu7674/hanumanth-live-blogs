@@ -19,3 +19,6 @@
     bottom: 0;
     opacity: 1;
   }
+.rs-dropdown-item>.rs-icon {
+margin-right: 20px;
+}

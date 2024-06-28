@@ -141,13 +141,30 @@ export const getAdminUsersDataRequest = () => {
 };
 export const getAdminUsersDataSuccess = (data) => {
   return {
-    type: 'GET_ADMIN_USERS_SUCCESS',
+type: 'GET_ADMIN_USERS_SUCCESS',
     payload: data,
   };
 };
 export const getAdminUsersDataFailure = (error) => {
   return {
     type: 'GET_ADMIN_USERS_FAILURE',
+    payload: error,
+  };
+};
+export const getAuthorsUsersDataRequest = () => {
+  return {
+    type: 'GET_AUTHORS_USERS_REQUEST',
+  };
+};
+export const getAuthorsUsersDataSuccess = (data) => {
+  return {
+    type: 'GET_AUTHORS_USERS_SUCCESS',
+    payload: data,
+  };
+};
+export const getAuthorsUsersDataFailure = (error) => {
+  return {
+    type: 'GET_AUTHORS_USERS_FAILURE',
     payload: error,
   };
 };
@@ -515,68 +532,138 @@ export const getAdminUsersData = () => {
   return (dispatch) => {
     dispatch(getAdminUsersDataRequest());
     const usersQuery = query(usersRef(), where('roles', 'array-contains', 'ADMIN'));
+getDocs(usersQuery)
+  .then((snapshot) => {
+    const users = [];
+    snapshot.forEach((user) => {
+      if (user.data().id !== auth.currentUser.uid) {
+        users.push(user.data());
+      }
+    });
+    dispatch(getAdminUsersDataSuccess(users));
+  })
+  .catch((error) => {
+    dispatch(getAdminUsersDataFailure(error));
+    dispatch(
+        notify({ id: "error", message: error.message, status: "error" })
+      );
+    })
+
+  };
+}
+export const handleAddAdmins = (usernames) => {
+  return async dispatch => {
+    try {
+  dispatch({ type: 'ADD_ADMIN_ACCESS_TO_USERS_REQUEST' });
+  await Promise.all(
+    usernames.map(async (uid) => {
+      await updateDoc(userRef(uid), {
+        roles: arrayUnion('ADMIN')
+      });
+    })
+  );
+  dispatch({ type: 'ADD_ADMIN_ACCESS_TO_USERS_SUCCESS' });
+  dispatch(notify({ message: 'Users got admins access ', status: 'success' }));
+  dispatch(getAdminUsersData())
+} catch (error) {
+  dispatch(notify({ message: error.message, status: 'error' }));
+  dispatch({ type: 'ADD_ADMIN_ACCESS_TO_USERS_FAILURE' });
+}
+  }
+}
+export const handleRemoveAdmins = (usernames) => {
+  return async (dispatch, getState) => {
+    try {
+  dispatch({ type: 'REMOVE_ADMIN_ACCESS_TO_USERS_REQUEST' });
+  const currentUserUid = auth.currentUser.uid;
+  const isAdmin = getState().auth.user.roles.includes('ADMIN');
+
+  if (usernames.includes(currentUserUid) && isAdmin) {
+    dispatch(notify({ message: "You cannot remove your own admin access.\n Please try again.", status: 'error' }));
+    return;
+  }
+  await Promise.all(
+    usernames.map(async (uid) => {
+      await updateDoc(userRef(uid), {
+        roles: arrayRemove('ADMIN')
+      });
+    })
+  );
+  dispatch({ type: 'REMOVE_ADMIN_ACCESS_TO_USERS_SUCCESS' });
+  dispatch(notify({ message: 'Users lost admins access ', status: 'success' }));
+  dispatch(getAdminUsersData())
+} catch (error) {
+  dispatch(notify({ message: error.message, status: 'error' }));
+  dispatch({ type: 'REMOVE_ADMIN_ACCESS_TO_USERS_FAILURE' });
+}
+  }
+}
+export const getAuthorsUsersData = () => {
+  return (dispatch) => {
+    dispatch(getAuthorsUsersDataRequest());
+    const usersQuery = query(usersRef(), where('roles', 'array-contains', 'AUTHOR'));
     getDocs(usersQuery)
-      .then((snapshot) => {
+  .then((snapshot) => {
         const users = [];
         snapshot.forEach((user) => {
           if (user.data().id !== auth.currentUser.uid) {
             users.push(user.data());
           }
         });
-        dispatch(getAdminUsersDataSuccess(users));
+        dispatch(getAuthorsUsersDataSuccess(users));
       })
       .catch((error) => {
-        dispatch(getAdminUsersDataFailure(error));
+        dispatch(getAuthorsUsersDataFailure(error));
         dispatch(
           notify({ id: "error", message: error.message, status: "error" })
         );
       })
   };
 };
-export const handleAddAdmins = (usernames) => {
+export const handleAddAuthors = (usernames) => {
   return async dispatch => {
     try {
-      dispatch({ type: 'ADD_ADMIN_ACCESS_TO_USERS_REQUEST' });
+      dispatch({ type: 'ADD_AUTHORS_ACCESS_TO_USERS_REQUEST' });
       await Promise.all(
         usernames.map(async (uid) => {
           await updateDoc(userRef(uid), {
-            roles: arrayUnion('ADMIN')
+            roles: arrayUnion('AUTHOR')
           });
         })
       );
-      dispatch({ type: 'ADD_ADMIN_ACCESS_TO_USERS_SUCCESS' });
-      dispatch(notify({ message: 'Users got admins access ', status: 'success' }));
-      dispatch(getAdminUsersData())
+      dispatch({ type: 'ADD_AUTHORS_ACCESS_TO_USERS_SUCCESS' });
+      dispatch(notify({ message: 'Users got authors access ', status: 'success' }));
+      dispatch(getAuthorsUsersData())
     } catch (error) {
       dispatch(notify({ message: error.message, status: 'error' }));
-      dispatch({ type: 'ADD_ADMIN_ACCESS_TO_USERS_FAILURE' });
+      dispatch({ type: 'ADD_AUTHORS_ACCESS_TO_USERS_FAILURE' });
     }
   }
 }
-export const handleRemoveAdmins = (usernames) => {
+export const handleRemoveAuthors = (usernames) => {
   return async (dispatch, getState) => {
     try {
-      dispatch({ type: 'REMOVE_ADMIN_ACCESS_TO_USERS_REQUEST' });
+      dispatch({ type: 'REMOVE_AUTHORS_ACCESS_TO_USERS_REQUEST' });
       const currentUserUid = auth.currentUser.uid;
       const isAdmin = getState().auth.user.roles.includes('ADMIN');
 
       if (usernames.includes(currentUserUid) && isAdmin) {
-        dispatch(notify({ message: "You cannot remove your own admin access.\n Please try again.", status: 'error' }));
+        dispatch(notify({ message: "You cannot remove your own authors access.\n Please try again.", status: 'error' }));
         return;
       }
       await Promise.all(
         usernames.map(async (uid) => {
           await updateDoc(userRef(uid), {
-            roles: arrayRemove('ADMIN')
+            roles: arrayRemove('AUTHOR')
           });
         })
       );
-      dispatch({ type: 'REMOVE_ADMIN_ACCESS_TO_USERS_SUCCESS' });
-      dispatch(notify({ message: 'Users lost admins access ', status: 'success' }));
-      dispatch(getAdminUsersData())
+  dispatch({ type: 'REMOVE_AUTHORS_ACCESS_TO_USERS_SUCCESS' });
+      dispatch(notify({ message: 'Users lost authors access ', status: 'success' }));
+dispatch(getAuthorsUsersData())
     } catch (error) {
       dispatch(notify({ message: error.message, status: 'error' }));
-      dispatch({ type: 'REMOVE_ADMIN_ACCESS_TO_USERS_FAILURE' });
+      dispatch({ type: 'REMOVE_AUTHORS_ACCESS_TO_USERS_FAILURE' });
     }
   }
 }

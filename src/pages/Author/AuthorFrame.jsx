@@ -119,6 +119,6 @@ const AdminFrame = (props) => {
     </Container>
   );
 };
-const condition = (authUser) =>authUser && (!!authUser?.roles?.includes('ADMIN'));
+const condition = (authUser) =>authUser && (!!authUser?.roles?.includes('AUTHOR'));
 
 export default withAuthorization(condition)(AdminFrame);

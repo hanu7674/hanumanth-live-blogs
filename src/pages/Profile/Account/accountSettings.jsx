@@ -28,7 +28,7 @@ import { SiBrave, SiTorbrowser } from "react-icons/si";
 import {  BsPciCardNetwork } from "react-icons/bs";
 import { MdOutlineManageAccounts, MdOutlineSecurity } from "react-icons/md";
 import SecurityQuestionsForm from "./SecurityQuestionsForm";
-
+import '../index.css'
 const phoneUtil = PhoneNumberUtil.getInstance();
 
 const isPhoneValid = (phone) => {
@@ -424,7 +424,7 @@ const LoginInfoList = ({ logins, currentIpv4 }) => {
         }
     };
     const getBrowserIcon = (browserName) => {
-        const lowerBrowserName = browserName.toLowerCase();
+        const lowerBrowserName = browserName?.toLowerCase();
 
         if (lowerBrowserName.includes('chrome')) {
             return <FaChrome size={20}/>;
@@ -525,7 +525,7 @@ const LoginInfoList = ({ logins, currentIpv4 }) => {
                                 <FlexboxGrid.Item colspan={12}>Browser:</FlexboxGrid.Item>
                                 <FlexboxGrid.Item colspan={12}> 
                                 <Stack alignItems="center" spacing={10}>
-                                    <Stack.Item> {getBrowserIcon(login.browser)}</Stack.Item>
+                    <Stack.Item> {login?.browser ?  getBrowserIcon(login.browser)  :  <FaQuestionCircle size={20}/>}</Stack.Item>
                                     <Stack.Item> {login?.browser ? login.browser : 'Not Available'}</Stack.Item>
                                     </Stack>
                                 </FlexboxGrid.Item>
@@ -543,7 +543,7 @@ const LoginInfoList = ({ logins, currentIpv4 }) => {
                                 <FlexboxGrid.Item colspan={12}>OS : </FlexboxGrid.Item>
                                 <FlexboxGrid.Item colspan={12}>
                                 <Stack alignItems="center" spacing={10}>
-                                    <Stack.Item>{getOSIcon(login.os)}</Stack.Item>
+<Stack.Item>{login?.os ? getOSIcon(login.os)  : <FaQuestionCircle size={20} />}</Stack.Item>
                                     <Stack.Item>{login?.os ? login.os : 'Not Available'} {login?.bitType ? (<>({login.bitType})</>): ''}</Stack.Item>
                                     </Stack>
                                       </FlexboxGrid.Item>

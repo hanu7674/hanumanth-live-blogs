@@ -7,6 +7,7 @@ import { MdReviews } from "react-icons/md";
 import { TbMathAvg } from "react-icons/tb";
 import MapChart1 from "../../users/Maps";
 import BarChartComponentPanel from "./BarChartComponent";
+import '../../dashboard/styles.css'
 
 const timeRangeOptions = [
   { label: 'Today', value: 'today' },

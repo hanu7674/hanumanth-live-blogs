@@ -281,12 +281,13 @@ export const editEvent = (eventId, updatedEvent) => {
       updatedAt: Timestamp.now(),
     }
     updateDoc(eventRefById(eventId), { ...formData, 
-    lastUpdatedBy: usermetadata(auth.currentUser.uid),
-    updatedIpData: arrayUnion(getState().auth.ipData),
-  })
+  createdBy: usermetadata(formData?.createdBy),
+      lastUpdatedBy: usermetadata(auth.currentUser.uid),
+      updatedIpData: arrayUnion(getState().auth.ipData),
+    })
       .then(() => {
         dispatch(editEventSuccess(formData));
-        dispatch(notify({ message: 'Event modified!', status: 'success' }));
+dispatch(notify({ message: 'Event modified!', status: 'success' }));
       })
       .catch((error) => {
         dispatch(editEventFailure(error));

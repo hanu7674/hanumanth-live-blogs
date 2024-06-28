@@ -17,6 +17,7 @@ import { MdOutlineWorkHistory } from "react-icons/md";
 import { TbCertificate } from "react-icons/tb";
 import { PiCertificate } from "react-icons/pi";
 import { LiaBlogSolid } from "react-icons/lia";
+import { BsPencilSquare } from "react-icons/bs";
 export const appNavs = [
   {
 eventKey: 'appStatus',
@@ -99,6 +100,12 @@ to: 'app-status',
         icon: <Icon as={MdOutlineAdminPanelSettings} />,
         title: 'Admins',
         to: 'users/admin-users',
+      },
+      {
+eventKey: 'authors',
+icon: <Icon as={BsPencilSquare} />,
+title: 'Blog Authors',
+to: 'users/blogs-authors',
       },
       {
         eventKey: 'active-users-list',
@@ -436,22 +443,7 @@ export const profileNavs = [
     eventKey: 'profile',
     title: 'Profile',
     icon: <Icon as={BiSolidUser} />,
-    children: [
-      {
-        eventKey: 'personalInformation',
-        icon: <Icon as={BiSolidUser} />,
-        title: 'Personal Information',
-        to: 'personal-information'
-      },
-      {
-        eventKey: 'accountSettings',
-        icon: <Icon as={MdSettings} />,
-        title: 'Account Settings',
-        to: 'account-settings'
-      }
-      
-    ]
-  },
+   },
   
   // {
   //   eventKey: 'messages',
@@ -495,5 +487,32 @@ export const profileNavsUser = [
   //   title: 'Messages',
   //   to: 'messages'
   // },
+
+]
+export const authorNavs = [
+  {
+eventKey: 'Author Dashboard',
+title: 'Author Dashboard',
+    icon: <Icon as={BiSolidUser} />,
+to: 'author/dashboard'
+  },
+{
+eventKey: 'Author Posts',
+title: 'Author Posts',
+icon: <Icon as={BiSolidUser} />,
+to: 'author/posts'
+},
+{
+eventKey: 'Author Traffic',
+  title: 'Author Traffic',
+  icon: <Icon as={BiSolidUser} />,
+  to: 'author/traffic'
+    },
+  {
+    eventKey: 'Author Settings',
+    title: 'Author Settings',
+    icon: <Icon as={BiSolidUser} />,
+to: 'author/settings'
+  },
 
 ]

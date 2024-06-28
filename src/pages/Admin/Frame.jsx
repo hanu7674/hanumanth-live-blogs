@@ -5,6 +5,7 @@ import ArrowLeftLineIcon from '@rsuite/icons/ArrowLeftLine';
 import ArrowRightLineIcon from '@rsuite/icons/ArrowRightLine';
 import { withAuthorization } from '../../Session';
 import FooterPage from '../Footer';
+import './index.css'
 
 const { getHeight, on } = DOMHelper;
 
@@ -111,7 +112,7 @@ const Frame = (props) => {
       <Container className={containerClasses}>
         <Content>
           <Outlet />
-           
+          <FooterPage />
         </Content>
       </Container>
     </Container>

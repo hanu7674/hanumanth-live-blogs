@@ -6,7 +6,9 @@ const INITIAL_STATE = {
   routes: null,
   status: null,
   loading: true,
-  usersHeaderData: [],
+usersHeaderData: [],
+usersHeaderDataLoading: true,
+usersHeaderDataError: null,
   userCountsByMinute: [],
   dashboardData: [],
   viewCountByCountry: [],
@@ -97,11 +99,10 @@ const dashboardDataReducer = (state = INITIAL_STATE, action) => {
           userSignupLogs: [...state.userSignupLogs, action.payload],
           error: null,
         };
-    case 'FETCH_TRAFFIC_DATA_FAILURE':
-    case 'FETCH_USERS_DASHBOARD_HEADER_DATA_SUCCESS':
+case 'FETCH_USERS_DASHBOARD_HEADER_DATA_SUCCESS':
       return{
         ...state,
-        loading: false,
+        usersHeaderDataLoading: false,
         usersHeaderData: action.payload,
       }
     case 'FETCH_DASHBOARD_DATA_TRAFFIC_SUMMARY_SUCCESS': 
@@ -114,19 +115,21 @@ const dashboardDataReducer = (state = INITIAL_STATE, action) => {
     case 'FETCH_DASHBOARD_DATA_TRAFFIC_SUMMARY_REQUEST': 
     return{
       ...state,
-      loading: true
+  usersHeaderData: [],
+  usersHeaderDataLoading: true
     }
     case 'FETCH_TRAFFIC_SOURCES_REQUEST': 
     return{
       ...state,
       loading: true
     }
+    case 'FETCH_TRAFFIC_DATA_FAILURE':
     case 'FETCH_USERS_DASHBOARD_HEADER_DATA_FAILURE':
     case 'FETCH_DASHBOARD_DATA_TRAFFIC_SUMMARY_FAILURE': 
     return{
       ...state,
-      error: action.payload,
-      loading: false,
+usersHeaderDataError: action.payload,
+  usersHeaderDataLoading: false,
     }
     case 'FETCH_TRAFFIC_SOURCES_FAILURE': 
     return{

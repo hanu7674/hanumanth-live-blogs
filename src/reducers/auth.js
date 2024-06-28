@@ -60,6 +60,60 @@ appStatus: '',
   
 
     switch (type) {
+  case types.GET_AUTHORS_USERS_REQUEST:
+        return {
+          ...state,
+          authorsLoading: true,
+          authorsError: null,
+        };
+case types.GET_AUTHORS_USERS_SUCCESS:
+        return {
+          ...state,
+          authorsLoading: false,
+          authors: payload,
+        };
+case types.GET_AUTHORS_USERS_FAILURE:
+        return {
+          ...state,
+          authorsLoading: false,
+          authorsError: payload,
+        }; 
+case types.ADD_AUTHORS_ACCESS_TO_USERS_REQUEST:
+        return {
+          ...state,
+          authorsLoading: true,
+          authorsError: null,
+        }; 
+case types.ADD_AUTHORS_ACCESS_TO_USERS_SUCCESS:
+        return {
+          ...state,
+          authorsLoading: false,
+          authors: payload,
+        };
+case types.ADD_AUTHORS_ACCESS_TO_USERS_FAILURE:
+        return {
+          ...state,
+          authorsLoading: false,
+      authorsError: payload,
+        };
+case types.REMOVE_AUTHORS_ACCESS_TO_USERS_REQUEST:
+        return {
+          ...state,
+          authorsLoading: true,
+          authorsError: null,
+        }; 
+case types.REMOVE_AUTHORS_ACCESS_TO_USERS_SUCCESS:
+        return {
+          ...state,
+          authorsLoading: false,
+          authors: payload,
+        };
+case types.REMOVE_AUTHORS_ACCESS_TO_USERS_FAILURE:
+        return {
+          ...state,
+          authorsLoading: false,
+          authorsError: payload,
+        }; 
 case types.FETCH_STATUS_REQUEST:
       return {
         ...state,
