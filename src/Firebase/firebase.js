@@ -78,7 +78,7 @@ export const templateFiles = (id,filename) =>
 // blogs
 export const userDataUploadPath = (uid, filename) => ref(storage, `files/${uid}/${filename}`);
   export const blogCollection = () => collection(firestoreDb, "/blogs");
-  export const blogCollectionToReview = (id) => doc(firestoreDb, `/review/${id}`);
+export const blogCollectionToReview = (id) => doc(firestoreDb, `/review/${id}`);
   export const blogDoc = (id) => doc(firestoreDb, `/blogs/${id}`);
   export const blogReviewDoc = (id) => doc(firestoreDb, `/review/${id}`);
   export const headerImageRef = (url) => ref(storage, `${url}`);
@@ -109,3 +109,6 @@ export const certificationsCollection = () => collection(firestoreDb, '/certific
 export const certificationsById = (id) => doc(firestoreDb, `/certifications/${id}`)
 
 export const appStatusDocRef = () => dbRef(db, 'appStatus/status');
+
+// Authors Ref 
+ 

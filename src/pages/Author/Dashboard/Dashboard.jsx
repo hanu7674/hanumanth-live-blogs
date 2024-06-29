@@ -6,30 +6,32 @@ import {
   Stack,
 } from "rsuite";
 import { connect } from "react-redux";
-import { getAuthorsCount, getPendingAuthorsCount, getTotalAuthors, fetchDashboardDataOnVisitsPages } from "../../../redux/authors";
+import {  fetchBlogsByAuthor, fetchBlogsCountByAuthor, fetchPendingBlogsCountByAuthor, } from "../../../redux/authorsDashboard";
 import Loading from "../../../components/Loading/loading";
 import AuthorsBarChartComponent from "./BarChart";
 import { useLocation, useNavigate } from "react-router-dom";
 import { DataTable } from "./DataTable";
-
-const AuthorsDashboard = ({ fetchAuthors, visitorsDataPage, fetchDashboardDataOnVisitsPages, loading, authors, tags, dashboardTagsLoading, user, fetchLastWeekPostedAuthorsCount, lastWeekPostedAuthorsCount, publishersCount, fetchPublishersUsersCount, authorsCount, fetchAuthorsCount, pendingAuthorsCount, fetchPendingAuthorsCount }) => {
+import '../../Admin/dashboard/styles.css'
+import { auth } from "../../../Firebase/firebase";
+const AuthorsDashboard = ({blogs, blogsCount, pendingBlogsCount, visitorsDataPage,fetchBlogsCountByAuthor, fetchBlogsByAuthor, loading,   fetchLastWeekPostedAuthorsCount, lastWeekPostedAuthorsCount,     }) => {
   useEffect(() => {
-    fetchPublishersUsersCount();
-    fetchAuthorsCount();
-    fetchPendingAuthorsCount();
-    getAuthorData();
-    fetchAuthors();
-    fetchLastWeekPostedAuthorsCount();
-    fetchDashboardDataOnVisitsPages();
+ fetchBlogsByAuthor(auth.currentUser.uid);
+fetchBlogsCountByAuthor(auth.currentUser.uid);
+    fetchPendingBlogsCountByAuthor(auth.currentUser.uid);
   }, []);
 
   const navigate = useNavigate();
   const location = useLocation();
-  const [authorCategories, setAuthorCategories] = useState([]);
-
-  const getAuthorData = () => {
-    fetchAuthors();
-  };
+ const [lastWeekBlogsCount, setLastWeekBlogsCount] = useState(0);
+    useEffect(()=>{
+        const lastWeekBlogsCount = blogs?.length > 0 ? blogs?.filter(blog => {
+            const blogDate = blog.timestamp.toDate();
+            const oneWeekAgo = new Date();
+            oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+            return blogDate >= oneWeekAgo;
+          }).length : 0;        
+          setLastWeekBlogsCount(lastWeekBlogsCount);
+},[blogs])
 
   const handleViewAllAuthors = () => {
     navigate(`${location.pathname.split('/').slice(0, -1).join('/')}/view-authors`)
@@ -37,8 +39,7 @@ const AuthorsDashboard = ({ fetchAuthors, visitorsDataPage, fetchDashboardDataOn
   const handleAddNewAuthor = () => {
     navigate(`${location.pathname.split('/').slice(0, -1).join('/')}/add-author`)
   }
-  const pieChartLabels = authorCategories.length ? authorCategories : [];
-
+ 
   return (
     <>
       <FlexboxGrid justify="end">
@@ -49,7 +50,7 @@ const AuthorsDashboard = ({ fetchAuthors, visitorsDataPage, fetchDashboardDataOn
       </FlexboxGrid>
       <Row gutter={30} >
         <Col xs={22} sm={22} md={22} lg={16} xl={16}>
-          <DataTable visitorsData={visitorsDataPage} />
+      <DataTable visitorsData={visitorsDataPage} />
         </Col>
         <Col xs={22} sm={22} md={22} lg={8} xl={8}>
           {loading ? (
@@ -60,43 +61,37 @@ const AuthorsDashboard = ({ fetchAuthors, visitorsDataPage, fetchDashboardDataOn
                 <Panel className={`trend-box bg-gradient-orange`} style={{ marginTop: '20px' }} data-aos="fade-down" data-aos-offset="50"
                   data-aos-easing="ease-in-sine">
                   <div className="chart-img"><FaUser size={64} /></div>
-                  <div className="title">Total Authors</div>
+              <div className="title">Total Blogs 
+      <br></br>
+<span>(PostedBy You)</span></div>
                   <div className="value">
                     {
-                      loading ? <Loader /> : <>{authorsCount}</>
+loading ? <Loader /> : <>{blogsCount}</>
                     }    
                   </div>
                 </Panel>
                 <Panel className={`trend-box bg-gradient-cyan`} style={{ marginTop: '20px' }} data-aos="fade-down" data-aos-offset="50"
                   data-aos-easing="ease-in-sine">
                   <div className="chart-img"><FaUser size={64} /></div>
-                  <div className="title">New Authors (Last Week)</div>
+                  <div className="title">New Blogs <br></br>
+<span>(Last Week)</span></div>
                   <div className="value">
                     {
-                      loading ? <Loader /> : <>{lastWeekPostedAuthorsCount}</>
+loading ? <Loader /> : <>{ lastWeekBlogsCount}</>
                     }    
                   </div>
                 </Panel>
                 <Panel className={`trend-box bg-gradient-green`} style={{ marginTop: '20px' }} data-aos="fade-down" data-aos-offset="50"
                   data-aos-easing="ease-in-sine">
                   <div className="chart-img"><FaUser size={64} /></div>
-                  <div className="title">Pending Authors</div>
+          <div className="title">Pending Blogs</div>
                   <div className="value">
                     {
-                      loading ? <Loader /> : <>{pendingAuthorsCount}</>
+                      loading ? <Loader /> : <>{pendingBlogsCount }</>
                     }  
                   </div>
                 </Panel>
-                <Panel className={`trend-box bg-gradient-yellow`} style={{ marginTop: '20px' }} data-aos="fade-down" data-aos-offset="50"
-                  data-aos-easing="ease-in-sine">
-                  <div className="chart-img"><FaUsers size={64} /></div>
-                  <div className="title">Publishers</div>
-                  <div className="value">
-                    {
-                      loading ? <Loader /> : <>{publishersCount}</>
-                    }   
-                  </div>
-                </Panel>
+             
               </div>
             </>
           )}
@@ -104,17 +99,17 @@ const AuthorsDashboard = ({ fetchAuthors, visitorsDataPage, fetchDashboardDataOn
       </Row>
       <Row gutter={30} >
         <Col xs={22} sm={22} md={22} lg={22} xl={22} data-aos="fade-down" data-aos-easing="ease-in-sine">
-          <AuthorsBarChartComponent />
+<AuthorsBarChartComponent />
         </Col>
       </Row>
       <Row gutter={20} className="dashboard-header">
         <Col md={22} xs={22} sm={22} lg={22} xl={22} data-aos="fade-down" data-aos-offset="50"
           data-aos-easing="ease-in-sine">
-          <CategoryDistribution data={authors} />
+{/* <CategoryDistribution data={authors} /> */}
         </Col>
         <Col md={22} xs={22} sm={22} lg={22} xl={22} data-aos="fade-down" data-aos-offset="50"
           data-aos-easing="ease-in-sine">
-          <Top10TagsBarChart loading={dashboardTagsLoading} tags={tags} />
+      {/* <Top10TagsBarChart loading={dashboardTagsLoading} tags={tags} /> */}
         </Col>
       </Row>
     </>
@@ -122,25 +117,20 @@ const AuthorsDashboard = ({ fetchAuthors, visitorsDataPage, fetchDashboardDataOn
 }
 
 const mapDispatchToProps = dispatch => ({
-  fetchPublishersUsersCount: () => dispatch(getPublishersUsersCount()),
-  fetchAuthorsCount: () => dispatch(getAuthorsCount()),
-  fetchPendingAuthorsCount: () => dispatch(getPendingAuthorsCount()),
-  fetchAuthors: () => dispatch(getAuthorsToDashboard()),
-  fetchLastWeekPostedAuthorsCount: () => dispatch(getLastWeekPostedAuthorsCount()),
-  fetchDashboardDataOnVisitsPages: () => dispatch(fetchDashboardDataOnVisitsPages()),
+fetchBlogsByAuthor: (authorId) => dispatch(fetchBlogsByAuthor(authorId)),
+fetchBlogsCountByAuthor: (authorId) => dispatch(fetchBlogsCountByAuthor(authorId)),
+fetchPendingBlogsCountByAuthor: (authorId) => dispatch(fetchPendingBlogsCountByAuthor(authorId)),
 });
 
 const mapStateToProps = state => ({
   loading: state.authors?.loading,
-  user: state.auth?.user,
-  publishersCount: state.auth?.publishersCount,
-  authorsCount: state.authors?.authorsCount,
-  pendingAuthorsCount: state.authors?.pendingAuthorsCount,
-  lastWeekPostedAuthorsCount: state.authors?.lastWeekPostedAuthorsCount,
-  authors: state.authors?.dashboardAuthors,
-  tags: state.authors?.dashboardTags,
+authorsCount: state.authorsDashboard?.authorsCount,
+blogsCount: state.authorsDashboard?.blogsCount,
+blogs: state.authorsDashboard?.blogs,
+  pendingAuthorsCount: state.authorsDashboard?.pendingAuthorsCount,
+  lastWeekPostedAuthorsCount: state.authorsDashboard?.lastWeekPostedAuthorsCount,
   visitorsDataPage: state.dashboardData?.visitorsDataPage,
-  dashboardTagsLoading: state.authors?.dashboardTagsLoading,
+pendingBlogsCount: state.authorsDashboard?.pendingBlogsCount,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AuthorsDashboard);

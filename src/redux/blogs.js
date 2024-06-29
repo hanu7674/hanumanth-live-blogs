@@ -1833,7 +1833,7 @@ export const getBlogsByTimeRange = (timeRange) => {
     try {
 
       const startDate = calculateStartDate(timeRange);
-      dispatch(fetchBlogsByTimeRangeRequest(startDate));
+dispatch(fetchBlogsByTimeRangeRequest(startDate));
 
       const endDate = Timestamp.fromDate(new Date());
       const blogsQuery = query(blogCollection(), where("deleted", "==", false), where('timestamp', '>=', startDate)

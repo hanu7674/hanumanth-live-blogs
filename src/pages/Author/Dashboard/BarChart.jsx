@@ -4,7 +4,7 @@ import { BiFullscreen, BiExitFullscreen } from 'react-icons/bi';
 import { connect } from 'react-redux';
 import { IoReload } from "react-icons/io5";
 import BarChart from '../../Admin/dashboard/BarChart';
-import { getAuthorsByTimeRange } from '../../../redux/authors';
+import { fetchAuthorsByTimeRange } from '../../../redux/authorsDashboard';
 import Loading from '../../../components/Loading/loading';
 
 const initialTimeRangeOptions = [
@@ -13,7 +13,7 @@ const initialTimeRangeOptions = [
   { label: 'Month', value: 'month' }
 ];
 
-const AuthorsBarChartComponent = ({ authorsByTimeRange, getAuthorsByTimeRange, loading }) => {
+const AuthorsBarChartComponent = ({ authorsByTimeRange, fetchAuthorsByTimeRange, loading }) => {
   const [barChartData, setBarChartData] = useState([]);
   const [chartLoading, setChartLoading] = useState(false);
   const [activeTimeRange, setActiveTimeRange] = useState('today');
@@ -29,7 +29,7 @@ const AuthorsBarChartComponent = ({ authorsByTimeRange, getAuthorsByTimeRange, l
 
   const handleTimeRangeChange = (value) => {
     setActiveTimeRange(value);
-    getAuthorsByTimeRange(value)
+fetchAuthorsByTimeRange(value)
   };
 
   const calculateStartDate = (timeRange) => {
@@ -77,7 +77,7 @@ const AuthorsBarChartComponent = ({ authorsByTimeRange, getAuthorsByTimeRange, l
   };
 
   const handleRefresh = () => {
-    getAuthorsByTimeRange(activeTimeRange)
+fetchAuthorsByTimeRange(activeTimeRange)
   };
 
   useEffect(() => {
@@ -135,12 +135,12 @@ const AuthorsBarChartComponent = ({ authorsByTimeRange, getAuthorsByTimeRange, l
 };
 
 const mapDispatchToProps = dispatch => ({
-  getAuthorsByTimeRange: (timeRange) => dispatch(getAuthorsByTimeRange(timeRange)),
+  fetchAuthorsByTimeRange: (timeRange) => dispatch(fetchAuthorsByTimeRange(timeRange)),
 });
 
 const mapStateToProps = state => ({
   loading: state.authors?.authorsByTimeRangeLoading,
-thorsByTimeRange: state.authors?.authorsByTimeRange,
+  authorsByTimeRange: state.authors?.authorsByTimeRange,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AuthorsBarChartComponent);

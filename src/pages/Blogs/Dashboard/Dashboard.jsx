@@ -12,7 +12,7 @@ import { MdOutlinePendingActions } from "react-icons/md";
 import { FaUserEdit } from "react-icons/fa";
 import { connect } from "react-redux";
 import { getPublishersUsersCount } from "../../../redux/auth";
-import { fetchDashboardDataOnVisitsPages } from "../../../redux/dashboard";
+import { fetchDashboardDataOnVisitsPages, fetchDashboardDataOnVisitsPagesBlogs } from "../../../redux/dashboard";
 import { getBlogs, getBlogsCount, getBlogsToDashboard, getLastWeekPostedBlogsCount, getPendingBlogsCount, getTotalBlogs, } from "../../../redux/blogs";
 import Loading from "../../../components/Loading/loading";
 import CategoryDistribution from "./CategoryDistribution";
@@ -142,7 +142,7 @@ const mapDispatchToProps = dispatch => ({
   fetchPendingBlogsCount: () => dispatch(getPendingBlogsCount()),
   fetchBlogs: () => dispatch(getBlogsToDashboard()),
   fetchLastWeekPostedBlogsCount: () => dispatch(getLastWeekPostedBlogsCount()),
-  fetchDashboardDataOnVisitsPages: () => dispatch(fetchDashboardDataOnVisitsPages()),
+  fetchDashboardDataOnVisitsPages: () => dispatch(fetchDashboardDataOnVisitsPagesBlogs()),
 });
 const mapStateToProps = state => ({
   loading: state.blogs?.loading,

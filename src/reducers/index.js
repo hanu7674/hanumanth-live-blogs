@@ -11,6 +11,7 @@ import { ChatReducers } from './chats';
 import { ticketReducer } from './tickets';
  import blogReducer from './blogs';
 import redirectReducer from './redirect';
+import authorsReducer from './authorsReducer';
 const rootReducer = combineReducers({
     notifications: notificationsReducer(),
     auth: authReducer,
@@ -23,7 +24,8 @@ const rootReducer = combineReducers({
   tickets: ticketReducer,
    blogs: blogReducer,
   redirect: redirectReducer,
-    tag: tagsReducer
+    tag: tagsReducer,
+    authorsDashboard: authorsReducer
   });
   
   export default rootReducer;

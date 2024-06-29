@@ -194,6 +194,27 @@ snapshot.docs.map((doc) => (
       })
   }
 }
+export const fetchDashboardDataOnVisitsPagesBlogs = () => {
+return dispatch => {
+dispatch({ type: "FETCH_VISITORS_PAGE_DATA_REQUEST" });
+const q = query(pageViewsRef(), where('pagePath', '>=', '/blogs/'), where('pagePath', '<=', '/blogs/\uf8ff'))
+getDocs(q).then((snapshot) => {
+  const data = [];
+snapshot.docs.map((doc) => (
+    data.push({
+      routeComponent: doc.id,
+      ...doc.data() 
+    })
+));
+   dispatch({ type: 'FETCH_VISITORS_PAGE_DATA_SUCCESS', payload: data });
+})
+  .catch((error) => {
+    dispatch({ type: 'FETCH_VISITORS_PAGE_DATA_FAILURE', error: error });
+    dispatch(notify({ message: error.message, status: 'error' }));
+  })
+
+}
+}
 export const fetchRouteToPageIdStartAsync = (docName) => {
   return dispatch => {
     try {
