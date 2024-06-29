@@ -12,7 +12,7 @@ const AppRoutes = () => {
     const path = location.pathname;
 
     // Define routes that have a sidebar
-    const routesWithSidebar = ['/admin', '/user', '/profile/user'];
+const routesWithSidebar = ['/admin', '/user', '/profile/user', '/author'];
 
     // Check if the current route is one of the routes with a sidebar
     const hasSidebar = routesWithSidebar.some(route => path.startsWith(route));

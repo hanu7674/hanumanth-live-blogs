@@ -4,7 +4,7 @@ import { Outlet , NavLinkProps, NavLink as BaseNavLink } from 'react-router-dom'
 import ArrowLeftLineIcon from '@rsuite/icons/ArrowLeftLine';
 import ArrowRightLineIcon from '@rsuite/icons/ArrowRightLine';
 import { withAuthorization } from '../../Session';
-import './index.css'
+import '../Admin/index.css'
 import FooterPage from '../Footer';
 const { getHeight, on } = DOMHelper;
 

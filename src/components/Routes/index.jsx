@@ -1,12 +1,14 @@
 import React, { lazy, useEffect } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
-import { appNavs, profileNavs, profileNavsUser } from "../NavConfig";
+import { appNavs, authorNavs, profileNavs, profileNavsUser } from "../NavConfig";
 import { useDispatch, useSelector } from "react-redux";
 import ProductionDown from "../../assets/ProductionDown";
 import MaintenanceMode from "../../assets/MaintenanceMode";
 import { fetchStatus } from "../../redux/auth";
 import ManageAppStatus from "../../pages/Admin/AppStatus";
 import BlogsAuthorsUsersForms from "../../pages/Admin/BlogAuthors";
+import AuthorFrame from "../../pages/Author/AuthorFrame";
+import AuthorDashboard from "../../pages/Author/Dashboard";
 
 // Lazy load components
 const HomePage = lazy(() => import("../../pages/Home"));
@@ -171,6 +173,10 @@ export const AppHome = () => {
           <Route path="carousel-management/settings" element={<AdminCarouselComponent />} />
           <Route path="carousel-management/view-items" element={<ViewCarouselItemsPage />} />
 
+        </Route>
+<Route path="author" element={<AuthorFrame navs={authorNavs} />}>
+          <Route index element={<AuthorDashboard />}></Route>
+<Route path="dashboard" element={<AuthorDashboard />}></Route>
         </Route>
         <Route path="/user" element={<Frame navs={profileNavsUser} />}>
           <Route index element={<PersonalInformationPage />}></Route>

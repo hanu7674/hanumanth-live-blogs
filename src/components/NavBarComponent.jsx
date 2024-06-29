@@ -158,7 +158,17 @@ const NavBarComponent = () => {
             </Button>
 
           </Stack.Item>
+          <Stack.Item className='dropdown-item-hover'>
+            {
+              currentUser.roles?.includes('AUTHOR') ? <>
+                <Button block style={{ textAlign: 'left' }} as={NavLink} href={`/author/dashboard`}>
+                  <MdDashboardCustomize /> Author Dashboard
+                </Button>
+              </> : <>
 
+              </>
+            }
+          </Stack.Item>
           <Stack.Item className='dropdown-item-hover'>
             {
               currentUser.roles?.includes('ADMIN') ? <>
