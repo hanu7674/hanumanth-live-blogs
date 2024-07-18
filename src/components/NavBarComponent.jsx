@@ -13,6 +13,8 @@ import Timestamp from 'react-timestamp';
 import ReloadIcon from '@rsuite/icons/Reload';
 import Loading from './Loading/loading';
 import Timer from '../assets/Timer';
+import { IoMdChatbubbles } from "react-icons/io";
+
 const NavBarComponent = () => {
   const currentUser = useSelector((state) => state?.auth?.user);
   const notificationsData = useSelector((state) => state.notification.notifications);
@@ -158,6 +160,17 @@ const NavBarComponent = () => {
             </Button>
 
           </Stack.Item>
+          <Stack.Item className='dropdown-item-hover'>
+            {
+              currentUser.roles?.includes('USER') ? <>
+                <Button block style={{ textAlign: 'left' }} as={NavLink} href={`/chat`}>
+                  <IoMdChatbubbles /> Chat
+                </Button>
+              </> : <>
+
+              </>
+            }
+            </Stack.Item>
           <Stack.Item className='dropdown-item-hover'>
             {
               currentUser.roles?.includes('AUTHOR') ? <>

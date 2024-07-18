@@ -9,6 +9,7 @@ import ManageAppStatus from "../../pages/Admin/AppStatus";
 import BlogsAuthorsUsersForms from "../../pages/Admin/BlogAuthors";
 import AuthorFrame from "../../pages/Author/AuthorFrame";
 import AuthorDashboard from "../../pages/Author/Dashboard";
+import ChatsPage from "../../pages/Chats";
 
 // Lazy load components
 const HomePage = lazy(() => import("../../pages/Home"));
@@ -174,7 +175,7 @@ export const AppHome = () => {
           <Route path="carousel-management/view-items" element={<ViewCarouselItemsPage />} />
 
         </Route>
-<Route path="author" element={<AuthorFrame navs={authorNavs} />}>
+          <Route path="author" element={<AuthorFrame navs={authorNavs} />}>
           <Route index element={<AuthorDashboard />}></Route>
 <Route path="dashboard" element={<AuthorDashboard />}></Route>
         </Route>
@@ -206,6 +207,7 @@ export const AppHome = () => {
           <Route path="view-blogs" element={<BlogsRoute />}></Route>
         </Route>
          <Route path='/' element={<Landing />} ></Route>
+         <Route path='/chat' element={<ChatsPage />} ></Route>
         <Route path="/connect-with-me" element={<ConnectWithMe />} />
         {/* <Route path="/connect-with-me/thank-you" element={<Thankyou />} /> */}
         <Route path="/education" element={<Education />} />

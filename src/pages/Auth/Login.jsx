@@ -2,9 +2,9 @@ import React from "react";
 import { Form,Stack,Divider, Button, Schema, Panel, Content, FlexboxGrid, ButtonToolbar, InputGroup, Input, Grid, Row, Col } from 'rsuite';
 import EyeIcon from '@rsuite/icons/legacy/Eye';
 import EyeSlashIcon from '@rsuite/icons/legacy/EyeSlash';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../redux/auth";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 const { StringType } = Schema.Types;
 
 const TextField = React.forwardRef((props, ref) => {
@@ -91,6 +91,10 @@ export const LoginComponent = () => {
     )
 }
  const LoginPage = () => {
+    const loginStatus = useSelector((state)=> state.auth?.user?.id);
+     if(loginStatus){
+        return window.location.href = '/'
+    }
     return(
 <div className=" login-page">
                 <Content>
@@ -99,4 +103,4 @@ export const LoginComponent = () => {
             </div>
     )
 }
-export default LoginPage;
+ export default LoginPage;

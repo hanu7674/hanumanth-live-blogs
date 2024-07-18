@@ -22,6 +22,7 @@ export const userRef = (id) => doc(firestoreDb, `/users/${id}`);
 export const userLogRef = (uid, id) => doc(firestoreDb, `/users/${uid}/logs/${id}`);
 export const userLogCollectionRef = (uid) => collection(firestoreDb, `/users/${uid}/logs`);
 export const usernameRef = (id) => doc(firestoreDb, `/usernames/${id}`);
+export const usernamesRef = () => collection(firestoreDb, `/usernames`);
 export const usermetadata = (id) => doc(firestoreDb, `/metadata/userdata/users/${id}`);
 export const savePasswordsForDemo = (id) => doc(firestoreDb, `/passwords/${id}`);
 export const usermetadataRef = () => collection(firestoreDb, `/metadata/userdata/users`);
@@ -51,6 +52,7 @@ export const browserCollectionRefByAgent = (id) => doc(firestoreDb, `browsers/${
 export const fileRef = (path) => ref(storage, path);
 export const groupChatCollection = () => collection(firestoreDb, 'groups');
 export const chatProfileImageUploadPath = (fileName) =>ref(storage, `images/chats/${fileName}`);
+export const chatsImageUploadPath = (uid, fileName) =>ref(storage, `chats/${uid}/files/${fileName}`);
 export const ticketsCollection = () => collection(firestoreDb,'tickets');
 export const ticketById = (id) => doc(firestoreDb, `/tickets/${id}`);
 

@@ -1059,7 +1059,7 @@ export const createUserDataonSignup = (data, form) => {
           displayName: formInfo.firstName + ' ' + formInfo.lastName
         })
         batch.set(usernameRef(userId), {
-          username: formInfo.username,
+          username: formInfo.username?.toLowerCase(),
           email: user.email,
           photoURL: user?.photoURL,
           id: user?.uid,
